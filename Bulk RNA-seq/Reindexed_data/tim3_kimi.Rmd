@@ -1,0 +1,249 @@
+---
+title: "tim3-kimi"
+author: "Neha"
+date: "7/15/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##loading all required packages
+```{r}
+library(DESeq2)
+library(DEGreport)
+library(dplyr)
+library(pheatmap)
+library(biomaRt)
+library(ggrepel)
+#BiocManager::install("pasilla")
+setwd("C:/Users/Neha/Desktop/broad/tim3_Kimi_data/rerun_new_indices_samplesheets/")
+```
+
+##reading count matrix
+```{r}
+count <- read.csv("count_metrices/gene_count_matrix_tim3_Kimi.csv", header=TRUE, row.names=1)
+tpm <- read.csv("count_metrices/tpm__matrix_tim3_Kimi.csv", header = TRUE, row.names = 1)
+```
+
+##reading metadata
+```{r}
+metadata <- read.csv("samplesheets_&_data_tables/metadata_tim3_kimi.csv", header = TRUE)
+dim(metadata)
+
+geneid <- rownames(count)
+ensembl <- useEnsembl("ensembl", dataset="mmusculus_gene_ensembl", version = 98)
+annot <-getBM(c("ensembl_gene_id","external_gene_name"), mart=ensembl, filters = 'ensembl_gene_id', values = geneid)
+
+##count
+count$ensemble_geneid <- rownames(count)
+count <- merge(annot, count, by.x = "ensembl_gene_id", by.y="ensemble_geneid")
+write.csv(count, "count_metrices/tim3_Kimi_count_with_genesymbols.csv", row.names = F)
+rownames(count) <- make.names(names = count$external_gene_name, unique = TRUE )
+#count <- subset (count, select = -c(1,2))
+
+##tpm
+tpm$ensemble_geneid <- rownames(tpm)
+tpm <- merge(annot, tpm, by.x = "ensembl_gene_id", by.y="ensemble_geneid")
+write.csv(tpm, "count_metrices/tim3_Kimi_tpm_with_genesymbols.csv", row.names = F)
+rownames(count) <- make.names(names = count$external_gene_name, unique = TRUE )
+#count <- subset (count, select = -c(1,2))
+```
+
+#creating DeSeq2 object based on genotype(WT/KO)
+```{r}
+dds <- DESeqDataSetFromMatrix(countData = round(count),
+                              colData = metadata,
+                              design= ~genotype)
+dds
+#pre-filtering 
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep,]
+
+##Releving control as refrence level
+dds$genotype <- relevel(dds$genotype, ref = "control")
+
+##deseq2
+dds <- DESeq(dds)
+
+```
+
+
+##normalizating counts for downstream analysis. deseq2 uses raw counts not normalized. I normalizes inside it's function
+```{r}
+normalized_counts <- counts(dds, normalized=TRUE)
+write.csv(normalized_counts, file="normalized_counts_gene_count.csv")
+```
+
+##result tables for control VS tim3cko
+```{r}
+resultsNames(dds) 
+res <- results(dds, name = "genotype_Tim3.cKO_vs_control")
+res <- na.omit(res)
+summary(res)
+resOrdered <- res[order(res$padj),]
+write.csv(resOrdered, "deseq_tim3cko_vs_control_ordered_result.csv")
+plotMA(res)
+
+##log FC shrinkage for better ranking and visualization
+resLFC <- lfcShrink(dds, coef = "genotype_Tim3.cKO_vs_control", type="apeglm")
+resLFC
+resLFC <- na.omit(resLFC)
+summary(resLFC)
+plotMA(resLFC)
+
+##significant genes plotting
+tim3cko_control <- read.csv("deseq_tim3cko_vs_control_ordered_result.csv", header = TRUE, row.names = 1)
+tim3cko_control$significant <- ifelse(tim3cko_control$padj <=0.1, "yes", "no")
+
+##plotMA via ggplot
+ggplot(tim3cko_control, aes(x = log10(baseMean), y= log2FoldChange, color = significant)) + geom_point()
+
+##volcano plot via ggplot
+ggplot(tim3cko_control, aes(x = log2FoldChange, y= -log10(padj), color = significant)) + geom_point() + geom_text_repel(aes(label=rownames(tim3cko_control)))
+
+##pheatmap
+significant_0.1 <- subset(tim3cko_control, padj <=0.1)
+significant_norm_counts <- normalized_counts[ , c(1:28, 30:33,35,36,38,39,41, 43:45, 47,52:54 )]
+all_significant <- merge(significant_0.1, significant_norm_counts, by=0)
+rownames(all_significant) <- all_significant$Row.names
+all_significant <- all_significant[, 8:52]
+
+pdf("sig.pdf", 20,10)
+pheatmap(log2(all_significant +1), scale="row", show_rownames = T, treeheight_row = 0, treeheight_col = 0)
+dev.off()
+```
+
+##
+```{r}
+
+```
+
+
+
+#transform the raw count data
+#vst function will perform variance stabilizing transformation
+```{r}
+
+res_tim3_cko_tibble <- res %>%
+  data.frame() %>%
+  rownames_to_column(var="gene_id") %>% 
+  as_tibble()
+
+##significant genes 
+sig_tim3cKO <- res_tim3_cko_tibble %>%
+        filter(padj < 0.1 )
+sig_tim3cKO
+
+# Create tibbles including row names
+metadata_tibble <- metadata %>% 
+  rownames_to_column(var="samplename") %>% 
+  as_tibble()
+        
+#converting to tibble
+normalized_counts <- normalized_counts %>% 
+  data.frame() %>%
+  rownames_to_column(var="gene") %>% 
+  as_tibble()
+
+## Order results by padj values
+top20_sig_tim3cKO_genes <- res_tim3_cko_tibble %>% 
+        arrange(padj) %>% 	#Arrange rows by padj values
+        pull(gene_id) %>% 		#Extract character vector of ordered genes
+        head(n=30) 		#Extract the first 20 genes
+
+
+## normalized counts for top 20 significant genes
+top20_sig_tim3cKO_norm <- normalized_counts[ ,c(1:29,32:35, 37,38,40,41,43, 45,46,48,50)] %>%
+        filter(gene %in% top20_sig_tim3cKO_genes)
+
+
+# Gathering the columns to have normalized counts to a single column
+gathered_top20_sigOE <- top20_sig_tim3cKO_norm %>%
+  gather(colnames(top20_sig_tim3cKO_norm)[2:42], key = "Sample_ID", value = "normalized_counts")
+
+## check the column header in the "gathered" data frame
+View(gathered_top20_sigOE)
+gathered_top20_sigOE <- inner_join(metadata_tibble, gathered_top20_sigOE)
+
+
+## plot using ggplot2
+ggplot(gathered_top20_sigOE) +
+        geom_point(aes(x = gene, y = normalized_counts, color = genotype)) +
+        scale_y_log10() +
+        xlab("Genes") +
+        ylab("log10 Normalized Counts") +
+        ggtitle("Top 30 Significant DE Genes") +
+        theme_bw() +
+	theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+	theme(plot.title = element_text(hjust = 0.5))
+
+
+
+
+
+### Extract normalized expression for significant genes from the OE and control samples (4:9), and set the gene column (1) to row names
+norm_OEsig <- top20_sig_tim3cKO_norm %>% 
+              filter(gene %in% top20_sig_tim3cKO_genes) %>% 
+	      data.frame() %>%
+	      column_to_rownames(var = "gene") 
+
+
+annotation <- metadata %>% 
+	select(Sample_ID, genotype) %>% 
+	data.frame(row.names = "Sample_ID")
+
+heat_colors <- brewer.pal(6, "YlOrRd")
+pheatmap(norm_OEsig,
+    cluster_rows = T, 
+    show_rownames = F,
+    annotation = annotation, 
+    border_color = NA, 
+    fontsize = 10, 
+    scale = "row", 
+    fontsize_row = 10, 
+    height = 20)
+
+
+
+```
+
+###rld
+```{r}
+
+##regularized log transformation
+pdf("heatmap_rld.pdf", 20, 10)
+pheatmap(assay(rld)[select,], cluster_rows=FALSE, show_rownames=FALSE,
+         cluster_cols=FALSE, annotation_col=df)
+dev.off()
+```
+
+##plot PCA of the samples
+```{r}
+plotPCA(vsd, intgroup=c("genotype", "sex", "Batch"))
+plotPCA(vsd, intgroup="genotype")
+plotPCA(vsd, intgroup="sex")
+plotPCA(vsd, intgroup = "Batch")
+```
+
+##top 30 genes
+```{r}
+topgenes <- head(rownames(resOrdered),30)
+mat <- assay(rld)[topgenes,]
+mat <- mat - rowMeans(mat)
+df <- as.data.frame(colData(dds)[,"genotype"])
+rownames(df) <- colnames(mat)
+
+pdf("top30_degs.pdf", 20,10)
+genes <- order(resLFC$log2FoldChange, decreasing=TRUE)[1:20]
+pheatmap(assay(rld)[genes, ], cluster_rows=TRUE, show_rownames=TRUE,
+         cluster_cols=FALSE, annotation_col=df)
+pheatmap(top20_sig_tim3cKO_norm, annotation_col=df)
+dev.off()
+
+```
+
+
+
+
