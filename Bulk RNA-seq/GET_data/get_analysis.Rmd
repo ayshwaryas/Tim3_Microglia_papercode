@@ -1,0 +1,149 @@
+---
+title: "GET site data"
+author: "Neha"
+date: "10/22/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## do not run. Just codes for downloading the data from GET site
+```{r}
+#wget --tries=10 --continue --mirror --user SN0238404 --password B1IMj716qmSd --no-check-certificate https://get.broadinstitute.org/pkgs/SN0238404/
+
+#copied data from server to google bucket
+#gsutil -m cp -R /broad/kuchroolab/kimi_microglia/GET_data/get/pkgs/SN0238404/ gs://fc-85b27ead-47ad-45d7-b0d9-d2e14ab369f4
+
+##for get unique barcodes as each barcode has 4 files(4 lanes)
+#ls -1 *unmapped.1*.gz | awk -F '.' '{print $3}' | uniq > barcode
+
+##on UNIX for merging 4 lanes fastqs foe each R(read below for R2 also)
+#for i in `cat ./barcode`; do cat 1_HHY3LBGXK.1.$i\.unmapped.1.fastq.gz 2_HHY3LBGXK.2.$i\.unmapped.1.fastq.gz 3_HHY3LBGXK.3.$i\.unmapped.1.fastq.gz 4_HHY3LBGXK.4.$i\.unmapped.1.fastq.gz  > output/$i\_R1.fastq.gz; done
+
+
+```
+
+
+##loading packages
+```{r}
+library(stringr)
+library(dplyr)
+library(biomaRt)
+```
+
+##renaming for R1.fastq files
+```{r}
+table <- read.csv("Butovsky (BWH)_SmartSeq2_SK-4OKV_Barcodes_2021.11.09.csv", header=TRUE) %>%
+  dplyr::select(-Lane) %>%
+  distinct()
+
+all_files <- dir(path = "get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/",  pattern=".*_R1.fastq.gz")
+
+barcode <- str_split(all_files, pattern = "_")
+barcode <- lapply(barcode, FUN = "[",c(1,2 ))
+barcode <- lapply(barcode, FUN = paste, collapse="-")
+
+barcode <- unlist(barcode)
+barcode2 <- data.frame(Barcode=barcode) %>% 
+  left_join(table, by="Barcode")
+
+for (i in 1:length(all_files)){
+  system(paste0("mv get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/", all_files[i], 
+                " get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/", barcode2$Well.ID[i],
+                "_R1.fastq.gz"))
+}
+paste0("mv get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/", all_files[1], 
+                " get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/", barcode2$Well.ID[1],
+                "_R1.fastq.gz")
+
+```
+
+##renaming for R1.fastq files
+```{r}
+table <- read.csv("Butovsky (BWH)_SmartSeq2_SK-4OKV_Barcodes_2021.11.09.csv", header=TRUE) %>%
+  dplyr::select(-Lane) %>%
+  distinct()
+
+all_files <- dir(path = "get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/",  pattern=".*_R2.fastq.gz")
+
+barcode <- str_split(all_files, pattern = "_")
+barcode <- lapply(barcode, FUN = "[",c(1,2 ))
+barcode <- lapply(barcode, FUN = paste, collapse="-")
+
+barcode <- unlist(barcode)
+barcode2 <- data.frame(Barcode=barcode) %>% 
+  left_join(table, by="Barcode")
+
+for (i in 1:length(all_files)){
+  system(paste0("mv get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/", all_files[i], 
+                " get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/", barcode2$Well.ID[i],
+                "_R2.fastq.gz"))
+}
+
+```
+
+##downloading all rsem files from google bucket
+```{r}
+#gsutil -m cp gs://fc-85b27ead-47ad-45d7-b0d9-d2e14ab369f4/56eac4ba-27bf-45c5-8e81-621c47032be0/rnaseq_pipeline_fastq_workflow/*/call-rsem/*.genes.results.gz /broad/kuchroolab/kimi_microglia/GET_data/rsem_data/
+
+#gunzip *.results.gz
+```
+
+##concatenate count matrix
+```{r}
+all_files <- list.files(pattern = ".results", recursive = TRUE)
+all_files[1]
+
+files <- lapply(X = all_files, FUN=function(x){read.table(x, header=TRUE)[, 5]})
+x <- do.call(cbind, files)
+rownames(x) <- read.table(all_files[1], header = TRUE)[,1]
+colnames(x) <- str_extract(all_files, ".+(?=.rsem.genes.results)")
+write.csv(x, "get_data_count_matrix.csv")
+```
+
+##concatenate TPM matrix
+```{r}
+all_files <- list.files(pattern = ".results", recursive = TRUE)
+all_files[1]
+
+files <- lapply(X = all_files, FUN=function(x){read.table(x, header=TRUE)[, 6]})
+x <- do.call(cbind, files)
+rownames(x) <- read.table(all_files[1], header = TRUE)[,1]
+colnames(x) <- str_extract(all_files, ".+(?=.rsem.genes.results)")
+write.csv(x, "get_data_TPM_matrix.csv")
+```
+
+```{r}
+# count_raw <- read.csv("get_data_count_matrix.csv") %>%
+#   dplyr::rename("gene_id" = "X")
+# tpm_raw <- read.csv("get_data_tpm_matrix.csv") %>%
+#   dplyr::rename("gene_id" = "X")
+# 
+# ensembl <- useEnsembl("ensembl", dataset = "mmusculus_gene_ensembl", version = 98)
+# annot <- getBM(c("ensembl_gene_id", "external_gene_name"), mart = ensembl, 
+#                filters = 'ensembl_gene_id', values = count_raw$gene_id)
+# 
+# count <- count_raw %>%
+#   left_join(annot, by = c("gene_id" = "ensembl_gene_id")) %>%
+#   dplyr::rename("gene_symbol" = "external_gene_name") %>%
+#   dplyr::select(str_sort(colnames(.), numeric = TRUE))
+# 
+# tpm <- tpm_raw %>%
+#   left_join(annot, by = c("gene_id" = "ensembl_gene_id")) %>%
+#   dplyr::rename("gene_symbol" = "external_gene_name") %>%
+#   dplyr::select(str_sort(colnames(.), numeric = TRUE))
+# 
+# write.csv(count, "data/GET_count.csv", row.names = FALSE)
+# write.csv(tpm, "data/GET_tpm.csv", row.names = FALSE)
+#
+# metadata <- read.csv("samplesheet+metadata/metadata.csv") %>%
+#   mutate(Genotype = str_replace_all(Genotype, "Tim3 cKO", "Tim3_cKO"),
+#          Genotype = str_replace_all(Genotype, ", 5XFAD", ".5XFAD"),
+#          Genotype = str_replace_all(Genotype, " ", "_"))  %>%
+#   mutate(Collaborator.Participant.ID = str_replace(Collaborator.Participant.ID, "40", "4O")) %>%
+#   mutate(Sample_ID = paste0(str_replace(Collaborator.Participant.ID, "-", "."),
+#                             "_", str_remove(Plate, "0(?=[1-9])")))
+# write.csv(metadata, "data.GET_metadata.csv", row.names = FALSE)
+```
