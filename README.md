@@ -1,5 +1,14 @@
 # tim3_microglia
 ## Bulk-RNA seq
+### 60 samples
+### GET site data(68 samples)
+Data files:
+ - Merged raw fastq files - /broad/kuchroolab/kimi_microglia/GET_data/get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/
+ - RSEM result files- /broad/kuchroolab/kimi_microglia/GET_data/rsem_data/
+ - Sample sheets and metadata- /broad/kuchroolab/kimi_microglia/GET_data/samplesheet+metadata/
+ - Count and TPM metrices .csv files- /broad/kuchroolab/kimi_microglia/GET_data/
+
+
 ## Single nucleus (snRNA-seq)
 
 Data files:
