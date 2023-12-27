@@ -6,22 +6,23 @@ library(circlize)
 
 
 # Load Data ---------------------
-## TPM Matrix and metadata
+## 3 month Bulk RNA-seq, TPM Matrix and metadata
 outliers_batch1 <- c("KK1", "KK2", "KK7", "KK9", "KK16")
 tpm <- read.csv("data/expr_mat/tim3_Kimi_tpm_with_genesymbols_KK.csv")
 metadata <- read.csv("data/expr_mat/tim3_Kimi_metadata_KK.csv") %>%
   filter(Sample_ID %in% colnames(tpm)[-(1:2)]) %>%
   mutate(cell_type.genotype = paste(cell_type, genotype))
 
-## Differential expression analysis results
+## 3 month Bulk RNA-seq, Differential expression analysis results
 load("data/DGE_results/2023-01-30.Dataset1_Batch1_DGE_results.RData")
 
-# Heatmap -------
+# Genes of interest to be highlighted in the heatmap ---------------------------
 ### MGnD & Homeostasis signature (Top 100 DEGs, Clec7a+ vs Clec7a-)
 Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100) %>%
   select(tracking_id, direction)
+
 ### Tgfbr2 related genes
 gene_list_Tgfbr2 <- c("Havcr2", "Axl", "Ly9", "Clec7a", "Cd63", "Cxcl16", 
                       "H2-K1", "H2-D1", "Siglech", "Csf1r")
@@ -37,6 +38,7 @@ KEGG_phagosome <- read.table("data/signatures/KEGG_phagosome.txt", sep = "\t") %
   mutate(details = str_extract(V2, "(?<=; ).*")) %>% select(-V2) %>% pull(gene)
 
 
+# Generate heatmap -------
 htmap_overlap_3sets <- function(overlap, batch, outliers, gene_list, fontsize_row = 8, 
                                 height = 8.5, width = 5.5, suffix = "", phago_sig = NULL, padding = 1, link_width = 5,
                                 gap = 1) {
@@ -152,23 +154,27 @@ htmap_overlap_3sets <- function(overlap, batch, outliers, gene_list, fontsize_ro
   dev.off()
 }
 
+## Top DEGs (order genes by FDR, select the first max(300, n_DEGs) up and down-regulated genes,
+## where n_DEGs is the number of DEGs (FDR < 0.1) of a specific direction
 
+### (1) Havcr2cKO vs control in phagocytosing microglia
 tim3sig_phagopos_top300 <- results_batch1_ordered$`Tim3.cKO vs control in phago+` %>%
   group_by(direction) %>% 
   dplyr::slice(1:max(300, sum(padj < 0.1, na.rm = TRUE))) %>% ungroup %>%
   select(gene_id, gene_name, direction)  
+### (2) Havcr2cKO vs control in non-phagocytosing microglia
 tim3sig_phagoneg_top300 <- results_batch1_ordered$`Tim3.cKO vs control in phago-` %>%
   group_by(direction) %>% 
   dplyr::slice(1:max(300, sum(padj < 0.1, na.rm = TRUE))) %>% ungroup %>%
   select(gene_id, gene_name, direction)  
+### (3) phagocytosing control vs non-phagocytosing control microglia
 phagosig_top300 <- results_batch1_ordered$`phago+ vs phago- in control` %>% 
   group_by(direction) %>% 
   dplyr::slice(1:max(300, sum(padj < 0.1, na.rm = TRUE))) %>% ungroup %>%
   select(gene_id, gene_name, direction) %>%
   dplyr::rename("direction.phago_sig" = "direction")
 
-
-
+## Joining the three DEG dataframes
 overlap.phagoSig_ctrl.tim3Sig_phagoPosNeg <- full_join(
   tim3sig_phagopos_top300, tim3sig_phagoneg_top300, by = c('gene_id', 'gene_name'),
   suffix = c(".tim3sig.phagopos", ".tim3sig.phagoneg")) %>%
