@@ -1,27 +1,5 @@
 # tim3_microglia
-## Bulk-RNA seq
-#### Reindexed (60 samples)
-Data files:
- - RSEM result files- /broad/kuchroolab/kimi_microglia/bulk_rna/after_rerun/data/
- - Metadata- /broad/kuchroolab/kimi_microglia/bulk_rna/after_rerun/matrices/
- - Count and TPM metrices .csv files - /broad/kuchroolab/kimi_microglia/bulk_rna/after_rerun/matrices/
 
-#### GET site data(68 samples)
-Data files:
- - Merged raw fastq files - /broad/kuchroolab/kimi_microglia/GET_data/get.broadinstitute.org/pkgs/SN0238404/merged_fastqs/
- - RSEM result files- /broad/kuchroolab/kimi_microglia/GET_data/rsem_data/
- - Sample sheets and metadata- /broad/kuchroolab/kimi_microglia/GET_data/samplesheet+metadata/
- - Count and TPM metrices .csv files- /broad/kuchroolab/kimi_microglia/GET_data/
-
-
-## Single nucleus (snRNA-seq)
-
-Data files:
-- Raw 10X data- /broad/kuchroolab/kimi_microglia/nucseq/215444255/
-- Sample sheet for pre-processing - /broad/kuchroolab/kimi_microglia/nucseq/pre-processing/nucseq_samplesheet_kimi_microglia.csv
-- Cellranger 10X output- /broad/kuchroolab/kimi_microglia/nucseq/raw_data/
-
-Pre-processing- cellranger_workflow against pre-mRNA( mm10_premrna) reference genome.
-Downstream Analysis- QC, Harmony integration, clustering, sub-clustering, DEGs per cluster, and annotations
-
-
+* `Fig.1a_s3b_microarray_Thion_2018.R`: Developmental alterations of gene expressions in microglia in a published microarray dataset (Thion et al. 2018)
+    * **Fig. 1a**: Immune checkpoints and TGFβ pathway-related molecules 
+    * **Extended Data Fig. 3b**: MGnD and homeostasis associated genes
