@@ -2,13 +2,14 @@
 
 ### Processing and annotating snRNA-seq data
 
-* `snRNAseq/snRNAseq_process.R`: QC, processing the snRNA-seq data; combine and subclustering microglia/PVM clusters
-* `snRNAseq/snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
-* `snRNAseq/snRNAseq_annotation.R`: annotating the snRNA-seq clusters
+* `1.snRNAseq/snRNAseq_process.R`: QC, processing the snRNA-seq data; combine and subclustering microglia and PVM clusters
+* `2.snRNAseq/snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
+* `3.snRNAseq/snRNAseq_annotation.R`: annotating the snRNA-seq clusters
+* `4.snRNAseq/snRNAseq_annotation.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster
 
 ### Fig. 1 and Extended Fig. 3b
 
-* `Fig.1a_s3b_microarray_Thion_2018.R`: Heatmap visualization of the developmental alterations of gene expressions in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
+* **Fig. 1a, Extended Fig. 3b** (`Fig.1a_s3b_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of gene expressions in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
     * **Fig. 1a**: Immune checkpoints and TGFβ pathway-related molecules 
     * **Extended Data Fig. 3b**: MGnD and homeostasis associated genes
     

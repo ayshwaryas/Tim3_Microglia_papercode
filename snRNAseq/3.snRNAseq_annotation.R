@@ -1,32 +1,4 @@
-library(Seurat)
-library(tidyverse)
-library(ggtext)
-library(gridExtra)
-library(grid)
-library(RColorBrewer)
-library(cowplot)
-
-setwd("/broad/kuchroolab/kimi_microglia/nucseq_20220216")
-
-## palette
-c25 <- c("dodgerblue2", "#E31A1C", "green4", "#6A3D9A", "#FF7F00","black", "gold1", 
-         "skyblue2", "#FB9A99", "palegreen2", "#CAB2D6", "#FDBF6F", "gray70", "khaki2", 
-         "maroon", "orchid1","deeppink1","blue1","steelblue4","darkturquoise", "green3", 
-         "yellow4", "yellow2", "#FEC44F", "brown4","darkcyan", "darkgoldenrod2", 
-         "darkolivegreen4", "cornsilk", "aquamarine1", "darkseagreen1", "honeydew3", "salmon", 
-         "slateblue3", "thistle2", "slategray2", "springgreen", "rosybrown1", "plum2", 
-         "chocolate", "blanchedalmond", "brown1", "aliceblue", "cadetblue1", "coral1", 
-         "firebrick1", "darkslategrey", "darkslateblue", "#745745", "#a01b68", "#ffc372",
-         "#fff0f0", "#ebd4d4", "#eeeeee", "#de4463", "#e8ffc1", "#19d3da", "#ee6f57", "#ff9642",
-         "#646464", "#0072ce", "#dc9cbf", "#ED8E7C", "#F1ECC3", "#D9DD6B", "#7C83FD", "#FDD2BF",
-         "#E98580", "#C6B4CE", "#FFDADA", "#B5EAEA", "#BB8760", "#C9E4C5", "#FAEBE0", "#F7DBF0",
-         "#66DE93", "#FFC074", "#B2B8A3", "#F2F4C3", "#D1D9D9", "#A7D0CD", "#114E60", "#28B5B5")
-
-
-## Genotype levels and labels to use in the figures
-genotype_breaks <- c("control", "Tim3_cKO", "5XFAD", "Tim3_cKO.5XFAD")
-genotype_labels <- c("control", "<i>Havcr2</i><sup>icKO</sup>", "5XFAD", "<i>Havcr2</i><sup>icKO</sup> 5XFAD")
-
+source("snRNAseq/0.snRNAseq_functions.R")
 
 # Add Azimuth annotations to the Seurat object ------------------------------
 

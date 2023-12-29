@@ -1,14 +1,4 @@
-library(Seurat)
-library(tidyverse)
-library(parallel)
-library(gridExtra)
-library(grid)
-library(RColorBrewer)
-library(harmony)
-library(cowplot)
-library(ggpubfigs)
-library(DoubletFinder)
-
+source("snRNAseq/0.snRNAseq_functions.R")
 
 # 1. Loading 10X files, creating and merging Seurat objects ------------------------------
 
@@ -30,17 +20,7 @@ VlnPlot(nucseq, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol =
 
 
 # 3. Processing the snRNA-seq data (with Harmony batch correction) ------------------
-
-npc <- 20; res <- 1
-nucseq_harmony <- NormalizeData(nucseq, verbose = FALSE)
-nucseq_harmony <- FindVariableFeatures(nucseq_harmony, selection.method = "vst", nfeatures = 2000)
-nucseq_harmony <- ScaleData(nucseq_harmony, features = rownames(nucseq_harmony)) %>% 
-  RunPCA(features = VariableFeatures(object = nucseq_harmony), npc = npc)
-
-nucseq_harmony <- RunHarmony(nucseq_harmony, group.by.vars = "orig.ident", max.iter.harmony = 25)
-nucseq_harmony <- RunUMAP(nucseq_harmony, reduction = "harmony", dims = 1:npc) 
-nucseq_harmony <- FindNeighbors(nucseq_harmony, reduction = "harmony", dims = 1:npc) 
-nucseq_harmony <- FindClusters(nucseq_harmony, resolution = res)
+nucseq_harmony <- scrna_process(nucseq, run_harmony = TRUE, npc = 20, res = 1)
 
 # 4. Add metadata --------------------------------------------
 meta_tbl <- read.csv("data/nucseq_metadata.csv") %>%
@@ -154,15 +134,9 @@ dotplot_markers(nucseq_harmony)
 nucseq_harmony_subcluster <- subset(nucseq_harmony, seurat_clusters %in% c(6, 11, 32, 35, 41))
 nucseq_harmony_subcluster$orig.cluster <- nucseq_harmony$seurat_clusters
 
-npc <- 20; res <- 1
-nucseq_harmony_subcluster <- nucseq_harmony_subcluster(nucseq_harmony_subcluster, selection.method = "vst", nfeatures = 2000)
-nucseq_harmony_subcluster <- ScaleData(nucseq_harmony, features = rownames(nucseq_harmony_subcluster)) %>% 
-  RunPCA(features = VariableFeatures(object = nucseq_harmony_subcluster), npc = npc)
-
-nucseq_harmony_subcluster <- RunHarmony(nucseq_harmony_subcluster, group.by.vars = "orig.ident", max.iter.harmony = 25)
-nucseq_harmony_subcluster <- RunUMAP(nucseq_harmony_subcluster, reduction = "harmony", dims = 1:npc) 
-nucseq_harmony_subcluster <- FindNeighbors(nucseq_harmony_subcluster, reduction = "harmony", dims = 1:npc) 
-nucseq_harmony_subcluster <- FindClusters(nucseq_harmony_subcluster, resolution = res)
+nucseq_harmony_subcluster <- scrna_process(
+  nucseq_harmony_subcluster, normalize = FALSE,
+  run_harmony = TRUE, npc = 20, res = 1)
 
 save(nucseq_harmony_subcluster, file = "R_objects/nucseq_markers_subcluster_harmony.RData")
 
@@ -171,45 +145,6 @@ save(nucseq_harmony_subcluster, file = "R_objects/nucseq_markers_subcluster_harm
 ### Sluster 12 => BAM-PVM
 ### Sluster 15 => BAM
 
-### Signature list
-### * Microglia: Known microglial genes, Van Hove et al. 2019, Monaghan et al. 2019, Zeisel et al. 2018
-### * Border-associated microglia (BAM): Van Hove et al. 2019
-### * Perivascular macrophages (PVMs): Zeisel et al. 2018, Yang et al. 2019
-### * Monocyte/monocyte-derived antigen-presenting cells: Monaghan et al. 2019
-### * Infiltrating monocyte: https://www.biorxiv.org/content/10.1101/2021.05.30.446342v1
-
-sig_list <- list(
-  MG_sanity_check = c("Havcr2", "Tmem119", "Hexb", "P2ry12", "Sall1", "Mafb", "Spi1",
-                      "Cx3cr1", "Trem2", "C1qc", "Cst7", "Apoe", "Axl", "Itgax", "Lilrb4",
-                      "Ly9", "Il1b", "Tnf", "Lag3", "Cd274", "Pdcd1"),
-  Microglia_Monaghan_2019 = c("Tmem119", "Sall1", "Hexb", "Slc2a5", "P2ry12",
-                              "Siglech", "Trem2", "Bhlhe41", "Gpr34", "Serpine2"),
-  Microglia_MouseBrain = c("P2ry12", "Ccr6", "Tmem119", "Casp8", "Ccl4", "Tnf"),
-  Microglia_VanHove_2019 = c("Sall1", "Adgrg1", "Il1a", "Golm1", "Adamts1", "Selplg", "Sparc", 
-                             "Gem", "Serpine2", "P2ry12", "Fscn1", "Rtn4rl1", "Atp6v0a2", 
-                             "Arhgap5", "Siglech", "Ctsl", "Smad7", "P2ry13", "Tmem119", 
-                             "Fam102b", "Smap2", "Csf3r", "Soga1", "Kcnk6", "Wsb1", "Rgs1", "Ldhb", 
-                             "Gpr34", "Glul", "Cst3", "Lhfpl2", "Epb41l2", "Gpr155", "Rasal3", "Dtx4", 
-                             "Srgap2", "Frmd4a", "Lpcat2", "Spata13", "Qk", "Entpd1", "Hexb", "Vsir", 
-                             "Tanc2", "Bin1", "Trem2", "Olfml3", "Ctsf", "Elmo1", "Asph", "Gna15", "Cmtm6", 
-                             "Herpud1", "Brd2", "Pde3b", "Tgfbr1", "Daglb", "Nfkbia", "Tmem173", "Basp1", "Arsb", 
-                             "Inpp5d", "Fmnl3", "Slc29a3", "Sipa1", "Cx3cr1", "Snx18", "F11r", "Itgb5", "Fcrls"),
-  BAM_signature = c("C3ar1", "Nrp1", "Cd63", "Ms4a7", "Adrb2", "Ms4a6b", "Ms4a6c", "Ifnar1",
-                    "Ptger4", "Lifr", "Clec12a", "Zfp36l2", "Ehd4", "Zfp36l1", "Myo5a", 
-                    "Swap70", "Rasa4", "B3galnt1", "St8sia4", "H1f0", "Sesn1", "Apoe", 
-                    "Cd14", "Sdc4", "Aoah", "Pla2g7", "Tgfbi", "Ier2", "Maf"),
-  PVM = c("Cd163", "Mrc1", "Lyve1", "Pf4", "Cd74", "Cxcl2"),
-  Monocyte_and_derived_APCs = c("Ly6c2", "Ccr2", "Cd44", "Fcgr1", "Plac8", "Nr4a1"),
-  Infiltrating_monocyte = c("Nupr1", "Adgre4", "Plac8", "Ifitm6", "Smpdl3a",
-                            "Vim", "Gpx1", "Napsa", "S100a6", "S100a4", "S100a11",
-                            "Crip1", "Ear2", "Fabp4", "Chil3", "Ccr2")
-)
-
-sig_title <- setNames(c("Microglia Sanity Check", "Microglia (Monaghan et al. 2019)",
-                        "Microglia (Mouse Brain)", "Microglia (Van Hove et al. 2019)"),
-                      "BAM Signature", "PVM Signature",
-                      "Monocyte/Monocyte-Derived APCs", "Infiltrating Monocyte",
-                      names(sig_list))
 
 parallel::mclapply(names(sig_list), function(x){
   nucseq_harmony_subcluster <- AddModuleScore(
