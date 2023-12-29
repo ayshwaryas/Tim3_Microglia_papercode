@@ -4,7 +4,7 @@
 
 * `snRNAseq/snRNAseq_process.R`: QC, processing the snRNA-seq data; combine and subclustering microglia/PVM clusters
 * `snRNAseq/snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
-* `snRNAseq/snRNAseq_annotation.R`: annotating the scRNA-seq clusters
+* `snRNAseq/snRNAseq_annotation.R`: annotating the snRNA-seq clusters
 
 ### Fig. 1 and Extended Fig. 3b
 
@@ -39,4 +39,4 @@
 
 ### Extended Data Fig.X 
 
-* `Fig.CR14_scRNAseq_allcells_UMAP_dotplot.R`: snRNA-seq (1) UMAP of all cells colored by annotations (2) Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype
+* `Fig.CR14_snRNAseq_allcells_UMAP_dotplot.R`: snRNA-seq (1) UMAP of all cells colored by annotations (2) Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype
