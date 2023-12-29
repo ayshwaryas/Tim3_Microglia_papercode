@@ -36,7 +36,7 @@
 
 ### Fig. 4
 
-* **Fig. 4a** (`Fig.4a_overlapping_DEGs_pairwise.R`): Number of overlapped genes and permutation test p-values between each pair of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup, and *Clec7a*<sup>+</sup> microglia compared to control microglia
+* **Fig. 4a** (`Fig.4a_overlapping_DEGs_pairwise.R`): Number of overlapped genes and permutation test p-values between each pair of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup>, and *Clec7a*<sup>+</sup> microglia compared to control microglia
 * **Fig. 4b** (`Fig.4b_overlapping_DEGs_heatmap.R`): Heatmap visualization of correlation between vectors of the expression levels of DEGs of *Havcr2*<sup>cKO</sup> microglia compared to control microglia, as well as the DEGs shared by all three other comparisons (phagocytosing, *Tgfbr2*<sup>cKO</sup>, *Clec7a*<sup>+</sup> microglia compared to their corresponding control groups).
 
 ### Fig. 6: snRNA-seq data
@@ -47,10 +47,16 @@
 * **Fig. 6d-e** (`Fig.6d_6e_snRNAseq_microglia_P1_P2_score.R`): Violin plot of signature scores (Y-axis) identifying *Havcr2*<sup>icKO</sup>:5xFAD populations P1 (d) and P2 (e) across all genotypes (color) and microglia clusters 
 * **Fig. 6j** (`Fig.6j_snRNAseq_microglia_dotplot_inflame_phago.R`): Dotplot representation of P1 and P2 marker genes that are significant DEGs in perturbations (f-h) and known anti-inflammatory, pro-inflammatory and phagocytic properties
 
+### Extended Data Fig. 11: snRNA-seq data
+
+* **Fig. 11c-e** (`Fig.s11c_s11e.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (c), and genotype (d) per cluster (X-axis); and cluster per mouse (X-axis) (e)
+* **Fig. 11f-g** (`Fig.s11f_s11g.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (f) and homeostasis (g) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
+* **Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (h) and <i>Tgfbr2<i><sup>cKO</sup> (i) signature genes among genotypes in cluster 0
+
 ### Extended Data Fig. 12: snRNA-seq data
 
-* **Fig. 12a-b** (`Fig.s12a_s12b_snRNAseq_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
-* **Fig. 12c-d** (`Fig.s12c_s12d_snRNAseq_P1_P2_featureplot.R`): UMAP Visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
+* **Fig. 12a-b** (`Fig.s12a_s12b_snRNAseq_microglia_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
+* **Fig. 12c-d** (`Fig.s12c_s12d_snRNAseq_microglia_P1_P2_featureplot.R`): UMAP Visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
 
 ### Extended Data Fig. X 
 
