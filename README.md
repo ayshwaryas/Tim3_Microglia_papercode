@@ -3,10 +3,10 @@
 ### Processing and annotating snRNA-seq data
 
 * `snRNAseq/0.snRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
-* `snRNAseq/1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combine and subclustering microglia and PVM clusters
+* `snRNAseq/1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combining and subclustering microglia and PVM clusters
 * `snRNAseq/2.snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
 * `snRNAseq/3.snRNAseq_annotation.R`: annotating the snRNA-seq clusters
-* `snRNAseq/4.snRNAseq_annotation.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster
+* `snRNAseq/4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
 
 ### Fig. 1 and Extended Fig. 3b
 
@@ -47,6 +47,10 @@
 * **Fig. 6d-e** (`Fig.6d_6e_snRNAseq_microglia_P1_P2_score.R`): Violin plot of signature scores (Y-axis) identifying *Havcr2*<sup>icKO</sup>:5xFAD populations P1 (d) and P2 (e) across all genotypes (color) and microglia clusters 
 * **Fig. 6j** (`Fig.6j_snRNAseq_microglia_dotplot_inflame_phago.R`): Dotplot representation of P1 and P2 marker genes that are significant DEGs in perturbations (f-h) and known anti-inflammatory, pro-inflammatory and phagocytic properties
 
+### Extended Data Fig. 12: snRNA-seq data
+
+* **Fig. 12a-b** (`Fig.s12a_s12b_snRNAseq_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
+* **Fig. 12c-d** (`Fig.s12c_s12d_snRNAseq_P1_P2_featureplot.R`): UMAP Visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
 
 ### Extended Data Fig. X 
 
