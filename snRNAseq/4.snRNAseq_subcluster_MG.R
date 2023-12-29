@@ -41,8 +41,25 @@ nucseq_harmony_MG_2_3_6_18$Genotype_labels <- new_clusters$Genotype_labels
 
 save(nucseq_harmony_MG_2_3_6_18, file = "R_objects/2022-09-08.nucseq_harmony_MG_recluster_sub_2_3_6_18.RData")
 
+# Split Havcr2cKO 5XFAD nuclei in cluster 2 into P1 and P2 based on Hallmark TGFB signature score --------------------
+Hallmark_TGFB <- read.table("data/signatures/HALLMARK_TGF_BETA_SIGNALING.txt", header = FALSE)$V1
+nucseq_harmony_MG_2_3_6_18 <- AddModuleScore(nucseq_harmony_MG_2_3_6_18, list(Hallmark_TGFB), name = "Hallmark_TGFB")
+
+sub2 <- nucseq_harmony_MG_2_3_6_18@meta.data %>%
+  rownames_to_column("Cells") %>%
+  mutate(bimod_genotype = case_when(
+    seurat_clusters == 2 & Genotype == "Tim3_cKO.5XFAD" & Hallmark_TGFB1 > 0 ~ "Tim3_cKO.5XFAD_Top",
+    seurat_clusters == 2 & Genotype == "Tim3_cKO.5XFAD" & Hallmark_TGFB1 < 0 ~ "Tim3_cKO.5XFAD_Btm",
+    TRUE ~ as.character(Genotype))) %>%
+  mutate(bimod_genotype = factor(bimod_genotype, c("control", "Tim3_cKO", "5XFAD", "Tim3_cKO.5XFAD",
+                                                   "Tim3_cKO.5XFAD_Top", "Tim3_cKO.5XFAD_Btm"))) %>%
+  select(Cells, Hallmark_TGFB1, bimod_genotype) %>%
+  column_to_rownames("Cells")
+nucseq_harmony_MG_2_3_6_18 <- AddMetaData(nucseq_harmony_MG_2_3_6_18, sub2)
+
 
 # Getting marker genes of microglia clusters using FindAllMarkers --------------------
+nucseq_harmony_MG_2_3_6_18 <- SetIdent(nucseq_harmony_MG_2_3_6_18, value = "new_clusters")
 nucseq_harmony_MG_2_3_6_18_markers <- FindAllMarkers(
   nucseq_harmony_MG_2_3_6_18, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 
