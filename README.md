@@ -2,10 +2,11 @@
 
 ### Processing and annotating snRNA-seq data
 
-* `1.snRNAseq/snRNAseq_process.R`: QC, processing the snRNA-seq data; combine and subclustering microglia and PVM clusters
-* `2.snRNAseq/snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
-* `3.snRNAseq/snRNAseq_annotation.R`: annotating the snRNA-seq clusters
-* `4.snRNAseq/snRNAseq_annotation.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster
+* `snRNAseq/0.snRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
+* `snRNAseq/1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combine and subclustering microglia and PVM clusters
+* `snRNAseq/2.snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
+* `snRNAseq/3.snRNAseq_annotation.R`: annotating the snRNA-seq clusters
+* `snRNAseq/4.snRNAseq_annotation.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster
 
 ### Fig. 1 and Extended Fig. 3b
 
