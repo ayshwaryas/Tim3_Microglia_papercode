@@ -29,15 +29,21 @@ new_clusters <- nucseq_harmony_MG_2_3_6_18@meta.data %>%
   mutate(new_clusters = ifelse(
     is.na(seurat_clusters.sub5), as.character(seurat_clusters),
     seurat_clusters.sub5)) %>%
-  mutate(new_clusters = factor(new_clusters))
+  mutate(new_clusters = factor(new_clusters)) %>%
+  mutate(Genotype_labels = str_replace(as.character(Genotype), "\\.", " ")) %>%
+  mutate(Genotype_labels = str_replace(Genotype_labels, "Tim3_cKO", "<i>Havcr2</i><sup>icKO</sup>")) %>%
+  mutate(Genotype_labels = factor(Genotype_labels, levels = c("control", "<i>Havcr2</i><sup>icKO</sup>", 
+                                                              "5XFAD", "<i>Havcr2</i><sup>icKO</sup> 5XFAD") ))
+
 
 nucseq_harmony_MG_2_3_6_18$new_clusters <- new_clusters$new_clusters
-save(nucseq_harmony_MG_2_3_6_18, file = "results/2022-08-02.nucseq_MG_bimod_DEG_2_3_6_18.RData")
+nucseq_harmony_MG_2_3_6_18$Genotype_labels <- new_clusters$Genotype_labels
+
+save(nucseq_harmony_MG_2_3_6_18, file = "R_objects/2022-09-08.nucseq_harmony_MG_recluster_sub_2_3_6_18.RData")
 
 
 # Getting marker genes of microglia clusters using FindAllMarkers --------------------
 nucseq_harmony_MG_2_3_6_18_markers <- FindAllMarkers(
   nucseq_harmony_MG_2_3_6_18, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 
-save(nucseq_harmony_MG_2_3_6_18_markers, 
-     file = "results/2022-09-09.nucseq_harmony_MG_2_3_6_18_markers.RData")
+save(nucseq_harmony_MG_2_3_6_18_markers, file = "results/2022-09-09.nucseq_harmony_MG_2_3_6_18_markers.RData")
