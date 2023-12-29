@@ -51,7 +51,7 @@
 
 * **Fig. 11c-e** (`Fig.s11c_s11e.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (c), and genotype (d) per cluster (X-axis); and cluster per mouse (X-axis) (e)
 * **Fig. 11f-g** (`Fig.s11f_s11g.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (f) and homeostasis (g) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
-* **Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (h) and <i>Tgfbr2<i><sup>cKO</sup> (i) signature genes among genotypes in cluster 0
+* **Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (h) and *Tgfbr2*<sup>cKO</sup> (i) signature genes among genotypes in cluster 0
 
 ### Extended Data Fig. 12: snRNA-seq data
 
