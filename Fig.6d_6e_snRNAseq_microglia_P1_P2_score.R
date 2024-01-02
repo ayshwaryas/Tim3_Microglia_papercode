@@ -7,9 +7,8 @@ library(cowplot)
 ## Seurat object of microglia nuclei
 load("R_objects/2022-09-08.nucseq_harmony_MG_recluster_sub_2_3_6_18.RData")
 
-## palette 
-pal <- c("dodgerblue3", "#EF3B2C", friendly_pal("nickel_five", 5)[3],
-         friendly_pal("ito_seven", 7)[c(6, 4:3)])
+## Loading functions 
+source("snRNAseq/0.snRNAseq_functions.R")
 
 # DEGs comparing P1 and P2 -----------------------------------------------------
 DAM_Tim3cKO.5XFAD <- subset(nucseq_harmony_MG_2_3_6_18, seurat_clusters == 2 & Genotype == "Tim3_cKO.5XFAD")
@@ -34,20 +33,8 @@ top100_DEGs <- DEG_bimod_TGFB_harmony_2_3_6_18 %>%
 nucseq_harmony_MG_2_3_6_18 <- AddModuleScore(nucseq_harmony_MG_2_3_6_18, list(top100_DEGs$up), name = "P1_signature")
 nucseq_harmony_MG_2_3_6_18 <- AddModuleScore(nucseq_harmony_MG_2_3_6_18, list(top100_DEGs$down), name = "P2_signature")
 
-bimod_genotype_breaks <- levels(nucseq_harmony_MG_2_3_6_18$bimod_genotype)
-bimod_genotype_labels <- c("control", "<i>Havcr2</i><sup>icKO</sup>", "5XFAD",
-                           "<i>Havcr2</i><sup>icKO</sup> 5XFAD",
-                           "<i>Havcr2</i><sup>icKO</sup> 5XFAD;P1",
-                           "<i>Havcr2</i><sup>icKO</sup> 5XFAD;P2")
+VlnPlot_custom(nucseq_harmony_MG_2_3_6_18, feature_name = "P1_signature", fig_num = "6d",
+               split.var = "bimod_genotype", title = "P1 Signature")
 
-for(i in c("P1", "P2")) {
-  VlnPlot(nucseq_harmony_MG_2_3_6_18, features = paste0(i, "_signature1"), 
-          split.by = "bimod_genotype", group.by = "new_clusters") +
-    labs(x = NULL, y = NULL, title = paste0(i, " signature")) +
-    scale_fill_manual(breaks = bimod_genotype_breaks, 
-                      labels = bimod_genotype_labels, 
-                      values = pal) +
-    theme_cowplot(font_size = 12) +
-    theme(legend.text = element_markdown(size = 12),
-          plot.title = element_text(hjust = 0.5))
-}
+VlnPlot_custom(nucseq_harmony_MG_2_3_6_18, feature_name = "P2_signature", fig_num = "6e",
+               split.var = "bimod_genotype", title = "P2 Signature")

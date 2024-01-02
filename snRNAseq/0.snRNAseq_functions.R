@@ -97,3 +97,103 @@ sig_title <- setNames(c("Microglia Sanity Check", "Microglia (Monaghan et al. 20
                       "BAM Signature", "PVM Signature",
                       "Monocyte/Monocyte-Derived APCs", "Infiltrating Monocyte",
                       names(sig_list))
+
+# Function for adding p-values to signature score violin plot -------------------------------
+add_p_value <- function(p, var, y_pos = c(0.78, 0.9, 0.68), ylim = 0, 
+                        levs = c("5XFAD", "Tim3_cKO.5XFAD_Top", "Tim3_cKO.5XFAD_Btm"),
+                        x_min = c(1, 1, 1.18), x_max = c(1.18, 1.36, 1.36)) {
+  stat.test <- p$data %>% 
+    filter(str_detect(split, "5XFAD")) %>%
+    mutate(split = factor(split, levs)) %>%
+    wilcox_test(as.formula(paste0(var, "1 ~ split"))) %>%
+    add_xy_position() %>%
+    add_significance("p") %>%
+    mutate(p.signif = ifelse(p >= 0.05, paste("p =", round(p, 3)), p.signif))  %>%
+    mutate(size = ifelse(p < 0.05, 5, 2),
+           vjust = ifelse(p < 0.05, 0.5, -0.1),
+           x_min = x_min, x_max = x_max,
+           y_pos = y_pos) 
+  
+  p + stat_pvalue_manual(
+    stat.test, fontface = 2, 
+    xmin = "x_min", xmax = "x_max",
+    y.position = "y_pos",
+    bracket.size = 0.5, label = "p.signif", 
+    tip.length = 0.015, vjust = "vjust", inherit.aes = FALSE) +
+    scale_y_continuous(limits = c(NA, max(c(y_pos, ylim))))
+}
+
+
+# Function for drawing signature score violin plot ----------------------------------
+VlnPlot_custom <- function(
+    SeuratData, feature_name, cluster = NULL, fig_num = '6',
+    group.var = "new_clusters", split.var = c("bimod_genotype", "Genotype"), title = "", log = FALSE,
+    width = 10, height = 3, suffix = "", add_p_value = FALSE, 
+    x_min = c(1, 1, 1.18), x_max = c(1.18, 1.36, 1.36), add1 = TRUE,
+    y_pos = c(0.78, 0.9, 0.68), ylim = 0, pal_custom = NULL, hjust = 0.5, angle = 0,
+    folder = "Fig.6_nucseq_figures", levs = c("5XFAD", "Tim3_cKO.5XFAD_Top", "Tim3_cKO.5XFAD_Btm"))  {
+  
+  ## Palette
+  pal <- c("dodgerblue3", "#EF3B2C", friendly_pal("nickel_five", 5)[3],
+           friendly_pal("ito_seven", 7)[c(6, 4:3)])
+  
+  if(!is.null(cluster)) {
+    SeuratData <- subset(SeuratData, new_clusters == cluster)
+  }
+  
+  if(split.var == "bimod_genotype") {
+    breaks <- levels(SeuratData$bimod_genotype)
+    labels <- c("control", "<i>Havcr2</i><sup>icKO</sup>", "5XFAD",
+                "<i>Havcr2</i><sup>icKO</sup> 5XFAD",
+                "<i>Havcr2</i><sup>icKO</sup> 5XFAD;P1",
+                "<i>Havcr2</i><sup>icKO</sup> 5XFAD;P2")
+    cols <- pal
+    
+    if(!is.null(cluster))  {
+      if(cluster == 2) {
+        breaks <- breaks[-4]
+        labels <- labels[-4]
+        cols <- cols[-4]
+      }
+    }
+  }
+  else if(split.var == "Genotype") {
+    breaks <- c("control", "Tim3_cKO", "5XFAD", "Tim3_cKO.5XFAD")
+    labels <- c("control", "<i>Havcr2</i><sup>icKO</sup>",
+                "5XFAD", "<i>Havcr2</i><sup>icKO</sup> 5XFAD")
+    cols <- pal[1:4]
+  }
+  else {
+    breaks <- levels(pull(SeuratData@meta.data, split.var))
+    labels <- breaks
+    cols <- pal_custom
+  }
+  
+  suffix <- paste0(feature_name, ifelse(split.var == "bimod_genotype","_bimod", ""), suffix)
+  
+  feature <- paste0(feature_name, ifelse(add1, "1", ""))
+  p <- VlnPlot(SeuratData, features = feature, log = log,
+               split.by = split.var, group.by = group.var) +
+    labs(x = NULL, y = NULL, title = title) +
+    theme_cowplot(font_size = 12) +
+    scale_fill_manual(breaks = breaks, values = cols, labels = labels, limits = force) +
+    theme(legend.text = element_markdown(size = 12),
+          legend.position = "right",
+          plot.title = element_markdown(hjust = 0.5),
+          axis.text.y = element_text(size = 12),
+          axis.text.x = element_text(size = 12, angle = angle, hjust= hjust))
+  
+  if(add_p_value) {
+    p <- add_p_value(p, var = feature_name,  y_pos = y_pos, ylim = ylim, 
+                     levs = levs, x_min = x_min, x_max = x_max)
+  }
+  
+  if(!is.null(cluster)) {
+    suffix <- paste0(suffix, "_sub", cluster)
+    
+  }
+  filename <- paste0("figures/", folder, "/Fig.", fig_num, "_vln_", suffix)
+  ggsave(paste0(filename, ".png"), p,  width = width, height = height, dpi = 400)
+  ggsave(paste0(filename, ".pdf"), p, width = width, height = height)
+  
+}
