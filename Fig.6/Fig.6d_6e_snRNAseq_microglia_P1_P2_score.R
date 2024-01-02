@@ -21,7 +21,7 @@ DEG_bimod_TGFB_harmony_2_3_6_18 <- FindMarkers(
 
 save(DEG_bimod_TGFB_harmony_2_3_6_18, file = "results/DEG_bimod_TGFB_harmony_2_3_6_18.RData")
 
-# Get P1 and P2 signatures (top 100 DEGs ordered by avg_log2FC) ----------------
+# Get P1 and P2 signatures (top 100 DEGs of P1 vs P2 ordered by avg_log2FC) ----------------
 top100_DEGs <- DEG_bimod_TGFB_harmony_2_3_6_18 %>%
   group_by(direction) %>% arrange(desc(abs(avg_log2FC))) %>%
   dplyr::slice(1:100) %>% ungroup() %>% split(f = .$direction) %>%

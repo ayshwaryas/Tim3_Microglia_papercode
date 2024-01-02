@@ -20,7 +20,7 @@ load("data/DGE_results/2023-01-30.Danyang_DGE_results.RData")
 tim3_all <- res_ordered %>%
   dplyr::select(gene_symbol, log2FoldChange, direction, padj)
 
-## TGFBRII KO vs control RPKM -------------
+## Tgfbr2cKO vs control RPKM -------------
 TGFBRII <- read.csv("data/FPKM OB edits - with padj.csv") %>%
   mutate(log2fc.uG = - log2fc.uG)  %>%
   mutate(dir.uG = ifelse(dir.uG == "up", "down", "up")) %>%
