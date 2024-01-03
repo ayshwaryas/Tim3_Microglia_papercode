@@ -15,8 +15,8 @@ count <- read.csv("data/expr_mat/Danyang_Count_matrix.csv", check.names = FALSE)
 tpm <- read.csv("data/expr_mat/Danyang_TPM_matrix.csv", check.names = FALSE) 
 metadata <- read.csv("data/expr_mat/Danyang_Metadata.csv") 
 
-### Differential gene expression analysis results
-load("data/DGE_results/2023-01-30.Danyang_DGE_results.RData")
+### DESeq2 results ------------
+load("results/bulkRNAseq_results_ds2_1month.RData")
 tim3_all <- res_ordered %>%
   dplyr::select(gene_symbol, log2FoldChange, direction, padj)
 

@@ -14,7 +14,7 @@ metadata <- read.csv("data/expr_mat/tim3_Kimi_metadata_KK.csv") %>%
   mutate(cell_type.genotype = paste(cell_type, genotype))
 
 ## 3 month Bulk RNA-seq, Differential expression analysis results
-load("data/DGE_results/2023-01-30.Dataset1_Batch1_DGE_results.RData")
+load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
 
 # Genes of interest to be highlighted in the heatmap ---------------------------
 ### MGnD & Homeostasis signature (Top 100 DEGs, Clec7a+ vs Clec7a-)
@@ -158,17 +158,17 @@ htmap_overlap_3sets <- function(overlap, batch, outliers, gene_list, fontsize_ro
 ## where n_DEGs is the number of DEGs (FDR < 0.1) of a specific direction
 
 ### (1) Havcr2cKO vs control in phagocytosing microglia
-tim3sig_phagopos_top300 <- results_batch1_ordered$`Tim3.cKO vs control in phago+` %>%
+tim3sig_phagopos_top300 <- results_batch1$Tim3cKOvscontrol_phagopos %>%
   group_by(direction) %>% 
   dplyr::slice(1:max(300, sum(padj < 0.1, na.rm = TRUE))) %>% ungroup %>%
   select(gene_id, gene_name, direction)  
 ### (2) Havcr2cKO vs control in non-phagocytosing microglia
-tim3sig_phagoneg_top300 <- results_batch1_ordered$`Tim3.cKO vs control in phago-` %>%
+tim3sig_phagoneg_top300 <- results_batch1$Tim3cKOvscontrol_phagoneg %>%
   group_by(direction) %>% 
   dplyr::slice(1:max(300, sum(padj < 0.1, na.rm = TRUE))) %>% ungroup %>%
   select(gene_id, gene_name, direction)  
 ### (3) phagocytosing control vs non-phagocytosing control microglia
-phagosig_top300 <- results_batch1_ordered$`phago+ vs phago- in control` %>% 
+phagosig_top300 <- results_batch1$phagoposvsneg_control %>% 
   group_by(direction) %>% 
   dplyr::slice(1:max(300, sum(padj < 0.1, na.rm = TRUE))) %>% ungroup %>%
   select(gene_id, gene_name, direction) %>%

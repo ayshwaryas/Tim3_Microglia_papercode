@@ -9,8 +9,8 @@ library(ggtext)
 library(ggpubr)
 library(rstatix)
 
-# Read Data ------------
-load("data/DGE_results/2023-01-30.Danyang_DGE_res_ordered.RData")
+# Read DESeq2 results ------------
+load("results/bulkRNAseq_results_ds2_1month.RData")
 
 ## Load TPM Matrix & Metadata -----------
 tpm <- read.csv("data/expr_mat/Danyang_TPM_matrix.csv", check.names = FALSE)

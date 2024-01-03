@@ -42,14 +42,14 @@ res_order_slice <- function(res, flip = TRUE, slice = TRUE, thres = 0.1) {
 
 
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox
-load("data/DGE_results/2022-01-04.Danyang_DGE_results.RData")
+load("results/bulkRNAseq_results_ds2_1month.RData")
 tim3_all <- res_ordered$`1M` %>% correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 tim3_sig <- tim3_all %>% res_order_slice
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia
-load("data/DGE_results/2022-05-03.Dataset1_DGE_res_ordered.RData")
-phago_all <- results_batch1_ordered$`phago+ vs phago- in control` %>%
+load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
+phago_all <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
@@ -144,7 +144,7 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
   
   ## TPM
   phago_TPM <- read.csv("data/expr_mat/tim3_Kimi_tpm_with_genesymbols_KK.csv") %>%
-    filter(gene_id %in% results_batch1_ordered$`phago+ vs phago- in control`$gene_id) %>%
+    filter(gene_id %in% results_batch1$res_phagoposvsneg_control$gene_id) %>%
     select(gene_symbol = gene_name, phago_meta$Sample_ID) %>%
     filter(gene_symbol %in% fig5F_df$gene_symbol) %>%
     select(gene_symbol, everything())  %>%
