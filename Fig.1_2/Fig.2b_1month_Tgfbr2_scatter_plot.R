@@ -21,10 +21,7 @@ tim3_all <- res_ordered %>%
   dplyr::select(gene_symbol, log2FoldChange, direction, padj)
 
 ## Tgfbr2cKO vs control RPKM -------------
-TGFBRII <- read.csv("data/FPKM OB edits - with padj.csv") %>%
-  mutate(log2fc.uG = - log2fc.uG)  %>%
-  mutate(dir.uG = ifelse(dir.uG == "up", "down", "up")) %>%
-  dplyr::rename("gene_symbol" = "geneNames")
+TGFBRII <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") 
 
 keep_TGFBRII <- filterByExpr(TGFBRII[, 2:7], group = c(rep("WT", 3), rep("KO", 3)),
                              min.count = 2.5, min.prop = 0.8, min.total.count = 5)
