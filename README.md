@@ -1,9 +1,9 @@
 ## Immune checkpoint molecule Tim-3 regulates microglial function and the development of Alzheimer’s disease pathology
 
 ### Differential gene expression analysis of bulk RNA-seq data using DESeq2
-* `bulkRNAseq/1.dataset1_batch1_3month.R`: dataset 1 batch 1 (3-month-old mice), <i>Havcr2</i><sup>cKO</sup> phagocytosing, control phagocytosing, <i>Havcr2</i><sup>cKO</sup> non-phagocytosing, control non-phagocytosing microglia
-* `bulkRNAseq/2.dataset1_batch2_7month.R`: dataset 1 batch 2 (7-month-old mice), control, <i>Havcr2</i><sup>cKO</sup>, 5xFAD, <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
-* `bulkRNAseq/3.dataset2_1month.R`: dataset 2 (1-month-old mice), <i>Havcr2</i><sup>cKO</sup>, <i>Havcr2</i><sup>flox/flox</sup>
+* **Dataset 1 Batch 1 (3-month-old mice)** (`bulkRNAseq/1.dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
+* **Dataset 1 Batch 2 (7-month-old mice)** (`bulkRNAseq/2.dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
+* **Dataset 2 (1-month-old mice)** (`bulkRNAseq/3.dataset2_1month.R`): <i>Havcr2</i><sup>flox/flox</sup> vs. <i>Havcr2</i><sup>cKO</sup>
 
 ### Processing and annotating snRNA-seq data 
 
