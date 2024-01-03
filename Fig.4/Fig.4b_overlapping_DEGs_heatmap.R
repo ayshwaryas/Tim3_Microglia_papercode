@@ -56,15 +56,15 @@ phago_all <- results_batch1$phagoposvsneg_control %>%
 phago_sig <- phago_all %>% res_order_slice(flip = FALSE)
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171)
-TGFBRII_all <- read.csv("data/FPKM OB edits - with padj.csv") %>%
-  select(geneNames, contains(".uG")) %>%
-  dplyr::rename("gene_symbol" = "geneNames", "log2FoldChange" = "log2fc.uG",
+TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
+  select(gene_symbol, contains(".uG")) %>%
+  dplyr::rename("log2FoldChange" = "log2fc.uG",
                 "direction" = "dir.uG", "padj" = "padj.uG") %>%
   filter(rowSums(.[, 2:7]) != 0) %>%
   correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 
-TGFBRII_sig <- TGFBRII_all %>% res_order_slice(flip = TRUE, thres = 0.1)
+TGFBRII_sig <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663)
 Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
