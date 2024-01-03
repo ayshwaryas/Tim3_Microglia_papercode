@@ -1,7 +1,6 @@
 ## Immune checkpoint molecule Tim-3 regulates microglial function and the development of Alzheimer’s disease pathology
 
 ### Differential gene expression analysis of bulk RNA-seq data (📁[bulkRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/bulkRNAseq))
-<details>
 * In-house generated datasets
     * **Dataset 1 Batch 1 (3-month-old mice)** (`1.bulkRNAseq_dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
     * **Dataset 1 Batch 2 (7-month-old mice)** (`2.bulkRNAseq_dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
