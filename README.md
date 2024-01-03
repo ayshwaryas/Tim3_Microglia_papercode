@@ -1,22 +1,22 @@
 ## Immune checkpoint molecule Tim-3 regulates microglial function and the development of Alzheimer’s disease pathology
 
-### Differential gene expression analysis of bulk RNA-seq data
+### Differential gene expression analysis of bulk RNA-seq data (📁[bulkRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/bulkRNAseq))
 * In-house generated datasets:
-    * **Dataset 1 Batch 1 (3-month-old mice)** (`bulkRNAseq/1.bulkRNAseq_dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
-    * **Dataset 1 Batch 2 (7-month-old mice)** (`bulkRNAseq/2.bulkRNAseq_dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
-    * **Dataset 2 (1-month-old mice)** (`bulkRNAseq/3.bulkRNAseq_dataset2_1month.R`): <i>Havcr2</i><sup>flox/flox</sup> vs. <i>Havcr2</i><sup>cKO</sup>
-    * **Dataset 3 (4-month-old mice)** (`bulkRNAseq/4.bulkRNAseq_dataset3_4month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
+    * **Dataset 1 Batch 1 (3-month-old mice)** (`1.bulkRNAseq_dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
+    * **Dataset 1 Batch 2 (7-month-old mice)** (`2.bulkRNAseq_dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
+    * **Dataset 2 (1-month-old mice)** (`3.bulkRNAseq_dataset2_1month.R`): <i>Havcr2</i><sup>flox/flox</sup> vs. <i>Havcr2</i><sup>cKO</sup>
+    * **Dataset 3 (4-month-old mice)** (`4.bulkRNAseq_dataset3_4month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
 * Public datasets
-    * [Lund et al. 2018 (PMID: 29662171)](https://pubmed.ncbi.nlm.nih.gov/29662171/)** (`5.bulkRNAseq_Tgfbr2cKO_vs_control_Lund_2018.R`):  <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
-    * [Krasemann et al. 2017 (PMID: 28930663)](https://pubmed.ncbi.nlm.nih.gov/28930663/)** (`6.bulkRNAseq_Clec7apos_vs_neg_Krasemann_2017.R`):  <i>Clec7a</i><sup>+</sup> vs. <i>Clec7a</i><sup>-</sup> microglia
+    * [**Lund et al. 2018 (PMID: 29662171)**](https://pubmed.ncbi.nlm.nih.gov/29662171/) (`5.bulkRNAseq_Tgfbr2cKO_vs_control_Lund_2018.R`):  <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
+    * [**Krasemann et al. 2017 (PMID: 28930663)**](https://pubmed.ncbi.nlm.nih.gov/28930663/) (`6.bulkRNAseq_Clec7apos_vs_neg_Krasemann_2017.R`):  <i>Clec7a</i><sup>+</sup> vs. <i>Clec7a</i><sup>-</sup> microglia
 
-### Processing and annotating snRNA-seq data 
+### Processing and annotating snRNA-seq data (📁[snRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/snRNAseq))
 
-* `snRNAseq/0.snRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
-* `snRNAseq/1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combining and subclustering microglia and PVM clusters
-* `snRNAseq/2.snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
-* `snRNAseq/3.snRNAseq_annotation.R`: annotating the snRNA-seq clusters
-* `snRNAseq/4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
+* `0.snRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
+* `1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combining and subclustering microglia and PVM clusters
+* `2.snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
+* `3.snRNAseq_annotation.R`: annotating the snRNA-seq clusters
+* `4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
 
 ### Fig. 1 and Extended Fig. 3b
 
