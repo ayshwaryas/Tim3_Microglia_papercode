@@ -35,23 +35,18 @@
 
 ### Fig. 2
 * **Fig. 2a** (`Fig.2a_1month_Tgfbr2_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs in 
-
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia from 1-month-old mice
     (2) <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
-
 * **Fig. 2b** (`Fig.2b_1month_Tgfbr2_scatter_plot.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes in *Havcr2*<sup>cKO</sup> (X-axis) and *Tgfbr2*<sup>cKO</sup> (Y-axis) compared to control microglia
 
 ### Fig. 3
 
 * **Fig. 3g** (`Fig.3g_3month_heatmap_overlapping_DEGs.R`): Heatmap visualization of top DEGs shared by at least two of the following three comparisons (3-month-old mice)
-
     (1) control phagocytosing versus control non-phagocytosing microglia
     (2) *Havcr2*<sup>cKO</sup> phagocytosing versus control phagocytosing microglia
     (3) *Havcr2*<sup>cKO</sup> non-phagocytosing versus control non-phagocytosing microglia
-
 * **Fig. 3k** (`Fig.3k_3month_nonphago_DEGs_pathway.R`):  Pathway analysis of DEGs in non-phagocytosing microglia from 3-month-old *Havcr2*<sup>cKO</sup> mice compared to control mice. Disease pathways (pathways under section 6.1-6.10 from https://www.kegg.jp/kegg/pathway.html) and ribosomal genes were excluded from the analysis.
 * **Fig. 3i** (`Fig.3i_3month_nonphago_vs_Tgfbr2_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 3-month-old mice in below comparisons 
-
     (1) <i>Havcr2</i><sup>cKO</sup> non-phagocytosing vs. control non-phagocytosing
     (2) control phagocytosing vs. control non-phagocytosing microglia
 
@@ -80,10 +75,8 @@
 
 ### Extended Data Fig. 11: snRNA-seq data
 * **Extended Data Fig. 11a-b** (`Fig.s11a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s11b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
-
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia 
     (2) 5xFAD vs. control microglia
-
 * **Extended Data Fig. 11c-e** (`Fig.s11c_s11e.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (c), and genotype (d) per cluster (X-axis); and cluster per mouse (X-axis) (e)
 * **Extended Data Fig. 11f-g** (`Fig.s11f_s11g.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (f) and homeostasis (g) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
 * **Extended Data Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (h) and *Tgfbr2*<sup>cKO</sup> (i) signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
