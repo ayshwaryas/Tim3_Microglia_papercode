@@ -1,9 +1,12 @@
 ## Immune checkpoint molecule Tim-3 regulates microglial function and the development of Alzheimer’s disease pathology
 
-### Differential gene expression analysis of bulk RNA-seq data using DESeq2
-* **Dataset 1 Batch 1 (3-month-old mice)** (`bulkRNAseq/1.dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
-* **Dataset 1 Batch 2 (7-month-old mice)** (`bulkRNAseq/2.dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
-* **Dataset 2 (1-month-old mice)** (`bulkRNAseq/3.dataset2_1month.R`): <i>Havcr2</i><sup>flox/flox</sup> vs. <i>Havcr2</i><sup>cKO</sup>
+### Differential gene expression analysis of bulk RNA-seq data
+* **Dataset 1 Batch 1 (3-month-old mice)** (`bulkRNAseq/1.bulkRNAseq_dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
+* **Dataset 1 Batch 2 (7-month-old mice)** (`bulkRNAseq/2.bulkRNAseq_dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
+* **Dataset 2 (1-month-old mice)** (`bulkRNAseq/3.bulkRNAseq_dataset2_1month.R`): <i>Havcr2</i><sup>flox/flox</sup> vs. <i>Havcr2</i><sup>cKO</sup>
+* **Dataset 3 (4-month-old mice)** (`bulkRNAseq/4.bulkRNAseq_dataset3_4month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
+* **Public dataset from [Lund et al. 2018 (PMID: 29662171)](https://pubmed.ncbi.nlm.nih.gov/29662171/)** (`5.bulkRNAseq_Tgfbr2cKO_vs_control_Lund_2018.R`):  <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
+* **Public dataset from [Krasemann et al. 2017 (PMID: 28930663)](https://pubmed.ncbi.nlm.nih.gov/28930663/)** (`5.bulkRNAseq_Clec7apos_vs_neg_Krasemann_2017.R`):  <i>Clec7a</i><sup>+</sup> vs. <i>Clec7a</i><sup>-</sup> microglia
 
 ### Processing and annotating snRNA-seq data 
 

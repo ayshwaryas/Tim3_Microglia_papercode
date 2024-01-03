@@ -76,7 +76,7 @@ res_batch2_M <- sapply(names(comparisons), function(x) {
 }, simplify = FALSE, USE.NAMES = TRUE)
 
 ## Order results
-res_order <- function(res) {
+order_results <- function(res) {
   as.data.frame(res) %>%
     tibble::rownames_to_column("gene_id") %>%
     left_join(Tim3KO_cnts[, c("gene_id", "gene_name")], by = "gene_id") %>%
@@ -86,8 +86,8 @@ res_order <- function(res) {
     mutate(direction = factor(direction, levels = c("up", "down")))
 }
 
-results_batch2_F <- lapply(res_batch2_F, res_order)
-results_batch2_M <- lapply(res_batch2_M, res_order)
+results_batch2_F <- lapply(res_batch2_F, order_results)
+results_batch2_M <- lapply(res_batch2_M, order_results)
 
 save(results_batch2_F, results_batch2_M, 
      file = "results/bulkRNAseq_results_ds1_batch2_7month.RData")
