@@ -1,6 +1,7 @@
 ## Immune checkpoint molecule Tim-3 regulates microglial function and the development of Alzheimer’s disease pathology
 
-### Differential gene expression analysis of bulk RNA-seq data (📁[bulkRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/bulkRNAseq))
+### Analysis of bulk RNA-seq data (📁[bulkRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/bulkRNAseq))
+* Functions used in the analysis: `0.bulkRNAseq_functions.R`
 * In-house generated datasets
     * **Dataset 1 Batch 1 (3-month-old mice)** (`1.bulkRNAseq_dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
     * **Dataset 1 Batch 2 (7-month-old mice)** (`2.bulkRNAseq_dataset1_batch2_7month.R`): control vs. <i>Havcr2</i><sup>cKO</sup> vs. 5xFAD vs. <i>Havcr2</i><sup>cKO</sup>;5xFAD microglia
@@ -33,7 +34,9 @@
 * **Fig. 1j-l** (`Fig.1j_1l_1month_signature_score.R`): Boxplot visualization of the the scores of MGnD (j), homeostasis (k), and KEGG phagosome (l) signatures in 1-month-old *Havcr2*<sup>cKO</sup> compared to *Havcr2*<sup>flox/flox</sup> mice. The Y-axis represents log2 transformed average TPM, and significance was calculated using the Student's two-tailed t-test.
 
 ### Fig. 2
-
+* **Fig. 2a** (`Fig.2a_1month_Tgfbr2_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs in 
+    (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia from 1-month-old mice
+    (2) <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
 * **Fig. 2b** (`Fig.2b_1month_Tgfbr2_scatter_plot.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes in *Havcr2*<sup>cKO</sup> (X-axis) and *Tgfbr2*<sup>cKO</sup> (Y-axis) compared to control microglia
 
 ### Fig. 3
@@ -43,6 +46,9 @@
     (2) *Havcr2*<sup>cKO</sup> phagocytosing versus control phagocytosing microglia
     (3) *Havcr2*<sup>cKO</sup> non-phagocytosing versus control non-phagocytosing microglia
 * **Fig. 3k** (`Fig.3k_3month_nonphago_DEGs_pathway.R`):  Pathway analysis of DEGs in non-phagocytosing microglia from 3-month-old *Havcr2*<sup>cKO</sup> mice compared to control mice. Disease pathways (pathways under section 6.1-6.10 from https://www.kegg.jp/kegg/pathway.html) and ribosomal genes were excluded from the analysis.
+* **Fig. 3i** (`Fig.3i_3month_nonphago_vs_Tgfbr2_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 3-month-old mice in below comparisons 
+    (1) <i>Havcr2</i><sup>cKO</sup> non-phagocytosing vs. control non-phagocytosing
+    (2) control phagocytosing vs. control non-phagocytosing microglia
 
 ### Fig. 4
 
@@ -68,7 +74,9 @@
 * **Extended Data Fig. 2d** (`Fig.s2d_humanbrain_scRNAseq.R`): The expression of immune checkpoint genes and TGFβ pathway-related genes in human microglia and other cell populations in the brain ([Gaublomme et al. 2019, PMID: 31266958](https://pubmed.ncbi.nlm.nih.gov/31266958/))
 
 ### Extended Data Fig. 11: snRNA-seq data
-
+* **Extended Data Fig. 11a-b** (`Fig.s11a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s11b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
+    (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia 
+    (2) 5xFAD vs. control microglia
 * **Extended Data Fig. 11c-e** (`Fig.s11c_s11e.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (c), and genotype (d) per cluster (X-axis); and cluster per mouse (X-axis) (e)
 * **Extended Data Fig. 11f-g** (`Fig.s11f_s11g.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (f) and homeostasis (g) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
 * **Extended Data Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (h) and *Tgfbr2*<sup>cKO</sup> (i) signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
