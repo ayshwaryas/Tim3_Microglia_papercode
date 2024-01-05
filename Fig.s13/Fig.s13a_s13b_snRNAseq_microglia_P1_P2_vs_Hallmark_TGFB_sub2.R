@@ -26,9 +26,6 @@ nucseq_harmony_MG_2_3_6_18 <- AddModuleScore(
 nucseq_harmony_MG_2_3_6_18 <- AddModuleScore(
   nucseq_harmony_MG_2_3_6_18, list(top100_DEGs$down), name = "P2_signature")
 
-
-load("data/2022-05-03.Dataset1_DGE_res_ordered.RData")
-
 for(x in c("P1", "P2")) {
   
   ## metadata of cluster 2/DAM/MGnD

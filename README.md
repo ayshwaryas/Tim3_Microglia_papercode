@@ -19,6 +19,10 @@
 * `3.snRNAseq_annotation.R`: annotating the snRNA-seq clusters
 * `4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
 
+### Processing and annotating public AD sc/snRNA-seq datasets (📁[public_AD](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/public_AD))
+* `1.GSE140510_snRNAseq_7M.R`: processing 7-month snRNA-seq dataset from GSE140510
+* `2.GSE98969_scRNAseq_6M.R`: processing 6-month scRNA-seq dataset from GSE98969
+
 ### Fig. 1 and Extended Fig. 3b
 
 * **Fig. 1a, Extended Fig. 3b** (`Fig.1a_s3b_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of gene expressions in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
@@ -88,6 +92,7 @@
 
 ### Extended Data Fig. 13: snRNA-seq data
 * **Extended Data Fig. 13a-b** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatter plot of P1 (Y-axis, a) or P2 (Y-axis, b), and Hallmark TGFB signature scores among 5xFAD and <i>Havcr2</i><sup>icKO</sup>;5xFAD microglia in current study
+* **Extended Data Fig. 13c-e** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatterplot of P1 (Y-axis) or P2 (Y-axis), and Hallmark TGFB signature scores among 5xFAD microglia in MGnD clusters in public datasets (GSE98969 cluster 2 (c), GSE98969 cluster 3 (d) , GSE1405107 (e))
 
 ### Extended Data Fig. X 
 
