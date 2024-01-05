@@ -92,7 +92,7 @@
 
 ### Extended Data Fig. 13: snRNA-seq data
 * **Extended Data Fig. 13a-b** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatter plot of P1 (Y-axis, a) or P2 (Y-axis, b), and Hallmark TGFB signature scores among 5xFAD and <i>Havcr2</i><sup>icKO</sup>;5xFAD microglia in current study
-* **Extended Data Fig. 13c-e** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatterplot of P1 (Y-axis) or P2 (Y-axis), and Hallmark TGFB signature scores among 5xFAD microglia in MGnD clusters in public datasets (GSE98969 cluster 2 (c), GSE98969 cluster 3 (d) , GSE1405107 (e))
+* **Extended Data Fig. 13c-e** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatterplot of P1 (Y-axis) or P2 (Y-axis), and Hallmark TGFB signature scores among 5xFAD microglia in MGnD clusters in public datasets (GSE98969 cluster 2 (c), GSE98969 cluster 3 (d) , GSE140510 cluster 1 (e))
 
 ### Extended Data Fig. X 
 
