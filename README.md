@@ -86,6 +86,9 @@
 * **Extended Data Fig. 12a-b** (`Fig.s12a_s12b_snRNAseq_microglia_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
 * **Extended Data Fig. 12c-d** (`Fig.s12c_s12d_snRNAseq_microglia_P1_P2_featureplot.R`): UMAP Visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
 
+### Extended Data Fig. 13: snRNA-seq data
+* **Extended Data Fig. 13a-b** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatter plot of P1 (Y-axis, a) or P2 (Y-axis, b), and Hallmark TGFB signature scores among 5xFAD and <i>Havcr2</i><sup>icKO</sup>;5xFAD microglia in current study
+
 ### Extended Data Fig. X 
 
 * `Fig.CR14_snRNAseq_allcells_UMAP_dotplot.R`: snRNA-seq (1) UMAP of all cells colored by annotations (2) Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype
