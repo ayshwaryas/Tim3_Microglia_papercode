@@ -57,10 +57,3 @@ sub2 <- nucseq_harmony_MG_2_3_6_18@meta.data %>%
   column_to_rownames("Cells")
 nucseq_harmony_MG_2_3_6_18 <- AddMetaData(nucseq_harmony_MG_2_3_6_18, sub2)
 
-
-# Getting marker genes of microglia clusters using FindAllMarkers --------------------
-nucseq_harmony_MG_2_3_6_18 <- SetIdent(nucseq_harmony_MG_2_3_6_18, value = "new_clusters")
-nucseq_harmony_MG_2_3_6_18_markers <- FindAllMarkers(
-  nucseq_harmony_MG_2_3_6_18, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-
-save(nucseq_harmony_MG_2_3_6_18_markers, file = "results/2022-09-09.nucseq_harmony_MG_2_3_6_18_markers.RData")

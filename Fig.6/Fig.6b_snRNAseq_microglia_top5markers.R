@@ -6,8 +6,11 @@ library(RColorBrewer)
 load("R_objects/2022-09-08.nucseq_harmony_MG_recluster_sub_2_3_6_18.RData")
 
 ## FindAllMarkers results on the microglia clusters
-load("results/2022-09-09.nucseq_harmony_MG_2_3_6_18_markers.RData")
+nucseq_harmony_MG_2_3_6_18 <- SetIdent(nucseq_harmony_MG_2_3_6_18, value = "new_clusters")
+nucseq_harmony_MG_2_3_6_18_markers <- FindAllMarkers(
+  nucseq_harmony_MG_2_3_6_18, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 
+save(nucseq_harmony_MG_2_3_6_18_markers, file = "results/2022-09-09.nucseq_harmony_MG_2_3_6_18_markers.RData")
 
 ## Dot plot of the top 5 markers ordered by FDR
 top5 <- nucseq_harmony_MG_2_3_6_18_markers %>% group_by(cluster) %>% 
