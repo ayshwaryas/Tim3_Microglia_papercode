@@ -36,7 +36,7 @@ pre_MGnD_M <- readxl::read_xlsx("data/Yin_Herron_Supplementary_Table_2.xlsx",
   mutate(log2FoldChange = log2(`Late-pre-MGnD`+ 1) - log2(`Early-pre-MGnD` + 1))
 
 
-# Scatter plot of log2 FC between (1) late vs early pre-MGnD and (2) IFN_DAM vs IFN_HMG ------------
+# Scatter plot of log2 FC between (1) late vs early pre-MGnD (Y-axis) and (2) IFN_DAM vs IFN_HMG (X-axis) ------------
 
 ## Joining the results table of comparison (1) and (2)
 AllGenes_joined_F <- scRNAseq_cortex_MG_IFN_DAMvsHMG %>%  

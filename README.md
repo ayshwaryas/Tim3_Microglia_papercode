@@ -109,10 +109,10 @@
 * **Extended Data Fig. 14a** (`Fig.s14a_scRNAseq_Clec7a_signature.R`): UMAP of the scRNA-seq data colored by MGnD (a) and Homeostatis (b) signature scores
 * **Extended Data Fig. 14b** (`Fig.s14b_scRNAseq_dotplot_top10markers_by_log2FC.R`): Dotplot visualization of top 10 genes distinguishing each cell cluster
 * **Extended Data Fig. 14c** (`Fig.s14c_scRNAseq_perc_barplot_by_genotype.R`): Barplot visualization of proportions (Y-axis) of genotype per cluster
-* **Extended Data Fig. 14d-e** (`Fig.s14d_s14e_scRNAseq_scatter_IFN.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
+* **Extended Data Fig. 14d-e** (`Fig.s14d_s14e_scRNAseq_scatter_IFNDAMvsHMG_preMGnD.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
     * IFN_DAM compared to IFN_HMG cluster in the scRNA-seq data (X-axis) and
     * late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
 
 ### [Extended Data Fig. 15](Extended_Data_Figures/Fig.s15): scRNA-seq data
-
+* **Extended Data Fig. 15a-b** 
 
