@@ -17,7 +17,17 @@
 * `1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combining and subclustering microglia and PVM clusters
 * `2.snRNAseq_doublet_removal.R`: doublet removal using DoubletFinder
 * `3.snRNAseq_annotation.R`: annotating the snRNA-seq clusters
-* `4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; using FindAllMarkers to get gene expression markers for each cluster; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
+* `4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
+
+
+### Processing and annotating scRNA-seq data (📁[scRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/scRNAseq))
+
+* `0.scRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
+* `1.scRNAseq_process.R`: QC and processing of the scRNA-seq data
+* `2.scRNAseq_subcluster.R`: subclustering cluster 6, 7, 8 obtained in 1.
+* `3.scRNAseq_DoubletFinder.R`: doublet identification using DoubletFinder
+* `4.scRNAseq_annotation.R`: identify MGnD, Homeostasis, interferon-rich and cycling populations based on signature score; combining and reclustering the cells based on the population characteristics; finalizing annotations
+* `5.scRNAseq_DGE_analysis.R`: differential gene expression analysis (Wilcoxon) comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD cells in each cluster using the `FindMarkers` function
 
 ### Processing and annotating public AD sc/snRNA-seq datasets (📁[public_AD](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/public_AD))
 * `1.GSE140510_snRNAseq_7M.R`: processing 7-month snRNA-seq dataset from GSE140510
@@ -82,18 +92,25 @@
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia 
     (2) 5xFAD vs. control microglia
 * **Extended Data Fig. 11c-e** (`Fig.s11c_s11e.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (c), and genotype (d) per cluster (X-axis); and cluster per mouse (X-axis) (e)
-* **Extended Data Fig. 11f-g** (`Fig.s11f_s11g.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (f) and homeostasis (g) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
-* **Extended Data Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (h) and *Tgfbr2*<sup>cKO</sup> (i) signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
+* **Extended Data Fig. 11f-g** (`Fig.s11f_s11g_snRNAseq_allcells_UMAP_dotplot.R`): snRNA-seq UMAP of all cells colored by annotations (f) and Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype (g)
+* **Extended Data Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (h) and homeostasis (i) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
+* **Extended Data Fig. 11j-k** (`Fig.s11j_s11k.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (j) and *Tgfbr2*<sup>cKO</sup> (k) signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
 
 ### Extended Data Fig. 12: snRNA-seq data
 
 * **Extended Data Fig. 12a-b** (`Fig.s12a_s12b_snRNAseq_microglia_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
-* **Extended Data Fig. 12c-d** (`Fig.s12c_s12d_snRNAseq_microglia_P1_P2_featureplot.R`): UMAP Visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
+* **Extended Data Fig. 12c-d** (`Fig.s12c_s12d_snRNAseq_microglia_P1_P2_featureplot.R`): UMAP visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
 
 ### Extended Data Fig. 13: snRNA-seq data
 * **Extended Data Fig. 13a-b** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatter plot of P1 (Y-axis, a) or P2 (Y-axis, b), and Hallmark TGFB signature scores among 5xFAD and <i>Havcr2</i><sup>icKO</sup>;5xFAD microglia in current study
 * **Extended Data Fig. 13c-e** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatterplot of P1 (Y-axis) or P2 (Y-axis), and Hallmark TGFB signature scores among 5xFAD microglia in MGnD clusters in public datasets (GSE98969 cluster 2 (c), GSE98969 cluster 3 (d) , GSE140510 cluster 1 (e))
 
-### Extended Data Fig. X 
+### Extended Data Fig. 14: scRNA-seq data
+* `Fig.s14a_scRNAseq_Clec7a_signature.R`: UMAP of the scRNA-seq data colored by MGnD (a) and Homeostatis (b) signature scores
+* `Fig.s14b_scRNAseq_dotplot_top10markers_by_log2FC.R`: Dotplot visualization of top 10 genes distinguishing each cell cluster
+* `Fig.s14c_scRNAseq_perc_barplot_by_genotype.R`: Barplot visualization of proportions (Y-axis) of genotype per cluster
+* `Fig.s14d_s14e_scRNAseq_scatter_IFN.R`: Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of (1) IFN_DAM compared to IFN_HMG cluster in the scRNA-seq data (X-axis) and (2) late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
 
-* `Fig.CR14_snRNAseq_allcells_UMAP_dotplot.R`: snRNA-seq (1) UMAP of all cells colored by annotations (2) Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype
+### Extended Data Fig. 15: scRNA-seq data
+
+
