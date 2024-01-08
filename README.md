@@ -106,10 +106,12 @@
 * **Extended Data Fig. 13c-e** (`Fig.s13a_s13b_snRNAseq_microglia_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatterplot of P1 (Y-axis) or P2 (Y-axis), and Hallmark TGFB signature scores among 5xFAD microglia in MGnD clusters in public datasets (GSE98969 cluster 2 (c), GSE98969 cluster 3 (d) , GSE140510 cluster 1 (e))
 
 ### Extended Data Fig. 14: scRNA-seq data
-* `Fig.s14a_scRNAseq_Clec7a_signature.R`: UMAP of the scRNA-seq data colored by MGnD (a) and Homeostatis (b) signature scores
-* `Fig.s14b_scRNAseq_dotplot_top10markers_by_log2FC.R`: Dotplot visualization of top 10 genes distinguishing each cell cluster
-* `Fig.s14c_scRNAseq_perc_barplot_by_genotype.R`: Barplot visualization of proportions (Y-axis) of genotype per cluster
-* `Fig.s14d_s14e_scRNAseq_scatter_IFN.R`: Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of (1) IFN_DAM compared to IFN_HMG cluster in the scRNA-seq data (X-axis) and (2) late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
+* **Extended Data Fig. 14a** (`Fig.s14a_scRNAseq_Clec7a_signature.R`): UMAP of the scRNA-seq data colored by MGnD (a) and Homeostatis (b) signature scores
+* **Extended Data Fig. 14b** (`Fig.s14b_scRNAseq_dotplot_top10markers_by_log2FC.R`): Dotplot visualization of top 10 genes distinguishing each cell cluster
+* **Extended Data Fig. 14c** (`Fig.s14c_scRNAseq_perc_barplot_by_genotype.R`): Barplot visualization of proportions (Y-axis) of genotype per cluster
+* **Extended Data Fig. 14d-e** (`Fig.s14d_s14e_scRNAseq_scatter_IFN.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
+    * IFN_DAM compared to IFN_HMG cluster in the scRNA-seq data (X-axis) and
+    * late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
 
 ### Extended Data Fig. 15: scRNA-seq data
 
