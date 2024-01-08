@@ -1,6 +1,6 @@
 ## Immune checkpoint molecule Tim-3 regulates microglial function and the development of Alzheimer’s disease pathology
 
-### Analysis of bulk RNA-seq data (📁[bulkRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/bulkRNAseq))
+### Analysis of bulk RNA-seq data (📁[bulkRNAseq](/bulkRNAseq))
 * Functions used in the analysis: `0.bulkRNAseq_functions.R`
 * In-house generated datasets
     * **Dataset 1 Batch 1 (3-month-old mice)** (`1.bulkRNAseq_dataset1_batch1_3month.R`): control phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> phagocytosing vs. control non-phagocytosing vs. <i>Havcr2</i><sup>cKO</sup> non-phagocytosing microglia
@@ -11,7 +11,7 @@
     * [**Lund et al. 2018 (PMID: 29662171)**](https://pubmed.ncbi.nlm.nih.gov/29662171/) (`5.bulkRNAseq_Tgfbr2cKO_vs_control_Lund_2018.R`):  <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
     * [**Krasemann et al. 2017 (PMID: 28930663)**](https://pubmed.ncbi.nlm.nih.gov/28930663/) (`6.bulkRNAseq_Clec7apos_vs_neg_Krasemann_2017.R`):  <i>Clec7a</i><sup>+</sup> vs. <i>Clec7a</i><sup>-</sup> microglia
 
-### Processing and annotating snRNA-seq data (📁[snRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/snRNAseq))
+### Processing and annotating snRNA-seq data (📁[snRNAseq](/snRNAseq))
 
 * `0.snRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
 * `1.snRNAseq_process.R`: QC, processing the snRNA-seq data; combining and subclustering microglia and PVM clusters
@@ -20,7 +20,7 @@
 * `4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
 
 
-### Processing and annotating scRNA-seq data (📁[scRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/77ce1c0d0f39f4e709ddb3eed6b3deeb7826ef25/scRNAseq))
+### Processing and annotating scRNA-seq data (📁[scRNAseq](/scRNAseq))
 
 * `0.scRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
 * `1.scRNAseq_process.R`: QC and processing of the scRNA-seq data
@@ -29,11 +29,11 @@
 * `4.scRNAseq_annotation.R`: identify MGnD, Homeostasis, interferon-rich and cycling populations based on signature score; combining and reclustering the cells based on the population characteristics; finalizing annotations
 * `5.scRNAseq_DGE_analysis.R`: differential gene expression analysis (Wilcoxon) comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD cells in each cluster using the `FindMarkers` function
 
-### Processing and annotating public AD sc/snRNA-seq datasets (📁[public_AD](https://github.com/ayshwaryas/tim3_microglia/tree/77ce1c0d0f39f4e709ddb3eed6b3deeb7826ef25/public_AD))
+### Processing and annotating public AD sc/snRNA-seq datasets (📁[public_AD](/public_AD))
 * `1.GSE140510_snRNAseq_7M.R`: processing 7-month snRNA-seq dataset from GSE140510
 * `2.GSE98969_scRNAseq_6M.R`: processing 6-month scRNA-seq dataset from GSE98969
 
-### Fig. 1 and Extended Fig. 3b
+### Fig. 1 and Extended Fig. 3b (📁[Fig. 1](Figures/Fig.1))
 
 * **Fig. 1a, Extended Fig. 3b** (`Fig.1a_s3b_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of gene expressions in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
     * **Fig. 1a**: Immune checkpoints and TGFβ pathway-related molecules 
