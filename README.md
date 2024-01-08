@@ -20,7 +20,7 @@
 * `4.snRNAseq_subcluster_MG.R`: further subclustering microglia cells; splitting *Havcr2*<sup>icKO</sup> 5XFAD nuclei in cluster 2 (DAM/MGnD) into subpopulations P1 and P2 based on [MSigDB Hallmark TGFβ signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TGF_BETA_SIGNALING.html) signature score
 
 
-### Processing and annotating scRNA-seq data (📁[scRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/scRNAseq))
+### Processing and annotating scRNA-seq data (📁[scRNAseq](https://github.com/ayshwaryas/tim3_microglia/tree/77ce1c0d0f39f4e709ddb3eed6b3deeb7826ef25/scRNAseq))
 
 * `0.scRNAseq_functions.R`: functions, color palettes and gene signatures used in the analysis
 * `1.scRNAseq_process.R`: QC and processing of the scRNA-seq data
@@ -29,7 +29,7 @@
 * `4.scRNAseq_annotation.R`: identify MGnD, Homeostasis, interferon-rich and cycling populations based on signature score; combining and reclustering the cells based on the population characteristics; finalizing annotations
 * `5.scRNAseq_DGE_analysis.R`: differential gene expression analysis (Wilcoxon) comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD cells in each cluster using the `FindMarkers` function
 
-### Processing and annotating public AD sc/snRNA-seq datasets (📁[public_AD](https://github.com/ayshwaryas/tim3_microglia/tree/e68e8c16d5b0ffdb93a235cba26c588446c01b9a/public_AD))
+### Processing and annotating public AD sc/snRNA-seq datasets (📁[public_AD](https://github.com/ayshwaryas/tim3_microglia/tree/77ce1c0d0f39f4e709ddb3eed6b3deeb7826ef25/public_AD))
 * `1.GSE140510_snRNAseq_7M.R`: processing 7-month snRNA-seq dataset from GSE140510
 * `2.GSE98969_scRNAseq_6M.R`: processing 6-month scRNA-seq dataset from GSE98969
 
