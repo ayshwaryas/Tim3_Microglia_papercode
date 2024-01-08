@@ -114,5 +114,7 @@
     * late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
 
 ### [Extended Data Fig. 15](Fig.s15): scRNA-seq data
-* **Extended Data Fig. 15a-b** 
-
+* **Extended Data Fig. 15a-b** (`Fig.s15a_s15b_scRNAseq_scatter_Havcr2iKO5xFADvs5XFAD_preMGnD.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
+    * <i>Havcr2</i><sup>icKO</sup>;5xFAD vs 5xFAD in cluster HMG_0 (a) and DAM_0 (b)
+    * <i>Clec7a</i><sup>-</sup> vs <i>Clec7a</i><sup>+</sup> (Y-axis)
+* **Extended Data Fig. 15c-d** (`Fig.s15c_s15d_scRNAseq_volcano_Havcr2icKO5xFADvs5xFAD.R`): volcano plot of differential gene expression analysis comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD in cluster HMG_0 (c) and DAM_0 (d)
