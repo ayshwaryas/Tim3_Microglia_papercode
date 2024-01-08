@@ -95,6 +95,7 @@
 * **Extended Data Fig. 11f-g** (`Fig.s11f_s11g_snRNAseq_allcells_UMAP_dotplot.R`): snRNA-seq UMAP of all cells colored by annotations (f) and Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype (g)
 * **Extended Data Fig. 11h-i** (`Fig.s11h_s11i.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (h) and homeostasis (i) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
 * **Extended Data Fig. 11j-k** (`Fig.s11j_s11k.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (j) and *Tgfbr2*<sup>cKO</sup> (k) signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
+* **Extended Data Fig. 11-2 a-f** (`Fig.s11.2a_s11.2f.snRNAseq_microglia_BAM_PVM_monocyte_signature_score.R`): Violin plot of border-associated microglia (BAM, a), perivascular macrophage (PVM, b), monocyte (c-d) and microglia (e-f) signature scores across microglia clusters (X-axis) and genotypes. 
 
 ### [Extended Data Fig. 12](/Fig.s12): snRNA-seq data
 
