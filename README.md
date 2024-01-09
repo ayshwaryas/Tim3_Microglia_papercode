@@ -83,17 +83,17 @@
 ### [Fig. 7](/Fig.7): scRNA-seq data
 * **Fig. 7a** (`Fig.7a_scRNAseq_UMAP.R`): UMAP visualization of microglia scRNA-seq clusters split by genotype
 * **Fig. 7b** (`Fig.7b_scRNAseq_signature_score_hedgesg.R`): Heatmap visualization of the Hedges' g effect size (color) and significance (text) comparing the signature scores in <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD cells in each microglia cluster. Significance is computed by t-test and adjusted using the Benjamini-Hochberg procedures. Signatures include:
-* cGAS-STING signature: Top 100 DEGs ordered by p-value comparing CgasWT/R241E to CgasWT/WT mice from [Gulen et al. 2023 (PMID: 37532932)](https://www.nature.com/articles/s41586-023-06373-1)
-* [MSigDB Hallmark interferon alpha signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_INTERFERON_ALPHA_RESPONSE.html)
-* [MSigDB Hallmark TNFA signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TNFA_SIGNALING_VIA_NFKB.html)
-* [KEGG TNF signaling](https://www.genome.jp/dbget-bin/www_bget?path:mmu04668)
-* [KEGG phagosome](https://www.genome.jp/dbget-bin/www_bget?path:mmu04145), excluding MHC genes
-* [GO phagocytosis](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/GOBP_PHAGOCYTOSIS.html), excluding MHC genes
-* [KEGG lysosome pathway](https://www.genome.jp/dbget-bin/www_bget?path:mmu04142)
-* [MSigDB Hallmark PI3K/AKT/mTOR signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_PI3K_AKT_MTOR_SIGNALING.html)
-* [KEGG PI3K-Akt signaling pathway](https://www.genome.jp/dbget-bin/www_bget?path:mmu04151)
-* [MSigDB Hallmark MTORC1 signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_MTORC1_SIGNALING.html)
-* [MSigDB Hallmark hypoxia signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_HYPOXIA.html)
+    * cGAS-STING signature: Top 100 DEGs ordered by p-value comparing CgasWT/R241E to CgasWT/WT mice from [Gulen et al. 2023 (PMID: 37532932)](https://www.nature.com/articles/s41586-023-06373-1)
+    * [MSigDB Hallmark interferon alpha signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_INTERFERON_ALPHA_RESPONSE.html)
+    * [MSigDB Hallmark TNFA signaling](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_TNFA_SIGNALING_VIA_NFKB.html)
+    * [KEGG TNF signaling](https://www.genome.jp/dbget-bin/www_bget?path:mmu04668)
+    * [KEGG phagosome](https://www.genome.jp/dbget-bin/www_bget?path:mmu04145), excluding MHC genes
+    * [GO phagocytosis](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/GOBP_PHAGOCYTOSIS.html), excluding MHC genes
+    * [KEGG lysosome pathway](https://www.genome.jp/dbget-bin/www_bget?path:mmu04142)
+    * [MSigDB Hallmark PI3K/AKT/mTOR signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_PI3K_AKT_MTOR_SIGNALING.html)
+    * [KEGG PI3K-Akt signaling pathway](https://www.genome.jp/dbget-bin/www_bget?path:mmu04151)
+    * [MSigDB Hallmark MTORC1 signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_MTORC1_SIGNALING.html)
+    * [MSigDB Hallmark hypoxia signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_HYPOXIA.html)
 
 
 ### [Extended Data Fig. 2](/Fig.s2)
