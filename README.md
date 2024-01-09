@@ -71,7 +71,7 @@
 
 ### [Fig. 6](/Fig.6): snRNA-seq data
 
-* **Fig. 6a** (`Fig.6a_snRNAseq_microglia_UMAP.R`): UMAP visualization of microglia clusters split by genotype
+* **Fig. 6a** (`Fig.6a_snRNAseq_microglia_UMAP.R`): UMAP visualization of microglia snRNA-seq clusters split by genotype
 * **Fig. 6b** (`Fig.6b_snRNAseq_microglia_top5markers.R`): Dotplot visualization of top 5 genes distinguishing each cell cluster from Fig. 6a
 * **Fig. 6c** (`Fig.6c_snRNAseq_microglia_HallmarkTGFB_score.R`): Probability density curves of the signature score for the Hallmark TGFβ pathway in the 5xFAD (purple) and *Havcr2*<sup>icKO</sup>:5xFAD (yellow) phenotype. Individual cells of each genotype are represented by the bars on top. 
 * **Fig. 6d-e** (`Fig.6d_6e_snRNAseq_microglia_P1_P2_score.R`): Violin plot of signature scores (Y-axis) identifying *Havcr2*<sup>icKO</sup>:5xFAD populations P1 (d) and P2 (e) across all genotypes (color) and microglia clusters 
@@ -79,6 +79,9 @@
 * **Fig. 6i** (`Fig.6i_snRNAseq_microglia_DAM_pseudobulk_corr.R`): Boxplot of pairwise spearman correlation coefficient (Y-axis) of whole gene expression pseudobulk microglial profiles between conditions (X-axis). Each point represents the spearman correlation coefficient between profiles of two biological replicates. Significance is computed by t-test.
 * **Fig. 6j** (`Fig.6j_snRNAseq_microglia_dotplot_inflame_phago.R`): Dotplot representation of P1 and P2 marker genes that are significant DEGs in perturbations (f-h) and known anti-inflammatory, pro-inflammatory and phagocytic properties
 * **Fig. 6k-l** (`Fig.6jk_6l_snRNAseq_microglia_signature_score_cluster2.R`): Violin plot of alternate macrophage (l) and phagocytic (m) signature genes among genotypes in cluster 2/MGnD/DAM. Significances are computed using Wilcoxon test.
+
+### [Fig. 7](/Fig.7)
+* **Fig. 7a** (`Fig.7a_scRNAseq_UMAP.R`): UMAP visualization of microglia scRNA-seq clusters split  by genotype
 
 ### [Extended Data Fig. 2](/Fig.s2)
 
