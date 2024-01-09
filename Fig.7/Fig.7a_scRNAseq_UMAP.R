@@ -1,5 +1,6 @@
 library(tidyverse)
 library(cowplot)
+library(Seurat)
 
 # Load Seurat object
 load("R_objects/2023-10-03.scRNAseq_cortex_MG_updated_clusters.RData")
