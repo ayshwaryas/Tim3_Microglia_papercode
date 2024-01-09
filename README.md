@@ -94,7 +94,7 @@
     * [KEGG PI3K-Akt signaling pathway](https://www.genome.jp/dbget-bin/www_bget?path:mmu04151)
     * [MSigDB Hallmark MTORC1 signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_MTORC1_SIGNALING.html)
     * [MSigDB Hallmark hypoxia signaling pathway](https://www.gsea-msigdb.org/gsea/msigdb/mouse/geneset/HALLMARK_HYPOXIA.html)
-
+* **Fig. 7c** (`Fig.7c_scRNAseq_signature_score_ttest.R`): Heatmap visualization of T-test results comparing the scores of microglia population markers from [Ellwanger et al. 2021 (PMID: 33446504)](https://pubmed.ncbi.nlm.nih.gov/33446504/) in <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD cells in each microglia cluster. T-statistics are displayed in text (black if FDR < 0.05; white if FDR $\geq$ 0.05). Colors represent whether the average signature scores are higher in <i>Havcr2</i><sup>icKO</sup>;5xFAD or 5xFAD (pink: higher in <i>Havcr2</i><sup>icKO</sup>;5xFAD; blue: higher in 5xFAD). 
 
 ### [Extended Data Fig. 2](/Fig.s2)
 
