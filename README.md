@@ -33,11 +33,9 @@
 * `1.GSE140510_snRNAseq_7M.R`: processing 7-month snRNA-seq dataset from GSE140510
 * `2.GSE98969_scRNAseq_6M.R`: processing 6-month scRNA-seq dataset from GSE98969
 
-### [Fig. 1 and Extended Fig. 3b](/Fig.1)
+### [Fig. 1](/Fig.1)
 
-* **Fig. 1a, Extended Fig. 3b** (`Fig.1a_s3b_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of gene expressions in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
-    * **Fig. 1a**: Immune checkpoints and TGFβ pathway-related molecules 
-    * **Extended Data Fig. 3b**: MGnD and homeostasis associated genes
+* **Fig. 1a** (`Fig.1a_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of gene expressions of immune checkpoints and TGFβ pathway-related molecules in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
     
 * **Fig. 1b** (`Fig.1b_GSE127449_P9_P28_scRNAseq.R`): Dotplot visualization of gene expression at postnatal stages (P9 and P28) in a published scRNA-seq dataset ([He et al. 2018, PMID: 34982959](https://pubmed.ncbi.nlm.nih.gov/34982959/); [GSE127449](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE127449))
 
@@ -101,6 +99,10 @@
     * **Extended Data Fig. 2c**: Dissociation signature score in microglia and perivascular macrophages
 * **Extended Data Fig. 2d** (`Fig.s2d_humanbrain_scRNAseq.R`): The expression of immune checkpoint genes and TGFβ pathway-related genes in human microglia and other cell populations in the brain ([Gaublomme et al. 2019, PMID: 31266958](https://pubmed.ncbi.nlm.nih.gov/31266958/))
 
+### [Extended Data Fig. 3](/Fig.s3)
+
+* **Extended Data Fig. 3b** (`Fig.s3b_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
+    
 ### [Extended Data Fig. 11](/Fig.s11): snRNA-seq data
 * **Extended Data Fig. 11a-b** (`Fig.s11a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s11b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia 
