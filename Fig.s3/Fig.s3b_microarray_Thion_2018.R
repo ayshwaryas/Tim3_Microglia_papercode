@@ -58,11 +58,6 @@ MGnD_Homeo <- Clec7a_top10 %>%
   mutate(type = factor(type, c("MGnD", "Homeostasis"))) %>%
   mutate(color = ifelse(type == "MGnD", "red", "blue"))
 
-## Immune checkpoints, and TGFb pathway-related molecules
-checkpoint_tgfb <- c("Havcr2", "Lag3", "Vsir", 
-                      "Pdcd1", "Cd274", "Havcr1", "Ctla4", "Tigit", 
-                      "Tgfb1", "Tgfbr1", "Tgfbr2", 
-                      "Tgfb2", "Tgfb3", "Smad2", "Smad3", "Smad4")
 
 # Heatmap -----------------------
 Heatmap_custom <- function(gene_list, suffix = "", width = 6.5, height = 4,
@@ -139,9 +134,6 @@ Heatmap_custom <- function(gene_list, suffix = "", width = 6.5, height = 4,
   dev.off()
 }
 
-## Figure 1a, expressions of immune checkpoints, and TGFb pathway-related molecules
-Heatmap_custom(checkpoint_tgfb, suffix = "checkpoint_tgfb", fig_num = "1a",
-               width = 6, height = 3, cluster_rows = FALSE)
 ## Extended Data Figure 3b, expressions of MGnD and Homeostatic-related genes
 Heatmap_custom(MGnD_Homeo$Symbol, suffix = "MGnD_Homeo", fig_num = "s3b",
                rownames_col_df = MGnD_Homeo, 
