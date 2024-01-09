@@ -100,8 +100,8 @@
 * **Extended Data Fig. 2d** (`Fig.s2d_humanbrain_scRNAseq.R`): The expression of immune checkpoint genes and TGFβ pathway-related genes in human microglia and other cell populations in the brain ([Gaublomme et al. 2019, PMID: 31266958](https://pubmed.ncbi.nlm.nih.gov/31266958/))
 
 ### [Extended Data Fig. 3](/Extended_Data_Figures/Fig.s3)
-
-* **Extended Data Fig. 3b** (`Fig.s3b_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
+* **Extended Data Fig. 3b** (): Heatmap visualization the developmental alterations of the expressions of selected checkpoint molecules in multiple brain regions in a published bulk RNA-seq dataset ([Miller et al. 2014, PMID: 24695229](https://pubmed.ncbi.nlm.nih.gov/24695229/)). The RPKM values were averaged across samples of the same age and then log2-transformed for visual clarity
+* **Extended Data Fig. 3c** (`Fig.s3c_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
     
 ### [Extended Data Fig. 11](/Extended_Data_Figures/Fig.s11): snRNA-seq data
 * **Extended Data Fig. 11a-b** (`Fig.s11a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s11b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
