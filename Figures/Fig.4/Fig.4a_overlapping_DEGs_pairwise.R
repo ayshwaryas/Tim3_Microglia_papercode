@@ -7,8 +7,6 @@ library(cowplot)
 library(limma)
 library(ggtext)
 
-# setwd("/broad/kuchroolab/kimi_microglia/manuscript")
-
 # Palette 
 pal <- c("darkgoldenrod1", "orangered", "#FB9A99", "darkred",
          brewer.pal(9, "Greens")[4], "forestgreen", "steelblue1", "steelblue4")
@@ -57,7 +55,7 @@ res_order_slice <- function(res, flip = TRUE, slice = TRUE, thres = 0.1) {
 load("results/bulkRNAseq_results_ds2_1month.RData")
 tim3_all <- res_ordered$`1M` %>% correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-tim3_sig <- tim3_all %>% res_order_slice
+tim3_DEG <- tim3_all %>% res_order_slice
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia
 load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
@@ -65,7 +63,7 @@ phago_all <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-phago_sig <- phago_all %>% res_order_slice(flip = FALSE)
+phago_DEG <- phago_all %>% res_order_slice(flip = FALSE)
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171)
 TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
@@ -76,20 +74,20 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 
-TGFBRII_sig <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
+TGFBRII_DEG <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663)
 Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-Clec7a_sig <- Clec7a_all %>% res_order_slice(flip = FALSE)
+Clec7a_DEG <- Clec7a_all %>% res_order_slice(flip = FALSE)
 
 ## DEGs of the 4 comparisons
-sig_gene_ls <-  list(`Havcr2cKO` = tim3_sig,
-                     `Phagocytosing MG` = phago_sig,
-                     `Tgfbr2cKO` = TGFBRII_sig,
-                     `Clec7a+` = Clec7a_sig)
+DEG_ls <-  list(`Havcr2cKO` = tim3_DEG,
+                `Phagocytosing MG` = phago_DEG,
+                `Tgfbr2cKO` = TGFBRII_DEG,
+                `Clec7a+` = Clec7a_DEG)
 ## Full gene lists of the 4 comparisons
 all_genes_ls <- list(`Havcr2cKO` = tim3_all,
                      `Phagocytosing MG` = phago_all,
@@ -173,9 +171,9 @@ compare_ls <- data.frame(x = rep(1:4, 4), y = c(sapply(1:4, rep, 4))) %>%
 perm_test_pairwise <- sapply(1:nrow(compare_ls), function(i) {
   x <- compare_ls$x[i]; y <- compare_ls$y[i]
   perm_test(
-    set1 = sig_gene_ls[[x]], set2 = sig_gene_ls[[y]],
+    set1 = DEG_ls[[x]], set2 = DEG_ls[[y]],
     all_genes1 = all_genes_ls[[x]]$gene_symbol, all_genes2 = all_genes_ls[[y]]$gene_symbol,
-    name1 = names(sig_gene_ls)[x], name2 = names(sig_gene_ls)[y],
+    name1 = names(DEG_ls)[x], name2 = names(DEG_ls)[y],
     n_perm = 10000 )
 }, simplify = FALSE)
 

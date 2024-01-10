@@ -7,7 +7,7 @@ source('bulkRNAseq/0.bulkRNAseq_functions.R')
 load("results/bulkRNAseq_results_ds2_1month.RData")
 tim3_all <- res_ordered$`1M` %>% correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-tim3_sig <- tim3_all %>% res_order_slice
+tim3_DEG <- tim3_all %>% res_order_slice
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia
 load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
@@ -15,7 +15,7 @@ phago_all <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-phago_sig <- phago_all %>% res_order_slice(flip = FALSE)
+phago_DEG <- phago_all %>% res_order_slice(flip = FALSE)
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171)
 TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
@@ -26,28 +26,21 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 
-TGFBRII_sig <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
+TGFBRII_DEG <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663)
 Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-Clec7a_sig <- Clec7a_all %>% res_order_slice(flip = FALSE)
+Clec7a_DEG <- Clec7a_all %>% res_order_slice(flip = FALSE)
 
 
 ## Combine Datasets 
-fig5_ls <- list(`Tim3KO` = tim3_sig, `phago+` = phago_sig, 
-                `Tgfbr2KO` = TGFBRII_sig, `Clec7a+`= Clec7a_sig)
-fig5_ls_all <- list(`Tim3KO` = tim3_all, `phago+` = phago_all, 
-                    `Tgfbr2KO` = TGFBRII_all, `Clec7a+`= Clec7a_all)
+Fig4b_DEG_ls <- list(`Tim3KO` = tim3_DEG, `phago+` = phago_DEG,
+                     `Tgfbr2KO` = TGFBRII_DEG, `Clec7a+`= Clec7a_DEG)
 
-fig5_df <- fig5_ls %>%
-  data.table::rbindlist(idcol = "dataset") %>%
-  mutate(direction = factor(direction, c("up", "down"))) %>%
-  arrange(dataset, direction)
-
-fig5_df_all <- fig5_ls_all %>%
+Fig4b_DEG_df <- Fig4b_DEG_ls %>%
   data.table::rbindlist(idcol = "dataset") %>%
   mutate(direction = factor(direction, c("up", "down"))) %>%
   arrange(dataset, direction)
@@ -55,7 +48,7 @@ fig5_df_all <- fig5_ls_all %>%
 gene_list_Tgfbr2 <- c("Havcr2", "Axl", "Ly9", "Clec7a", "Cd63", "Cxcl16", 
                       "H2-K1", "H2-D1", "Siglech", "Csf1r")
 gene_list_phago <- c("Havcr2", "Cd9", "Cst7", "Cstb", "Cxcl16", "Ly9", "Lyz2", 
-                     unique(subset(fig5_df, str_detect(gene_symbol, "H2\\-"))$gene_symbol))
+                     unique(subset(Fig4b_DEG_df, str_detect(gene_symbol, "H2\\-"))$gene_symbol))
 
 replace_name <- function(name) {
   data.frame(name = name) %>%
@@ -84,12 +77,12 @@ annot_param <- list(
                    title_gp = gpar(fontsize = 10, fontface = 2, lineheight = 1.15))
 )
 
-htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = NULL) {
+htmap_corr_alltim3 <- function(DEG_df = NULL, n_min, suffix = "", gene_list = NULL) {
   
   ## (1) TPM, 1-month-old mice, Havcr2cKO vs Havcr2flox/flox
   tim3_TPM <- read.csv("data/expr_mat/Danyang_TPM_matrix.csv", check.names = FALSE) %>%
     `colnames<-`(c("gene_symbol", colnames(.)[-1])) %>%
-    filter(gene_symbol %in% fig5F_df$gene_symbol) %>%
+    filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, contains("1M")) %>%
     scale_df(exclude_col = 1) %>%
     dplyr::rename("gene_symbol" = "V1")
@@ -108,7 +101,7 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
   phago_TPM <- read.csv("data/expr_mat/tim3_Kimi_tpm_with_genesymbols_KK.csv") %>%
     filter(gene_id %in% results_batch1$res_phagoposvsneg_control$gene_id) %>%
     select(gene_symbol = gene_name, phago_meta$Sample_ID) %>%
-    filter(gene_symbol %in% fig5F_df$gene_symbol) %>%
+    filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, everything())  %>%
     scale_df(exclude_col = 1) %>%
     dplyr::rename("gene_symbol" = "V1")
@@ -117,7 +110,7 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
   ## (3) FPKM, Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171)
   TGFBRII_FPKM <- read.csv("data/FPKM OB edits - with padj.csv") %>%
     dplyr::rename("gene_symbol" = "geneNames") %>% 
-    filter(gene_symbol %in% fig5F_df$gene_symbol) %>%
+    filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, contains("WT.uG"), contains("KO.uG")) %>%
     scale_df(exclude_col = 1) %>%
     dplyr::rename("gene_symbol" = "V1")
@@ -125,7 +118,7 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
   ## (4) FPKM, Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663)
   Clec7a_FPKM <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
     dplyr::rename("gene_symbol" = "tracking_id") %>% 
-    filter(gene_symbol %in% fig5F_df$gene_symbol) %>%
+    filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, contains("neg"), contains("pos")) %>%
     scale_df(exclude_col = 1) %>%
     dplyr::rename("gene_symbol" = "V1")
@@ -145,7 +138,7 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
   htmap_df_corr <- WGCNA::corAndPvalue(t(htmap_df[, -1]))
   
  
-  fig5F_df_wide <- fig5F_df %>%
+  DEG_df_wide <- DEG_df %>%
     select(-log2FoldChange) %>%
     distinct() %>%
     pivot_wider(names_from = "dataset", values_from = "direction") %>%
@@ -159,15 +152,15 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
       TRUE ~ "grey15")) %>%
     mutate(index = row_number()) 
   
-  label_df <- fig5F_df_wide %>%
+  label_df <- DEG_df_wide %>%
     filter(gene_symbol %in% gene_list)
   
   DEG_pal <- setNames(c("gold", "grey25"), factor(c("up", "down"), levels = c("up", "down")))
   row_annot <- rowAnnotation(
-    `Tim3KO` = fig5F_df_wide$`Tim3KO`,
-    `phago+` = fig5F_df_wide$`phago+`,
-    `Tgfbr2KO` = fig5F_df_wide$`Tgfbr2KO`,
-    `Clec7a+` = fig5F_df_wide$`Clec7a+`,
+    `Tim3KO` = DEG_df_wide$`Tim3KO`,
+    `phago+` = DEG_df_wide$`phago+`,
+    `Tgfbr2KO` = DEG_df_wide$`Tgfbr2KO`,
+    `Clec7a+` = DEG_df_wide$`Clec7a+`,
     col = list(`Tim3KO` = DEG_pal, `phago+` = DEG_pal,
                `Tgfbr2KO` = DEG_pal, `Clec7a+` = DEG_pal),
     link = anno_mark(at = label_df$index, labels = label_df$gene_symbol,
@@ -183,10 +176,10 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
     show_legend = TRUE) 
   
   col_annot <- columnAnnotation(
-    `Tim3KO` = fig5F_df_wide$`Tim3KO`,
-    `phago+` = fig5F_df_wide$`phago+`,
-    `Tgfbr2KO` = fig5F_df_wide$`Tgfbr2KO`,
-    `Clec7a+` = fig5F_df_wide$`Clec7a+`,
+    `Tim3KO` = DEG_df_wide$`Tim3KO`,
+    `phago+` = DEG_df_wide$`phago+`,
+    `Tgfbr2KO` = DEG_df_wide$`Tgfbr2KO`,
+    `Clec7a+` = DEG_df_wide$`Clec7a+`,
     col = list(`Tim3KO` = DEG_pal, `phago+` = DEG_pal,
                `Tgfbr2KO` = DEG_pal, `Clec7a+` = DEG_pal),
     annotation_label = c("(1)", "(2)", "(3)", "(4)"),
@@ -228,34 +221,21 @@ htmap_corr_alltim3 <- function(fig5F_df = NULL, n_min, suffix = "", gene_list = 
   cormat <- htmap_df_corr$cor[rowOrder, rowOrder] %>%
     as.data.frame %>%
     rownames_to_column("gene_symbol") %>%
-    left_join(fig5F_df_wide, by = "gene_symbol")
+    left_join(DEG_df_wide, by = "gene_symbol")
   return(cormat)
 
 }
 
-
-
-all_tim3KO_and_atleast3 <- fig5_ls %>%
+all_tim3KO_and_atleast3 <- Fig4b_DEG_ls %>%
   data.table::rbindlist(idcol = "dataset") %>%
   arrange(dataset, direction) %>%
   group_by(gene_symbol) %>% mutate(n = n()) %>%
   filter(n >= 3) %>% ungroup %>% select(-n) %>% 
-  rbind(cbind(dataset = "Tim3KO", fig5_ls$Tim3KO)) %>%
+  rbind(cbind(dataset = "Tim3KO", Fig4b_DEG_ls$Tim3KO)) %>%
   mutate(direction = factor(direction, c("up", "down"))) %>%
   distinct()
 
 htmap_corr_all_tim3_order <- htmap_corr_alltim3(
-  fig5F_df = all_tim3KO_and_atleast3, suffix = "_and_atleast3",
+  DEG_df = all_tim3KO_and_atleast3, suffix = "_and_atleast3",
   gene_list = c(gene_list_Tgfbr2, gene_list_phago, "Sall1", "Apoe", "Cd33"))
 
-## save the orders of the genes
-htmap_corr_all_tim3_order %>% 
-  select(gene_symbol, names(fig5_ls)) %>%
-  left_join(fig5_ls$Tim3KO[, -3], by = "gene_symbol") %>%
-  left_join(fig5_ls$`phago+`[, -3], by = "gene_symbol",
-            suffix = c(".Tim3KO", "")) %>%
-  left_join(fig5_ls$Tgfbr2KO[, -3], by = "gene_symbol",
-            suffix = c(".phago", "")) %>%
-  left_join(fig5_ls$`Clec7a+`[, -3], by = "gene_symbol",
-            suffix = c(".Tgfbr2KO", ".Clec7a")) %>% 
-  write.csv("Fig.4b_corr_tim3KO_and_atleast3.csv", row.names = FALSE)
