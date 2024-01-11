@@ -50,6 +50,7 @@
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia from 1-month-old mice
     (2) <i>Tgfbr2</i><sup>cKO</sup> vs. control microglia
 * **Fig. 2b** (`Fig.2b_1month_Tgfbr2_scatter_plot.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes in *Havcr2*<sup>cKO</sup> (X-axis) and *Tgfbr2*<sup>cKO</sup> (Y-axis) compared to control microglia
+* **Fig. 2e** (`Fig.2e_1month_DEG_homer_motif.Rmd`): Transcription factor motif enrichment analysis using DEGs comparing *Havcr2*<sup>cKO</sup> to control microglia from 1-month-old mice
 
 ### [Fig. 3](/Figures/Fig.3)
 
@@ -102,7 +103,11 @@
 ### [Extended Data Fig. 3](/Extended_Data_Figures/Fig.s3)
 * **Extended Data Fig. 3b** (): Heatmap visualization the developmental alterations of the expressions of selected checkpoint molecules in multiple brain regions in a published bulk RNA-seq dataset ([Miller et al. 2014, PMID: 24695229](https://pubmed.ncbi.nlm.nih.gov/24695229/)). The RPKM values were averaged across samples of the same age and then log2-transformed for visual clarity
 * **Extended Data Fig. 3c** (`Fig.s3c_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
-    
+
+### [Extended Data Fig. 6](/Extended_Data_Figures/Fig.s6)
+* **Extended Data Fig. 6a** (`Fig.s6a_circo_overlapping_DEGs.R`): Circos plot comparison of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup>, and *Clec7a*<sup>+</sup> microglia compared to control microglia. Only islands with DEGs shared by at least 3 of the 4 comparisons were included. Permutation test p-values were displayed as ns P > 0.025, \\*P ≤ 0.025, \\*\\*P ≤ 0.01, \\*\\*\\*P ≤ 0.001, \\*\\*\\*\\*P ≤ 0.0001, and \\*\\*\\*\\*\\*P ≤ 0.00001.
+* **Extended Data Fig. 6b** (`Fig.s6b_heatmap_overlapping_DEGs.R`): Heatmap visualization of the expressions of DEGs shared by at least 3 of the 4 aforementioned comparisons. 
+
 ### [Extended Data Fig. 11](/Extended_Data_Figures/Fig.s11): snRNA-seq data
 * **Extended Data Fig. 11a-b** (`Fig.s11a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s11b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia 

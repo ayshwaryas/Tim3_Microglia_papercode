@@ -17,7 +17,7 @@ Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %
   arrange(padj) %>% group_by(direction) %>% dplyr::slice(1:100) %>% pull(tracking_id)
 
 
-# Load differential expression analysis results -----------------------------------------
+# Load differential expression analysis results --------------------------------
 
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox microglia
 load("results/bulkRNAseq_results_ds2_1month.RData")
@@ -35,7 +35,7 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
 TGFBRII_sig <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
 
 
-# Premutation test on the overlapping genes -----------------------------------
+# Premutation test on the overlapping genes ------------------------------------
 ## Gene sets G1 and G2 have n_obs overlapping genes
 ## The permutation test p-values were computed by repeating the following steps 10,000 times
 ## (1) Randomly select n1 genes from G1, n2 genes from G2 
@@ -53,7 +53,7 @@ overlap_ds2_tim3_Tgfbr2_sig <- perm_test(
   n_perm = 10000
 )
 
-# Fig. 2a: Circos plot comparison of up- and down-regulated DEGs ------------------------------
+# Fig. 2a: Circos plot comparison of up- and down-regulated DEGs ---------------
 ## Comparison 1: Havcr2cKO vs. Havcr2 flox/flox from 1-month-old mice  
 ## Comparison 2: Tgfbr2cKO vs. control 
 circo_overlap(res1 = ds2_tim3_sig, res2 = TGFBRII_sig,

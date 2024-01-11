@@ -1,0 +1,76 @@
+---
+title: 'Fig.2e Homer Motif Analysis'
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(eval = TRUE, echo = FALSE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+load("results/bulkRNAseq_results_ds2_1month.RData")
+ensembl <- biomaRt::useEnsembl("ensembl", dataset = "mmusculus_gene_ensembl", version = 98)
+annot <- biomaRt::getBM(c("ensembl_gene_id", "external_gene_name"), mart = ensembl,
+                        filters = 'external_gene_name', values = res_ordered$`1M`$gene_symbol) 
+
+# DEGs (padj < 0.05), Havcr2cKO vs Havcr2 flox/flox, 1-month-old mice
+res_ordered_gene_id.05 <- res_ordered %>% 
+  filter(padj < 0.05) %>% 
+  left_join(annot, by = c("gene_symbol" = "external_gene_name")) %>%
+  filter(!is.na(ensembl_gene_id)) %>%
+  group_by(gene_symbol) %>% dplyr::slice(1) %>% ungroup %>% 
+  dplyr::select(Acc = ensembl_gene_id) 
+
+write.table(res_ordered_gene_id.05, "data/Danyang_DEG.05.txt", 
+            quote = FALSE, row.names = FALSE)
+```
+
+ 
+```{r, engine = 'bash', eval = FALSE}
+# Run Homer findMotifs.pl
+cd /broad/kuchroolab/kimi_microglia/manuscript
+
+findMotifs.pl data/Danyang_DEG.05.txt mouse results/Homer_findMotifs_up_500_dn_0_.05 -start -500 -end 0
+```
+
+```{r}
+folder <- "results/Homer_findMotifs_up_500_dn_0_.05"
+
+# Convert Homer results to an html table and knit into pdf -----------
+homer_res_raw <- read.delim(paste0(folder, "knownResults.txt"), sep = "\t", check.names = FALSE)
+
+homer_res <- homer_res_raw %>%
+  filter(`P-value` < 0.05) %>%
+  mutate(length = nchar(Consensus)) %>%
+  mutate(Rank = row_number()) %>%
+  mutate(Motif = paste0(folder, "knownResults/known", Rank, ".logo.png")) %>%
+  dplyr::select(
+    Rank, Motif, Name = `Motif Name`, `Log P-value` = `Log P-value`,
+    `% of Target<br/>Sequences with Motif` = `% of Target Sequences with Motif`,
+    `% of Background<br/>Sequences with Motif` = `% of Background Sequences with Motif`, length
+  ) %>%
+  mutate(Name = str_remove(Name, "\\(.*\\)\\/.*\\/Homer"))
+
+
+homer_res %>%
+  dplyr::select(-length) %>%
+  mutate(Motif = "") %>%
+  kbl(booktabs = T, align = c("c", "l", "l", rep("c", 5)), escape = FALSE) %>%
+  kable_classic(full_width = FALSE, latex_options="scale_down", font_size = 15,
+                html_font = "\"Arial\", \"Source Sans Pro\", sans-serif") %>%
+  column_spec(2, width = "240px", image = lapply(1:nrow(homer_res), function(x) {
+    spec_image(homer_res$Motif[x], width = homer_res$length[x] * 60, height = 120)
+  })) %>%
+  column_spec(1, width = "0.5in") %>%
+  column_spec(3, width = "0.7in") %>%
+  column_spec(4, width = "0.7in") %>%
+  column_spec(5, width = "1.6in") %>%
+  column_spec(6, width = "1.6in") %>%
+  row_spec(0, bold = TRUE, align = "c") %>%
+  row_spec(1:nrow(homer_res), extra_css = "padding-top: 2px; padding-bottom: 2px")
+```
+
+
