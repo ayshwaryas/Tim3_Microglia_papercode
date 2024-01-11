@@ -95,7 +95,8 @@ all_genes_ls <- list(`Havcr2cKO` = tim3_all,
                      `Clec7a+` = Clec7a_all)
 
 # Permutation test (pairwise) ---------
-## Gene sets G1 and G2 have n_obs overlapping genes
+## Gene sets G1 and G2 have g1 and g2 DEGs, respectively
+## Denote the actual number of overlaps between g1 and g2 as n_obs
 ## The permutation test p-values were computed by repeating the following steps 10,000 times
 ## (1) Randomly select n1 genes from G1, n2 genes from G2 
 ## (2) Count the number of overlap between the two sets of selected genes, denote as n_i, i=1, 2, ..., 10,000.
