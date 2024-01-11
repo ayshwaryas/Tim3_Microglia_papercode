@@ -1,7 +1,7 @@
 source("scRNAseq/0.scRNAseq_functions.R")
 
 # 1. Load Data & Create Seurat object --------------
-path_10X <- "raw_data/raw_data_no_intron"
+path_10X <- "raw_data_no_intron"
 samples <- list.files(path_10X)
 
 scRNAseq_cortex <- lapply(samples, function(i) {
