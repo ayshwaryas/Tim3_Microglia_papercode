@@ -105,7 +105,7 @@
 * **Extended Data Fig. 3c** (`Fig.s3c_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
 
 ### [Extended Data Fig. 6](/Extended_Data_Figures/Fig.s6)
-* **Extended Data Fig. 6a** (`Fig.s6a_circo_overlapping_DEGs.R`): Circos plot comparison of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup>, and *Clec7a*<sup>+</sup> microglia compared to control microglia. Only islands with DEGs shared by at least 3 of the 4 comparisons were included. Permutation test p-values were displayed as ns P > 0.025, \\*P ≤ 0.025, \\*\\*P ≤ 0.01, \\*\\*\\*P ≤ 0.001, \\*\\*\\*\\*P ≤ 0.0001, and \\*\\*\\*\\*\\*P ≤ 0.00001.
+* **Extended Data Fig. 6a** (`Fig.s6a_circo_overlapping_DEGs.R`): Circos plot comparison of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup>, and *Clec7a*<sup>+</sup> microglia compared to control microglia. Only islands with DEGs shared by at least 3 of the 4 comparisons were included. Permutation test p-values were displayed as ns P > 0.025, \*P ≤ 0.025, \*\*P ≤ 0.01, \*\*\*P ≤ 0.001, \*\*\*\*P ≤ 0.0001, and \*\*\*\*\*P ≤ 0.00001.
 * **Extended Data Fig. 6b** (`Fig.s6b_heatmap_overlapping_DEGs.R`): Heatmap visualization of the expressions of DEGs shared by at least 3 of the 4 aforementioned comparisons. 
 
 ### [Extended Data Fig. 11](/Extended_Data_Figures/Fig.s11): snRNA-seq data
