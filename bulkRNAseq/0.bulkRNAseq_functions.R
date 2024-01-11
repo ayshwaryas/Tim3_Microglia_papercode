@@ -40,7 +40,7 @@ res_order_slice <- function(res, flip = TRUE, slice = TRUE, thres = 0.1) {
 }
 
 
-## Function for permutation test ----------------------------------------------
+## Function for permutation test comparing 2 sets of DEGs ----------------------
 perm_test <- function(set1, set2, all_genes1, all_genes2, name1, name2, 
                       prefix1 = "", prefix2 = "", n_perm = 10000) {
   n_overlap <- inner_join(set1, set2, by = "gene_symbol",

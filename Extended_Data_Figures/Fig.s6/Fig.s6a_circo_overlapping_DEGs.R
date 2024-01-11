@@ -1,10 +1,10 @@
 source('bulkRNAseq/0.bulkRNAseq_functions.R')
 
 ## Palettes
-pal <- c(brewer.pal(9, "Greens")[4], "forestgreen", "steelblue1", "steelblue4",
-         "darkgoldenrod1", "orangered", "#FB9A99", "darkred")
-pal_text <- c(brewer.pal(9, "Greens")[6], "forestgreen", "steelblue2", "steelblue4",
-              "darkgoldenrod3", "orangered", "#fa7573", "darkred")
+pal <- c("darkgoldenrod1", "orangered", "#FB9A99", "darkred",
+         brewer.pal(9, "Greens")[4], "forestgreen", "steelblue1", "steelblue4")
+pal_text <- c("darkgoldenrod3", "orangered", "#fa7573", "darkred",
+              brewer.pal(9, "Greens")[6], "forestgreen", "steelblue2", "steelblue4")
 
 
 # Read data --------------------------------------------------------------------
@@ -12,9 +12,9 @@ pal_text <- c(brewer.pal(9, "Greens")[6], "forestgreen", "steelblue2", "steelblu
 ## 1. Differential expression analysis results ---------------------------------
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox --------------------------
 load("results/bulkRNAseq_results_ds2_1month.RData")
-tim3_all <- res_ordered$`1M` %>% correct_gene_symbol() %>%
+tim3_all <- res_ordered %>% correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) 
-tim3_DEG <- res_order_slice(tim3_all, flip = FALSE, thres = 0.1)
+tim3_DEG <- res_order_slice(tim3_all, flip = FALSE, thres = 0.05)
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia ---------
 load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
@@ -22,7 +22,7 @@ phago_all <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-phago_DEG <- res_order_slice(phago_all, flip = FALSE, thres = 0.1)
+phago_DEG <- res_order_slice(phago_all, flip = FALSE, thres = 0.05)
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171) -----------------
 TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
@@ -34,7 +34,7 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   select(gene_symbol, log2FoldChange, direction, padj)  %>%
   distinct(gene_symbol, direction, .keep_all = TRUE) 
 
-TGFBRII_DEG <- res_order_slice(TGFBRII_all, flip = FALSE, thres = 0.1)
+TGFBRII_DEG <- res_order_slice(TGFBRII_all, flip = FALSE, thres = 0.05)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663) -------------
 Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
@@ -42,15 +42,26 @@ Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) 
 
-Clec7a_DEG <- res_order_slice(Clec7a_all, flip = FALSE, thres = 0.1)
+Clec7a_DEG <- res_order_slice(Clec7a_all, flip = FALSE, thres = 0.05)
+
+## Combining list of DEGs ------------------------------------------------------
+all_genes_ls <- list(`Havcr2cKO` = tim3_all$gene_symbol,
+                     `Phagocytosing MG` = phago_all$gene_symbol,
+                     `Tgfbr2cKO` = TGFBRII_all$gene_symbol,
+                     `Clec7a+` = Clec7a_all$gene_symbol)
+
+DEG_ls <- list(`Havcr2cKO` = tim3_DEG,
+               `Phagocytosing MG` = phago_DEG,
+               `Tgfbr2cKO` = TGFBRII_DEG,
+               `Clec7a+` = Clec7a_DEG)
+
 
 ## Direction of change of DEGs shared by at least 3 datasets -------------------
 
-Figs6a_DEG_dir <- list(`Tim3KO` = tim3_DEG, `phago+` = phago_DEG,
-                       `Tgfbr2KO` = TGFBRII_DEG, `Clec7a+`= Clec7a_DEG) %>%
+Figs6a_DEG_dir <- DEG_ls %>%
   data.table::rbindlist(idcol = "dataset") %>%
   mutate(direction = factor(direction, c("up", "down"))) %>%
-  arrange(dataset, direction)
+  arrange(dataset, direction) 
 
 gene_list_Tgfbr2 <- c("Havcr2", "Axl", "Ly9", "Clec7a", "Cd63", "Cxcl16", 
                       "H2-K1", "H2-D1", "Siglech", "Csf1r")
@@ -58,12 +69,10 @@ gene_list_phago <- c("Havcr2", "Cd9", "Cst7", "Cstb", "Cxcl16", "Ly9", "Lyz2",
                      unique(subset(Figs6a_DEG_dir, str_detect(gene_symbol, "H2\\-"))$gene_symbol))
 
 # Permutation test -------------------------------------------------------------
-all_genes_ls <- list(`Havcr2cKO` = tim3_all$gene_symbol,
-                     `Phagocytosing MG` = phago_all$gene_symbol,
-                     `Tgfbr2cKO` = TGFBRII_all$gene_symbol,
-                     `Clec7a+` = Clec7a_all$gene_symbol)
 
-n_overlap <- fig5_ls %>%
+DEG_set_ls <- lapply(DEG_ls, function(x) {split(x, x$direction)})
+
+n_overlap <- DEG_ls %>%
   data.table::rbindlist(idcol = "dataset") %>%
   group_by(gene_symbol) %>%
   filter(n() >= 3) %>% select(-log2FoldChange) %>%
@@ -75,19 +84,18 @@ n_overlap <- fig5_ls %>%
   mutate(dir = paste(Havcr2cKO, `Phagocytosing MG`, Tgfbr2cKO, `Clec7a+`, sep = "_")) %>%
   ungroup()
 
-set_ls <- lapply(fig5_ls, function(x) {split(x, x$direction)})
 
 set.seed(42)
-n_perm <- 10000
+n_perm <- 10000 # number of permutations
 n_overlap_perm <- replicate(n_perm, {
-  set_perm <- sapply(names(set_ls), function(x) {
-    sample_up <- data.frame(gene_symbol = sample(all_genes_ls[[x]], size = nrow(set_ls[[x]]$up), replace = FALSE))
-    sample_dn <- data.frame(gene_symbol = sample(all_genes_ls[[x]], size = nrow(set_ls[[x]]$down), replace = FALSE))
+  set_perm <- sapply(names(DEG_set_ls), function(x) {
+    sample_up <- data.frame(gene_symbol = sample(all_genes_ls[[x]], size = nrow(DEG_set_ls[[x]]$up), replace = FALSE))
+    sample_dn <- data.frame(gene_symbol = sample(all_genes_ls[[x]], size = nrow(DEG_set_ls[[x]]$down), replace = FALSE))
     list(up = sample_up, down = sample_dn) %>% 
       data.table::rbindlist(idcol = 'direction')}, 
     USE.NAMES = TRUE, simplify = FALSE) %>%
     data.table::rbindlist(idcol = "dataset") %>%
-    mutate(dataset = factor(dataset, names(fig5_ls))) %>%
+    mutate(dataset = factor(dataset, names(DEG_ls))) %>%
     mutate(direction = factor(direction, c("up", "down"))) 
   
   set_perm_summ <- set_perm %>%
@@ -110,19 +118,19 @@ p_overlap_perm <- n_overlap_perm %>%
   summarise(p.perm = sum(n_overlap_perm > n_overlap)/n_perm) %>%
   mutate(p.perm = ifelse(p.perm > 0.5, 1 - p.perm, p.perm))
 
-# Circos plot ----------
-## genes to highlight
-highlight_genes <- c(gene_list_phago, gene_list_Tgfbr2, "Apoe", "Sall1", "Cd33")
+# save(n_overlap_perm, p_overlap_perm, file = "results/Fig.s6a_perm_test_results.05.RData")
+
+# Circos plot ------------------------------------------------------------------
 
 Figs6a_circos <- function(
-    DEG_overlaps = NULL, p_overlap_perm = NULL,
+    DEG_overlaps = NULL, p_overlap_perm = NULL, highlight_genes = NULL,
     big.gap = 1.5, small.gap = 0.15, p.perm_thres = 0.05,
     dir_cex = 0.7, gene_cex = c(0.6, 0.55), p_perm_cex = c(0.8, 0.8), label_cex = 0.5,
     gene_width = c(60, 60), track.height = 0.07,
     y_p_perm = 1.5, y_dir = -0.5, degree = 100, 
     size = 10, suffix = "", fig_num = "s6a") {
   
-  names <- paste0(rep(names(fig5_ls), 2), c(rep(".up", 4), rep(".down", 4)))
+  names <- paste0(rep(names(DEG_ls), 2), c(rep(".up", 4), rep(".down", 4)))
   
   DEG_overlaps_circo <- DEG_overlaps %>%
     group_by(gene_symbol) %>% mutate(n = n()) %>%
@@ -142,12 +150,12 @@ Figs6a_circos <- function(
     select(from, to, value, value2)
   
   group_genes <- DEG_overlaps_circo %>%
-    mutate(from = factor(from, names)) %>% arrange(from) %>%
+    mutate(from = factor(from, names)) %>% arrange(from) %>% 
     mutate(from_num = as.numeric(from)) %>%
     mutate(dir_num = ifelse(str_detect(from, "up"), 1, -1)) %>%
     separate(from, sep = "\\.", into = c("dataset", "direction")) %>%
     select(to, dataset, direction, from_num, dir_num) %>% 
-    pivot_wider(names_from = "dataset", values_from = c("direction", "dir_num", "from_num")) %>%
+    pivot_wider(names_from = "dataset", values_from = c("direction", "dir_num", "from_num")) %>% 
     unite(group, starts_with("direction_")) %>% 
     mutate(n = str_count(group, "up") * 1 - str_count(group, "down")) %>%
     mutate(dir_num = rowSums(.[, 3:6], na.rm = TRUE)) %>%
@@ -158,6 +166,7 @@ Figs6a_circos <- function(
     select(-starts_with("dir_num_"), -p.perm) %>%
     arrange(sign(n), desc(abs(n)), group_num)
   
+  ## grouping the genes
   group <- c(str_extract(names[1:4], "\\.up|\\.down"), 
              group_genes[group_genes$n > 0, ]$group,
              str_extract(names[8:5], "\\.up|\\.down"),
@@ -173,6 +182,7 @@ Figs6a_circos <- function(
   
   circo_df <- rbind(subset(DEG_overlaps_circo, to %in% group_genes$to), count_ds) 
   
+  ## add significance levels to permutation test p-values
   p_overlap_perm_circo <- p_overlap_perm %>% 
     rstatix::add_significance("p.perm",
                               cutpoints = c(0, 1e-05, 1e-04, 0.001, 0.01, 0.025, 1),
@@ -185,19 +195,22 @@ Figs6a_circos <- function(
                link.visible = circo_df[[1]] != circo_df[[2]],
                self.link = 2, 
                big.gap = big.gap, small.gap = small.gap,
-               order = names(group),
-               group = group,
+               order = names(group), group = group,
                link.sort = TRUE, link.decreasing = TRUE,
                transparency = 0.05,
                annotationTrack = c("grid"), 
                preAllocateTracks = list(
+                 ## tracks showing the gene symbols
                  list(track.height = track.height),
+                 ## 4 tracks indicating if the gene is DE in a specific comparison
                  list(track.height = 0.015, track.margin = c(0, 0.005), bg.border = "white"),
                  list(track.height = 0.015, track.margin = c(0, 0.005), bg.border = "white"),
                  list(track.height = 0.015, track.margin = c(0, 0.005), bg.border = "white"),
-                 list(track.height = 0.015, track.margin = c(0, 0.005), bg.border = "white"))
+                 list(track.height = 0.015, track.margin = c(0, 0.005), bg.border = "white")
+               )
   )
   
+  ## gene symbols
   for(si in group_genes$to) {
     xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
     ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
@@ -214,10 +227,12 @@ Figs6a_circos <- function(
                 cex = cex, niceFacing = TRUE, font = face)
   }
   
+  ## comparisons (e.g. Up in Havcr2cKO)
   for(si in unique(circo_df$from)) {
     
     circos.axis(h = 0, major.at = seq(0, 3000, 500),
-                labels.cex = label_cex, labels.facing = "clockwise", labels.niceFacing = FALSE,
+                labels.cex = label_cex, labels.facing = "clockwise", 
+                labels.niceFacing = FALSE,
                 sector.index = si, track.index = 5)
     
     si_label <- str_remove(si, "\\.up|\\.down")
@@ -249,7 +264,7 @@ Figs6a_circos <- function(
     si_ls <- unlist(str_split(si, "_"))
     for(i in which(si_ls != "NA")) {
       highlight.sector(group_genes[group_genes$group == si, ]$to,
-                       track.index = i + 1, col = grid.col.ds[paste(names(fig5_ls)[i], si_ls[i], sep = ".")],
+                       track.index = i + 1, col = grid.col.ds[paste(names(DEG_ls)[i], si_ls[i], sep = ".")],
                        cex = 0.1, text.col = "white", niceFacing = TRUE)}
   }
   
@@ -278,8 +293,6 @@ Figs6a_circos <- function(
 } 
 
 Figs6a_circos(DEG_overlaps = Figs6a_DEG_dir,  p_overlap_perm = p_overlap_perm,
+              highlight_genes = c(gene_list_phago, gene_list_Tgfbr2, "Apoe", "Sall1", "Cd33"),
               dir_cex = 0.77, y_dir = -0.3, 
-              p.perm_thres = 1, fig_num = "s9a")
-
-
-
+              p.perm_thres = 1, fig_num = "s6a")
