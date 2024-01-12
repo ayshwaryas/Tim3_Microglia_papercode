@@ -106,7 +106,7 @@ TGFBRII_FPKM <- read.csv("data/FPKM OB edits - with padj.csv") %>%
   scale_df() 
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663) -------------
-Clec7a_FPKM <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_FPKM <- read.csv("data/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id") %>% 
   select(-direction) %>%
   inner_join(Figs6b_DEG_dir_wide %>% select(gene_symbol, direction = `Clec7a+`), 

@@ -38,7 +38,7 @@ gene_list <- c("Axl", "Ly9", "Clec7a", "Cd63", "Cxcl16", "H2-K1",
 checkpoint_tgfb <- c("Havcr2", "Lag3", "Vsir", "Tgfb1", "Tgfbr1", "Tgfbr2", 
                          "Smad2", "Smad3", "Smad4")
 ### Top 100 Clec7a+ vs Clec7a- DEGs (up-regulated in Clec7a+: MGnD; down-regulated: Homeostatic)
-Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100)
 
