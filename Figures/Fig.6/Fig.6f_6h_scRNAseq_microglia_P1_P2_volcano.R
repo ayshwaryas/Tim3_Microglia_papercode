@@ -108,7 +108,7 @@ Clec7a_all <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC")
 
 ## (3) Tgfbr2cKO vs control ------
-TGFBRII_all <- read.csv("data/FPKM OB edits - with padj.csv")  %>%
+TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv")  %>%
   select(geneNames, contains("uG")) %>%
   filter(rowSums(.[, 2:7]) != 0) %>%
   mutate(padj = p.adjust(.$p.ttest.uG, method = "BH")) %>%

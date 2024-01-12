@@ -108,7 +108,7 @@ htmap_corr_alltim3 <- function(DEG_df = NULL, n_min, suffix = "", gene_list = NU
   
   
   ## (3) FPKM, Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171)
-  TGFBRII_FPKM <- read.csv("data/FPKM OB edits - with padj.csv") %>%
+  TGFBRII_FPKM <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
     dplyr::rename("gene_symbol" = "geneNames") %>% 
     filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, contains("WT.uG"), contains("KO.uG")) %>%

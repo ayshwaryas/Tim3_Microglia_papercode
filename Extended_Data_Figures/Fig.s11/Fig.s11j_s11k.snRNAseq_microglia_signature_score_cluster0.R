@@ -39,7 +39,7 @@ VlnPlot_custom(nucseq_harmony_MG_2_3_6_18, cluster = 0,
 
 # Extended Data Fig.11i: signature score of down in Tgfbr2cKO signature in cluster 0 ----------------
 # Down in Tgfbr2cKO signature top 100 genes down-regulated in Tgfbr2cKO vs control with log2 FC > 2 ()
-Top100DEG_DN_in_Tgfbr2KO <- read.csv("data/FPKM OB edits - with padj.csv") %>%
+Top100DEG_DN_in_Tgfbr2KO <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   select(geneNames, contains("uG")) %>%
   filter(log2fc.uG > 2) %>%
   arrange(padj.uG) %>%

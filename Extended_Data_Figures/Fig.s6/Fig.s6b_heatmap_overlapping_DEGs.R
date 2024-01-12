@@ -98,7 +98,7 @@ phago_TPM <- read.csv("data/expr_mat/tim3_Kimi_tpm_with_genesymbols_KK.csv") %>%
 
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171) -----------------
-TGFBRII_FPKM <- read.csv("data/FPKM OB edits - with padj.csv") %>%
+TGFBRII_FPKM <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   dplyr::rename("gene_symbol" = "geneNames") %>% 
   inner_join(Figs6b_DEG_dir_wide %>% select(gene_symbol, direction = Tgfbr2KO), 
              by = "gene_symbol") %>%
