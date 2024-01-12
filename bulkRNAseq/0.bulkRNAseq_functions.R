@@ -16,17 +16,11 @@ correct_gene_symbol <- function(df, var = "gene_symbol") {
 }
 
 ## Function for subsetting differential expression analysis results ------------
-res_order_slice <- function(res, flip = TRUE, slice = TRUE, thres = 0.1) {
+res_order_slice <- function(res, slice = TRUE, thres = 0.1) {
   res <- res %>%
     arrange(padj) %>%
     correct_gene_symbol()
-  
-  if(flip) {
-    res <- res %>% 
-      mutate(log2FoldChange = -log2FoldChange, 
-             direction = ifelse(direction == "up", "down", "up"))
-  }
-  
+
   if(slice) {
     res <- res %>% 
       group_by(direction) %>%
