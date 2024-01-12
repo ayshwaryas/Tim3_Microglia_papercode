@@ -14,7 +14,7 @@ pal_text <- c("darkgoldenrod3", "orangered", "#fa7573", "darkred",
 load("results/bulkRNAseq_results_ds2_1month.RData")
 tim3_all <- res_ordered %>% correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) 
-tim3_DEG <- res_order_slice(tim3_all, flip = FALSE, thres = 0.05)
+tim3_DEG <- res_order_slice(tim3_all, thres = 0.05)
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia ---------
 load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
@@ -22,7 +22,7 @@ phago_all <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
-phago_DEG <- res_order_slice(phago_all, flip = FALSE, thres = 0.05)
+phago_DEG <- res_order_slice(phago_all, thres = 0.05)
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171) -----------------
 TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
@@ -34,7 +34,7 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   select(gene_symbol, log2FoldChange, direction, padj)  %>%
   distinct(gene_symbol, direction, .keep_all = TRUE) 
 
-TGFBRII_DEG <- res_order_slice(TGFBRII_all, flip = FALSE, thres = 0.05)
+TGFBRII_DEG <- res_order_slice(TGFBRII_all, thres = 0.05)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663) -------------
 Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
@@ -42,7 +42,7 @@ Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) 
 
-Clec7a_DEG <- res_order_slice(Clec7a_all, flip = FALSE, thres = 0.05)
+Clec7a_DEG <- res_order_slice(Clec7a_all, thres = 0.05)
 
 ## Combining list of DEGs ------------------------------------------------------
 all_genes_ls <- list(`Havcr2cKO` = tim3_all$gene_symbol,

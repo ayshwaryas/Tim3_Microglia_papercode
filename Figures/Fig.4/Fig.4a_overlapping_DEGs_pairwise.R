@@ -247,8 +247,6 @@ p <- df %>%
 
 g <- strip_col(p, cols = pal)
 
-ggsave("figures/Fig.4a_perm_test_pairwise.png", g,
-       width = 7, height = 7, dpi = 400)
-ggsave("figures/Fig.4a_perm_test_pairwise.pdf", g,
-       width = 7, height = 7)
+ggsave("figures/Fig.4a_perm_test_pairwise.png", g, width = 7, height = 7, dpi = 400)
+ggsave("figures/Fig.4a_perm_test_pairwise.pdf", g,  width = 7, height = 7)
 
