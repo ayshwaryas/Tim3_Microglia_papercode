@@ -21,7 +21,7 @@ Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %
 
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox microglia
 load("results/bulkRNAseq_results_ds2_1month.RData")
-ds2_tim3_sig <- res_ordered %>% res_order_slice(flip = TRUE, thres = 0.1)
+ds2_tim3_sig <- res_ordered %>% res_order_slice(thres = 0.1)
 
 ## (2) Tgfbr2KO vs control
 TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
@@ -32,7 +32,7 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 
-TGFBRII_sig <- TGFBRII_all %>% res_order_slice(flip = FALSE, thres = 0.1)
+TGFBRII_sig <- TGFBRII_all %>% res_order_slice(thres = 0.1)
 
 
 # Premutation test on the overlapping genes ------------------------------------

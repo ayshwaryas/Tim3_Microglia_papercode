@@ -7,6 +7,9 @@ library(cowplot)
 library(limma)
 library(ggtext)
 
+# Load functions for the analysis
+source('bulkRNAseq/0.bulkRNAseq_functions.R')
+
 # Palette 
 pal <- c("darkgoldenrod1", "orangered", "#FB9A99", "darkred",
          brewer.pal(9, "Greens")[4], "forestgreen", "steelblue1", "steelblue4")
@@ -15,40 +18,6 @@ pal_text <- c("darkgoldenrod2", "orangered", "#FB9A99", "darkred",
 
 
 # Read data -----------------------------------------
-## correct gene symbol
-correct_gene_symbol <- function(df, var = "gene_symbol") {
-  df %>%
-    mutate(gene_symbol = case_when(
-      gene_symbol == "02-mars" ~ "Mars2",
-      str_detect(gene_symbol, "-Mar") ~ paste0("March", gene_symbol),
-      str_detect(gene_symbol, "-Sep") ~ paste0("Sept", gene_symbol),
-      TRUE ~ gene_symbol),
-      gene_symbol = str_remove(gene_symbol, "-Mar|-Sep"))
-}
-
-res_order_slice <- function(res, flip = TRUE, slice = TRUE, thres = 0.1) {
-  res <- res %>%
-    arrange(padj) %>%
-    correct_gene_symbol() %>%
-    mutate(direction = factor(direction, c("up", "down")))
-  
-  if(flip) {
-    res <- res %>% 
-      mutate(log2FoldChange = -log2FoldChange, 
-             direction = ifelse(direction == "up", "down", "up"))
-  }
-  
-  if(slice) {
-    res <- res %>% 
-      group_by(direction) %>%
-      dplyr::slice(1:max(300, sum(padj < thres, na.rm = TRUE))) %>%
-      ungroup
-  }
-  
-  res <- res %>% dplyr::select(gene_symbol, log2FoldChange, direction)
-    
-  return(res)
-}
 
 
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox
