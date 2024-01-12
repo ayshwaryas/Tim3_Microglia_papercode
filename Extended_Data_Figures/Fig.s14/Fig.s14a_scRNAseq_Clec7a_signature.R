@@ -9,7 +9,7 @@ load("R_objects/2023-10-03.scRNAseq_cortex_MG_updated_clusters.RData")
 ## Up in Clec7a+: MGnD signature
 ## Down in Clec7a+: Homeostasis signature
 
-Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100) %>%
   split(f = .$direction) %>%

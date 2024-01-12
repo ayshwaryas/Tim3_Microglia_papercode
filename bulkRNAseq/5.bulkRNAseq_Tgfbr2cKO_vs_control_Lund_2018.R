@@ -19,4 +19,4 @@ TGFBRII$padj.uG  <- p.adjust(TGFBRII$p.ttest.uG, method = "BH")
 TGFBRII$dir.uG  <- ifelse(TGFBRII$log2fc.uG > 0, "up", "down")
 
 
-#write.csv(TGFBRII, "results/bulkRNAseq_results_TGFBRII_Lund_2018.csv", row.names = FALSE)
+write.csv(TGFBRII, "results/bulkRNAseq_results_TGFBRII_Lund_2018.csv", row.names = FALSE)

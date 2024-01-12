@@ -63,7 +63,7 @@ save(GSE140510_MG_obj, file = "R_objects/GSE140510_ADmouse_7M_MG.RData")
 ## ==> Subcluster 1 is DAM/MGnD
 ## MGnD and Homeostasis signature (Top 100 DEGs up/down in Clec7a+ vs Clec7a-)
 
-Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100) %>%
   split(f = .$direction) %>%

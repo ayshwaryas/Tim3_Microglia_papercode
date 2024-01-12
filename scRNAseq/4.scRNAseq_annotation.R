@@ -10,7 +10,7 @@ scRNAseq_cortex_MG <- SetIdent(scRNAseq_cortex_MG, value = "new_clusters")
 # 2. Identify MGnD, Homeostasis and Cycling clusters -------------------------------
 
 ## (1) Identify Homeostasis/MGnD clusters using Clec7a+ signatures (Top 100 DEGs of Clec7a+ vs Clec7a-) --------------
-Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100) %>%
   split(f = .$direction) %>%

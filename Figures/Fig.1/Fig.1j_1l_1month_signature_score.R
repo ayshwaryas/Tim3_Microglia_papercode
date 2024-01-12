@@ -18,7 +18,7 @@ metadata <- read.csv("data/expr_mat/Danyang_Metadata.csv")
 
 ## Signatures ----------
 ### MGnD & Homeostasic microglia signature (Top 100 DEGs, Clec7a+ vs Clec7a-)
-Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100) %>%
   select(tracking_id, direction)

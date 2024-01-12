@@ -46,7 +46,7 @@ TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
 TGFBRII_DEG <- TGFBRII_all %>% res_order_slice(thres = 0.1)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663)
-Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_all <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)

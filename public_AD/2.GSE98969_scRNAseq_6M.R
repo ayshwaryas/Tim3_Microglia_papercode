@@ -48,7 +48,7 @@ dotplot_markers(GSE98969_obj, width = 5, height = 10, folder = "GSE98969")
 ## ==> Subcluster 2 and 3 are DAM/MGnD
 ## MGnD and Homeostasis signature (Top 100 DEGs up/down in Clec7a+ vs Clec7a-)
 
-Clec7a_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   arrange(padj) %>% group_by(direction) %>% 
   dplyr::slice(1:100) %>%
   split(f = .$direction) %>%

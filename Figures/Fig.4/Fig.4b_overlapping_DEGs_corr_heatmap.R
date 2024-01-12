@@ -116,7 +116,7 @@ htmap_corr_alltim3 <- function(DEG_df = NULL, n_min, suffix = "", gene_list = NU
     dplyr::rename("gene_symbol" = "V1")
   
   ## (4) FPKM, Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663)
-  Clec7a_FPKM <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+  Clec7a_FPKM <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
     dplyr::rename("gene_symbol" = "tracking_id") %>% 
     filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, contains("neg"), contains("pos")) %>%

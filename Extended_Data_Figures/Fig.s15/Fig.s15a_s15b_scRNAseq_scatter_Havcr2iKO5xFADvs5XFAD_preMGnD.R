@@ -9,7 +9,7 @@ library(ggtext)
 load("results/20231005_scRNAseq_cortex_MG_updated_clusters_DGE_wilcox_min.pct1_named.RData")
 
 ## Clec7a+ vs Clec7a-
-ADpos_vs_neg <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_all <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC")  %>%
   select(gene_symbol, log2FoldChange, padj)
 
@@ -25,10 +25,10 @@ Homeostatic <- c("Fcrls", "Cst3", "P2ry12", "Tmem119", "Serinc3", "Siglech", "He
 
 ## Fig.s15a: HMG_0 ------------------------------------
 AllGenes_joined_HMG_0 <- scRNAseq_cortex_MG_DGE_wilcox_min.pct1$HMG_0 %>%  
-  inner_join(ADpos_vs_neg, by = c("gene" = "gene_symbol"))
+  inner_join(Clec7a_all, by = c("gene" = "gene_symbol"))
 DEG_joined_HMG_0 <- scRNAseq_cortex_MG_DGE_wilcox_min.pct1$HMG_0 %>%  
   filter(FDR < 0.05) %>%
-  inner_join(subset(ADpos_vs_neg, padj < 0.05), by = c("gene" = "gene_symbol"))  %>%
+  inner_join(subset(Clec7a_all, padj < 0.05), by = c("gene" = "gene_symbol"))  %>%
   mutate(nudge_x = ifelse(log2FoldChange < 0, 0.2, -0.2)) %>%
   mutate(col = case_when(gene %in% MGnD ~ "brown2",
                          gene %in% Homeostatic ~ "dodgerblue3",
@@ -85,10 +85,10 @@ ggsave("figures/cortex_updated_clusters/scatter_Clec7a_vs_Tim3icKO_HMG_0.pdf", w
 
 ## Fig.s15b: DAM_0 ------------------------------------
 AllGenes_joined_DAM_0 <- scRNAseq_cortex_MG_DGE_wilcox_min.pct1$DAM_0 %>%  
-  inner_join(ADpos_vs_neg, by = c("gene" = "gene_symbol"))
+  inner_join(Clec7a_all, by = c("gene" = "gene_symbol"))
 DEG_joined_DAM_0 <- scRNAseq_cortex_MG_DGE_wilcox_min.pct1$DAM_0 %>%  
   filter(FDR < 0.05) %>%
-  inner_join(subset(ADpos_vs_neg, padj < 0.05), by = c("gene" = "gene_symbol"))  %>%
+  inner_join(subset(Clec7a_all, padj < 0.05), by = c("gene" = "gene_symbol"))  %>%
   mutate(nudge_x = ifelse(log2FoldChange > 0, 0.2, -0.2))  %>%
   mutate(col = case_when(gene %in% MGnD ~ "brown2",
                          gene %in% Homeostatic ~ "dodgerblue3",

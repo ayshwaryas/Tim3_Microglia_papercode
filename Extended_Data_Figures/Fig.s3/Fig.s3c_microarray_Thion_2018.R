@@ -43,7 +43,7 @@ Homeostasis_sig <- c("Sall1", "P2ry12", "Tmem119", "Hexb", "Fcrls", "Siglech")
 
 ## Top 10 Clec7a+ vs Clec7a- DEGs
 ## (up-regulated in Clec7a+: MGnD; down-regulated in Clec7a+: Homeostatic)
-AD_pos_vs_neg_sig <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv")
+AD_pos_vs_neg_sig <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv")
 Clec7a_top10 <- AD_pos_vs_neg_sig %>%
   arrange(padj) %>%
   filter(tracking_id %in% microarray$Symbol) %>%

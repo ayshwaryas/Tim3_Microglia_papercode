@@ -104,7 +104,7 @@ phago_all <- results_batch1_ordered$`phago+ vs phago- in control` %>%
   dplyr::rename("gene_symbol" = "gene_name") 
 
 ## (2) Clec7a+ vs Clec7a- ------
-Clec7a_all <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
+Clec7a_all <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC")
 
 ## (3) Tgfbr2cKO vs control ------
