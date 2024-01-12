@@ -33,16 +33,17 @@ load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
 ## (1) 3-month-old mice, control phagocyosing vs control non-phagocytosing microglia
 ds1_batch1_tim3_sig <- results_batch1$Tim3cKOvscontrol_phagoneg %>%
   dplyr::rename("gene_symbol" = "gene_name") %>% 
-  res_order_slice(flip = FALSE, thres = 0.1) 
+  res_order_slice(thres = 0.1) 
 
 ## (2) 3-month-old mice, Havcr2cKO non-phagocytosing vs control non-phagocytosing microglia
 ds1_batch1_phago_sig <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>% 
-  res_order_slice(flip = FALSE, thres = 0.1) 
+  res_order_slice(thres = 0.1) 
 
 
 # Premutation test on the overlapping genes -----------------------------------
-## Gene sets G1 and G2 have n_obs overlapping genes
+## Gene sets G1 and G2 have g1 and g2 DEGs, respectively
+## Denote the actual number of overlaps between g1 and g2 as n_obs
 ## The permutation test p-values were computed by repeating the following steps 10,000 times
 ## (1) Randomly select n1 genes from G1, n2 genes from G2 
 ## (2) Count the number of overlap between the two sets of selected genes, denote as n_i, i=1, 2, ..., 10,000.

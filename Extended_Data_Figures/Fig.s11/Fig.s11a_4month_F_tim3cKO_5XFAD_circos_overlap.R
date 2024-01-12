@@ -25,12 +25,12 @@ load("results/bulkRNAseq_results_ds3_4month.RData")
 ## (1) 4-month-old female mice, Havcr2cKO vs control -------
 ds3_tim3_F_DEGs <- results_ds3_F$Tim3cKO_vs_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
-  res_order_slice(flip = FALSE, thres = 0.1)
+  res_order_slice(thres = 0.1)
 
 ## (2) 4-month-old female mice, 5XFAD vs control -------
 ds3_5XFAD_F_DEGs <- results_ds3_F$`5XFAD_vs_control` %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
-  res_order_slice(flip = FALSE, thres = 0.1)
+  res_order_slice(thres = 0.1)
 
 
 # Premutation test on the overlapping genes -----------------------------------

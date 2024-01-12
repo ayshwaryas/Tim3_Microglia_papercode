@@ -14,7 +14,7 @@ pal_text <- c(brewer.pal(9, "Greens")[6], "forestgreen", "steelblue2", "steelblu
 load("results/bulkRNAseq_results_ds2_1month.RData")
 tim3_DEG <- res_ordered$`1M` %>% correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) %>% 
-  res_order_slice
+  res_order_slice(thres = 0.1)
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia ---------
 load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
@@ -22,7 +22,7 @@ phago_DEG <- results_batch1$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) %>% 
-  res_order_slice(flip = FALSE)
+  res_order_slice(thres = 0.1)
 
 ## (3) Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171) -----------------
 TGFBRII_DEG <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
@@ -32,7 +32,7 @@ TGFBRII_DEG <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
   filter(rowSums(.[, 2:7]) != 0) %>%
   correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj) %>%
-  res_order_slice(flip = FALSE, thres = 0.1) %>%
+  res_order_slice(thres = 0.1) %>%
   distinct(gene_symbol, direction, .keep_all = TRUE)
 
 ## (4) Clec7a+ vs Clec7a- (Krasemann et al., 2017, PMID: 28930663) -------------
@@ -40,7 +40,7 @@ Clec7a_DEG <- read.csv("data/Oleg_Immunity_2017_DEG_ADpos_vs_neg_all.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj) %>% 
-  res_order_slice(flip = FALSE)
+  res_order_slice(thres = 0.1)
 
 
 
