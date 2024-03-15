@@ -60,7 +60,7 @@ scrna_process <- function(seurat_obj, npc, res, normalize = TRUE,
 
 # Signature list ---------------------------------------------
 ## * Microglia: Known microglial genes, Van Hove et al. 2019, Monaghan et al. 2019, Zeisel et al. 2018
-## * Border-associated microglia (BAM): Van Hove et al. 2019
+## * Border-associated macrophage (BAM): Van Hove et al. 2019
 ## * Perivascular macrophages (PVMs): Zeisel et al. 2018, Yang et al. 2019
 ## * Monocyte/monocyte-derived antigen-presenting cells: Monaghan et al. 2019
 ## * Infiltrating monocyte: https://www.biorxiv.org/content/10.1101/2021.05.30.446342v1
@@ -105,7 +105,7 @@ add_p_value <- function(p, var, y_pos = c(0.78, 0.9, 0.68), ylim = 0,
   stat.test <- p$data %>% 
     filter(str_detect(split, "5XFAD")) %>%
     mutate(split = factor(split, levs)) %>%
-    wilcox_test(as.formula(paste0(var, "1 ~ split"))) %>%
+    t_test(as.formula(paste0(var, "1 ~ split"))) %>%
     add_xy_position() %>%
     add_significance("p") %>%
     mutate(p.signif = ifelse(p >= 0.05, paste("p =", round(p, 3)), p.signif))  %>%

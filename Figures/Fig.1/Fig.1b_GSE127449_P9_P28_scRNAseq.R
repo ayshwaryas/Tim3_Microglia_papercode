@@ -35,7 +35,7 @@ pal_c <- c(colorRampPalette(c("#011233", "blue4", dichromat::colorschemes$DarkRe
            colorRampPalette(brewer.pal(9, "YlOrRd")[1:4])(5),
            colorRampPalette(brewer.pal(9, "YlOrRd")[-(1:4)])(6))
 
-## Border-associated microglia (BAM) signature
+## Border-associated macrophage (BAM) signature (Van Hove et al. 2019)
 BAM_sig <- c("C3ar1", "Nrp1", "Cd63", "Ms4a7", "Adrb2", "Ms4a6b", "Ms4a6c",
              "Ifnar1", "Ptger4", "Lifr", "Clec12a", "Zfp36l2", "Ehd4", "Zfp36l1",
              "Myo5a", "Swap70", "Rasa4", "B3galnt1", "St8sia4", "H1f0", "Sesn1", 

@@ -63,7 +63,7 @@ scrna_process <- function(seurat_obj, npc, res, normalize = TRUE,
 
 # Signature list ---------------------------------------------------------------
 ## * Microglia: Known microglial genes, Van Hove et al. 2019, Monaghan et al. 2019, Zeisel et al. 2018
-## * Border-associated microglia (BAM): Van Hove et al. 2019
+## * Border-associated macrophage (BAM): Van Hove et al. 2019
 ## * Perivascular macrophages (PVMs): Zeisel et al. 2018, Yang et al. 2019
 ## * Monocyte/monocyte-derived antigen-presenting cells: Monaghan et al. 2019
 ## * Infiltrating monocyte: https://www.biorxiv.org/content/10.1101/2021.05.30.446342v1
