@@ -122,3 +122,12 @@ ggsave("figures/Fig.1h_1l_1month/Fig.1j_1l_1M_signature_boxplot.png",
 ggsave("figures/Fig.1h_1l_1month/Fig.1j_1l_1M_signature_boxplot.pdf",
        sig_score_boxplots, width = 5.5, height = 3)
 
+MGnD_score$score_df %>%
+  select(Sample_ID, genotype, sex, score) %>% 
+  write.csv("Source_Data/Fig.1j_1M_signature_boxplot_MGnD.csv")
+Homeostasis_score$score_df %>%
+  select(Sample_ID, genotype, sex, score) %>% 
+  write.csv("Source_Data/Fig.1k_1M_signature_boxplot_Homeostatic.csv")
+KEGG_phagosome_score$score_df %>%
+  select(Sample_ID, genotype, sex, score) %>% 
+  write.csv("Source_Data/Fig.1l_1M_signature_boxplot_KEGG_phagosome.csv")

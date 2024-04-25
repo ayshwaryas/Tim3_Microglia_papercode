@@ -105,8 +105,10 @@ p <- res_ordered %>%
                                       margin = margin(5, 5, -10, 5)),
         plot.subtitle = element_markdown(face = "bold", color = "#194fe3", size = 16)) 
 
-filename <- "figures/Fig.1h_1l_1month/Fig.1i_1M_volcano_DEG_p.0.05"
-ggsave(paste0(filename, ".png"), p, width = 7.5, height = 6.5, dpi = 500)
-ggsave(paste0(filename, ".pdf"), p, width = 7.5, height = 6.5)
+filename <- "Fig.1i_1M_volcano_DEG_p.0.05"
+ggsave(paste0("figures/", filename, ".png"), p, width = 7.5, height = 6.5, dpi = 500)
+ggsave(paste0("figures/", filename, ".pdf"), p, width = 7.5, height = 6.5)
+
+write.table(res_ordered, paste0("Source_Data/", filename, ".tsv"), row.names = FALSE, sep = "\t")
 
 

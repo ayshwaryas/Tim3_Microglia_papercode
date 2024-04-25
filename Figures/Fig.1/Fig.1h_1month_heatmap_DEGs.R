@@ -57,7 +57,7 @@ heatmap_meta <- metadata %>%
 htmap_df <- tpm %>% 
   dplyr::select(gene_symbol, heatmap_meta$Sample_ID) %>%
   inner_join(DEG_1mo, by = "gene_symbol") %>%
-  mutate(fontface = ifelse(gene_symbol %in% gene_list, 4, 3)) %>%
+  mutate(fontface = ifelse(gene_symbol %in% htmap_highlight_genes, 4, 3)) %>%
   mutate(direction = factor(direction, c("up", "down"))) %>%
   mutate(col = ifelse(direction == "up", "red", "royalblue3"))
 
@@ -70,13 +70,13 @@ htmap_col <- circlize::colorRamp2(
 
 label_df <- htmap_df %>%
   mutate(index = 1:n()) %>%
-  filter(gene_symbol %in% gene_list)  
+  filter(gene_symbol %in% htmap_highlight_genes)  
 
 annot_row <- rowAnnotation(
   link = anno_mark(
     at = label_df$index,
     labels = label_df$gene_symbol,
-    labels_gp = gpar(fontsize = 10, col = label_df$col, fontface = label_df$fontface)),
+    labels_gp = gpar(fontsize = 10, fontface = 3)),
   annotation_legend_param = list(title_gp = gpar(fontsize = 10.5, fontface = "bold")))
 
 annot_col <- columnAnnotation(
@@ -115,15 +115,25 @@ p <- htmap_df_scaled %>%
     row_gap = unit(1.5, "mm"),
     column_gap = unit(1.5, "mm")) 
 
-filename <- "figures/Fig.1h_1l_1month/Fig.1h_htmap_1M_DEGs_padj.05_KEGG_phago"
+filename <- "Fig.1h_htmap_1M_DEGs_padj.05_KEGG_phago"
 
-png(paste0(filename, ".png"), width = 6, height = 7, res = 400, units = "in")
+png(paste0("figures/", filename, ".png"), width = 6, height = 7, res = 400, units = "in")
 draw(p, heatmap_legend_side = "right", annotation_legend_side = "right",
      legend_grouping = "original", merge_legends = TRUE)
 dev.off()
 
-pdf(paste0(filename, ".pdf"), width = 6, height = 7)
+pdf(paste0("figures/", filename, ".pdf"), width = 6, height = 7)
 draw(p, heatmap_legend_side = "right", annotation_legend_side = "right",
      legend_grouping = "original", merge_legends = TRUE)
 dev.off()
 
+# Save source data
+p <- draw(p)
+row_order <- unlist(row_order(p))
+htmap_df %>%
+  mutate(gene_symbol = factor(gene_symbol, htmap_df$gene_symbol[row_order])) %>%
+  arrange(gene_symbol) %>%
+  select(gene_symbol, heatmap_meta$Sample_ID) %>%
+  column_to_rownames("gene_symbol") %>%
+  t() %>% scale() %>% t() %>%
+  write.csv(paste0("Source_Data/", filename, ".csv"))
