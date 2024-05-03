@@ -54,10 +54,13 @@ overlap_ds2_tim3_Tgfbr2_sig <- perm_test(
   n_perm = 10000
 )
 
+write.csv(overlap_ds2_tim3_Tgfbr2_sig$p_overlap_perm,
+          "Source_Data/Fig.2a_perm_test.csv")
+
 # Fig. 2a: Circos plot comparison of up- and down-regulated DEGs ---------------
 ## Comparison 1: Havcr2cKO vs. Havcr2 flox/flox from 1-month-old mice  
 ## Comparison 2: Tgfbr2cKO vs. control 
-circo_overlap(res1 = ds2_tim3_sig, res2 = TGFBRII_sig,
+circo_overlap(res1 = ds2_tim3_sig, res2 = TGFBRII_sig, Fig_num = "2a",
               name1 = "Havcr2cKO", name2 = "Tgfbr2cKO", 
               suffix = "ds2_tim3_Tgfbr2KO_sub", size = 7.5, gene_width = 25,
               num_cex = 0.9, gene_cex = 0.75, gene_width_short = 3, 

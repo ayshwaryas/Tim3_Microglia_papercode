@@ -54,3 +54,8 @@ ggsave(paste0("figures/Fig.6b_Hallmark_TGFB_density.png"),
        g, width = 5, height = 2.3, dpi = 400)
 ggsave(paste0("figures/Fig.6b_Hallmark_TGFB_density.pdf"), 
        g, width = 5, height = 2.3)
+
+TGFB_sig_score_df %>%
+  mutate(Genotype = ifelse(Genotype == "5XFAD", "5xFAD", "Havcr2icKO:5xFAD")) %>%
+  select(Genotype, Hallmark_TGFB1) %>%
+  write.csv("Source_Data/Fig.6b_Hallmark_TGFB_density.csv", row.names = FALSE)

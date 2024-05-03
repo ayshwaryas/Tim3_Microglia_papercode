@@ -22,7 +22,7 @@ pal_text <- c("darkgoldenrod2", "orangered", "#FB9A99", "darkred",
 
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox
 load("results/bulkRNAseq_results_ds2_1month.RData")
-tim3_all <- res_ordered$`1M` %>% correct_gene_symbol()  %>%
+tim3_all <- res_ordered %>% correct_gene_symbol()  %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 tim3_DEG <- tim3_all %>% res_order_slice(thres = 0.1)
 
@@ -158,6 +158,10 @@ perm_test_pairwise_n_df <- lapply(perm_test_pairwise, "[[", "n_overlap") %>%
 ## Permutation test p-value of each pair of the comparisons
 perm_test_pairwise_p_df <- lapply(perm_test_pairwise, "[[", "p_overlap_perm") %>%
   do.call(rbind, .)
+
+perm_test_pairwise_p_df %>%
+  full_join(perm_test_pairwise_n_df, by = c("direction.set1", "direction.set2")) %>%
+  write.csv("Source_Data/Fig.4a_perm_test.csv")
 
 perm_test_pairwise_df <- perm_test_pairwise_p_df %>%
   full_join(perm_test_pairwise_n_df, by = c("direction.set1", "direction.set2")) %>%

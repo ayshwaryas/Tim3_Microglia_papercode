@@ -5,13 +5,13 @@ source('bulkRNAseq/0.bulkRNAseq_functions.R')
 
 ## (1) 1-month-old mice, Havcr2cKO vs Havcr2flox/flox
 load("results/bulkRNAseq_results_ds2_1month.RData")
-tim3_all <- res_ordered$`1M` %>% correct_gene_symbol() %>%
+tim3_all <- res_unshrunken_ordered %>% correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
 tim3_DEG <- tim3_all %>% res_order_slice(thres = 0.1)
 
 ## (2) 3-month-old mice, phagocytosing control vs non-phagocytosing control microglia
 load("results/bulkRNAseq_results_ds1_batch1_3month.RData")
-phago_all <- results_batch1$phagoposvsneg_control %>%
+phago_all <- results_batch1_unshrunken$phagoposvsneg_control %>%
   dplyr::rename("gene_symbol" = "gene_name") %>%
   correct_gene_symbol() %>%
   select(gene_symbol, log2FoldChange, direction, padj)
@@ -99,7 +99,7 @@ htmap_corr_alltim3 <- function(DEG_df = NULL, n_min, suffix = "", gene_list = NU
   
   ## TPM
   phago_TPM <- read.csv("data/expr_mat/tim3_Kimi_tpm_with_genesymbols_KK.csv") %>%
-    filter(gene_id %in% results_batch1$res_phagoposvsneg_control$gene_id) %>%
+    filter(gene_id %in% results_batch1_unshrunken$phagoposvsneg_control$gene_id) %>%
     select(gene_symbol = gene_name, phago_meta$Sample_ID) %>%
     filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, everything())  %>%
@@ -107,9 +107,8 @@ htmap_corr_alltim3 <- function(DEG_df = NULL, n_min, suffix = "", gene_list = NU
     dplyr::rename("gene_symbol" = "V1")
   
   
-  ## (3) FPKM, Tgfbr2cKo vs control (Lund et al. 2018, PMID: 29662171)
+  ## (3) FPKM, Tgfbr2cKO vs control (Lund et al. 2018, PMID: 29662171)
   TGFBRII_FPKM <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv") %>%
-    dplyr::rename("gene_symbol" = "geneNames") %>% 
     filter(gene_symbol %in% DEG_df$gene_symbol) %>%
     select(gene_symbol, contains("WT.uG"), contains("KO.uG")) %>%
     scale_df(exclude_col = 1) %>%
@@ -226,7 +225,7 @@ htmap_corr_alltim3 <- function(DEG_df = NULL, n_min, suffix = "", gene_list = NU
 
 }
 
-all_tim3KO_and_atleast3 <- Fig4b_DEG_ls %>%
+all_tim3KO_and_atleast3 <- Fig4b_DEG_ls[-1] %>%
   data.table::rbindlist(idcol = "dataset") %>%
   arrange(dataset, direction) %>%
   group_by(gene_symbol) %>% mutate(n = n()) %>%
@@ -236,6 +235,8 @@ all_tim3KO_and_atleast3 <- Fig4b_DEG_ls %>%
   distinct()
 
 htmap_corr_all_tim3_order <- htmap_corr_alltim3(
-  DEG_df = all_tim3KO_and_atleast3, suffix = "_and_atleast3",
+  DEG_df = all_tim3KO_and_atleast3, suffix = "and_atleast3",
   gene_list = c(gene_list_Tgfbr2, gene_list_phago, "Sall1", "Apoe", "Cd33"))
 
+write.table(htmap_corr_all_tim3_order, 
+            "Source_Data/Fig.4b_corr_mat.tsv", sep = "\t", row.names = FALSE)

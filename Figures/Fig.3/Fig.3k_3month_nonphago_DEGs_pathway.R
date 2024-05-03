@@ -112,5 +112,8 @@ plotPathway <- function(enr_res, db = "MSigDB_Hallmark_2020", width = 5, legend_
 
 
 plotPathway(enriched_tim3_nonphago_sig.1_no_ribo , db = db,
-            title = "tim3_nonphago_sig_padj.1_no_ribo")
+            title = "tim3_nonphago_sig_padj.1_no_ribo", fig_num = "3k")
 
+subset(enriched_tim3_nonphago_sig.1_no_ribo, Adjusted.P.value < 0.1) %>%
+  mutate(Overlap = paste0("(", Overlap, ")")) %>%
+  write.csv("Fig.3k_enrichr_tim3_nonphago_sig_padj.1_no_ribo.csv")

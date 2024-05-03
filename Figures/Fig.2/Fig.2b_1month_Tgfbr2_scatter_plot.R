@@ -17,7 +17,7 @@ metadata <- read.csv("data/expr_mat/Danyang_Metadata.csv")
 
 ### DESeq2 results ------------
 load("results/bulkRNAseq_results_ds2_1month.RData")
-tim3_all <- res_ordered %>%
+tim3_all <- res_unshrunken_ordered %>%
   dplyr::select(gene_symbol, log2FoldChange, direction, padj)
 
 ## Tgfbr2cKO vs control RPKM -------------
@@ -151,10 +151,11 @@ overlap_scatter <- function(RES, DDS, suffix, lim_x = NA, lim_y = 8,
           axis.title.x = element_markdown(hjust = 0.5, size = 14),
           axis.title.y = element_markdown(hjust = 0.5, size = 14)) 
   
-  filename <- paste0("figures/Fig.2b_1month_scatter/Fig.2b_overlap_scatter_TGFBRIIKO_", suffix)
-  ggsave(paste0(filename, ".png"), p, width = width, height = height, dpi = 400)
-  ggsave(paste0(filename, ".pdf"), p, width = width, height = height)
+  filename <- paste0("Fig.2b_overlap_scatter_TGFBRIIKO_", suffix)
+  ggsave(paste0("figures/", filename, ".png"), p, width = width, height = height, dpi = 400)
+  ggsave(paste0("figures/", filename, ".pdf"), p, width = width, height = height)
   
+  write.csv(overlap_all, paste0("Source_Data/", filename, ".csv"))
   return(list(overlap_atleast300 = overlap_atleast300, p = p,
               capped_genes = subset(overlap_all, abs(log2FoldChange.Tim3KO) > lim_x)))
 }

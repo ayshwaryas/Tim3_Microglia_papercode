@@ -53,7 +53,7 @@
     (2) *Havcr2*<sup>cKO</sup> phagocytosing versus control phagocytosing microglia
     (3) *Havcr2*<sup>cKO</sup> non-phagocytosing versus control non-phagocytosing microglia
 * **Fig. 3k** (`Fig.3k_3month_nonphago_DEGs_pathway.R`):  Pathway analysis of DEGs in non-phagocytosing microglia from 3-month-old *Havcr2*<sup>cKO</sup> mice compared to control mice. Disease pathways (pathways under section 6.1-6.10 from https://www.kegg.jp/kegg/pathway.html) and ribosomal genes were excluded from the analysis.
-* **Fig. 3i** (`Fig.3i_3month_nonphago_vs_Tgfbr2_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 3-month-old mice in below comparisons 
+* **Fig. 3l** (`Fig.3l_3month_nonphago_vs_Tgfbr2_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 3-month-old mice in below comparisons 
     (1) <i>Havcr2</i><sup>cKO</sup> non-phagocytosing vs. control non-phagocytosing
     (2) control phagocytosing vs. control non-phagocytosing microglia
 

@@ -102,7 +102,7 @@ perm_test <- function(set1, set2, all_genes1, all_genes2, name1, name2,
 
 circo_overlap <- function(res1, res2, name1, name2, niceFacing = TRUE, 
                           circo_pal = NULL, gene_width_short = 2, nudge_x = rep(0, 4),
-                          suffix = "", size, gene_width = 10, gene_cex = 0.6, num_cex = 0.75, p_cex = 0.85,
+                          suffix = "", Fig_num = "", size, gene_width = 10, gene_cex = 0.6, num_cex = 0.75, p_cex = 0.85,
                           degree = -250, big_gap = 5, small_gap = 1, gene_list = "", step = 150,
                           phago_sig = NULL, show_selected_genes = FALSE, break_p_label = FALSE,
                           overlap_perm_test = NULL, conflict_facing = "outside") {
@@ -163,7 +163,7 @@ circo_overlap <- function(res1, res2, name1, name2, niceFacing = TRUE,
   
   par(bg="white")
   
-  dev.copy(pdf, str_replace_all(paste0("figures/circos/circos_", name1, "_", name2, "_", suffix, ".pdf"),
+  dev.copy(pdf, str_replace_all(paste0("figures/circos/Fig.", Fig_num, "circos_", name1, "_", name2, "_", suffix, ".pdf"),
                                 "\\\n| ", "_") %>% str_replace_all("_+", "_") %>% str_remove_all(","), 
            height = size, width = size)
   
@@ -253,5 +253,8 @@ circo_overlap <- function(res1, res2, name1, name2, niceFacing = TRUE,
   }
   
   dev.off()
+  overlap_genes %>% select(-value2) %>%
+    pivot_wider(names_from = "from", values_from = "value") %>%
+    write.csv(paste0("Source_Data/Fig.", Fig_num, "_circos_", name1, "_", name2, "_", suffix, ".csv"), row.names = FALSE)
 }
 

@@ -26,8 +26,16 @@ dds <- dds[keep,]
 
 ## Get results table
 res <- lfcShrink(dds, coef = "genotype_Tim3_cKO_vs_Tim3_flox", type="apeglm")
+res_unshrunken <- results(dds, contrast = c("genotype", "Tim3_cKO", "Tim3_flox"))
 
 ## Order results
+res_unshrunken_ordered  <- res_unshrunken %>% as.data.frame() %>%
+  rownames_to_column("gene_symbol") %>%
+  select(gene_symbol, everything()) %>%
+  mutate(direction = ifelse(log2FoldChange > 0, "up", "down")) %>%
+  mutate(direction = factor(direction, c("up", "down"))) %>%
+  arrange(direction, padj) 
+
 res_ordered  <- res %>% as.data.frame() %>%
   rownames_to_column("gene_symbol") %>%
   select(gene_symbol, everything()) %>%
@@ -35,5 +43,5 @@ res_ordered  <- res %>% as.data.frame() %>%
   mutate(direction = factor(direction, c("up", "down"))) %>%
   arrange(direction, padj) 
 
-save(res_ordered, file = "results/bulkRNAseq_results_ds2_1month.RData")
+save(dds, res_ordered, res_unshrunken_ordered, file = "results/bulkRNAseq_results_ds2_1month.RData")
 

@@ -57,3 +57,13 @@ sub2 <- nucseq_harmony_MG_2_3_6_18@meta.data %>%
   column_to_rownames("Cells")
 nucseq_harmony_MG_2_3_6_18 <- AddMetaData(nucseq_harmony_MG_2_3_6_18, sub2)
 
+# DEGs comparing P1 (Tim3_cKO.5XFAD_Top) and P2 (Tim3_cKO.5XFAD_Btm) -----------------------------------------------------
+DAM_Tim3cKO.5XFAD <- subset(nucseq_harmony_MG_2_3_6_18, seurat_clusters == 2 & Genotype == "Tim3_cKO.5XFAD")
+
+DEG_bimod_TGFB_harmony_2_3_6_18 <- FindMarkers(
+  DAM_Tim3cKO.5XFAD, ident.1 = "Tim3_cKO.5XFAD_Top", ident.2 = "Tim3_cKO.5XFAD_Btm",
+  min.pct = 0.1, logfc.threshold = 0, test.use = "wilcox", group.by = "bimod_genotype") %>%
+  rownames_to_column("gene") %>%
+  mutate(direction = ifelse(avg_log2FC > 0, 'up', 'down'))  
+
+save(DEG_bimod_TGFB_harmony_2_3_6_18, file = "results/DEG_bimod_TGFB_harmony_2_3_6_18.RData")

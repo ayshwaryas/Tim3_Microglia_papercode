@@ -78,8 +78,27 @@ res_phagoposvsneg_Tim3.cKO <- lfcShrink(dds_phagoposvsneg_Tim3.cKO, coef="cell_t
 res_Tim3cKOvscontrol_phagopos <- lfcShrink(dds_Tim3cKOvscontrol_phagopos, coef="genotype_Tim3.cKO_vs_control", type="apeglm")
 res_Tim3cKOvscontrol_phagoneg <- lfcShrink(dds_Tim3cKOvscontrol_phagoneg, coef="genotype_Tim3.cKO_vs_control", type="apeglm")
 
+res_phagoposvsneg_control_unshrunken  <- results(dds_phagoposvsneg_control, contrast = c("cell_type", "phagopos", "phagoneg"))
+res_phagoposvsneg_Tim3.cKO_unshrunken <- results(dds_phagoposvsneg_Tim3.cKO, contrast = c("cell_type", "phagopos", "phagoneg"))
+res_Tim3cKOvscontrol_phagopos_unshrunken <- results(dds_Tim3cKOvscontrol_phagopos, contrast = c("genotype", "Tim3.cKO", "control"))
+res_Tim3cKOvscontrol_phagoneg_unshrunken <- results(dds_Tim3cKOvscontrol_phagoneg, contrast = c("genotype", "Tim3.cKO", "control"))
 
 ## Order results
+results_batch1_unshrunken <- list(
+  phagoposvsneg_control  = res_phagoposvsneg_control_unshrunken,
+  phagoposvsneg_Tim3.cKO = res_phagoposvsneg_Tim3.cKO_unshrunken,
+  Tim3cKOvscontrol_phagopos = res_Tim3cKOvscontrol_phagopos_unshrunken,
+  Tim3cKOvscontrol_phagoneg = res_Tim3cKOvscontrol_phagoneg_unshrunken) %>%
+  lapply(function(res) {
+    as.data.frame(res) %>%
+      tibble::rownames_to_column("gene_id") %>%
+      left_join(Tim3KO_cnts[, c("gene_id", "gene_name")], by = "gene_id") %>%
+      select(gene_id, gene_name, everything()) %>%
+      arrange(padj)  %>%
+      mutate(direction = ifelse(log2FoldChange > 0, "up", "down")) %>%
+      mutate(direction = factor(direction, levels = c("up", "down")))
+  })
+
 results_batch1 <- list(
   phagoposvsneg_control  = res_phagoposvsneg_control,
   phagoposvsneg_Tim3.cKO = res_phagoposvsneg_Tim3.cKO,
@@ -95,4 +114,4 @@ results_batch1 <- list(
       mutate(direction = factor(direction, levels = c("up", "down")))
   })
 
-save(results_batch1, file = "results/bulkRNAseq_results_ds1_batch1_3month.RData")
+save(results_batch1, results_batch1_unshrunken, file = "results/bulkRNAseq_results_ds1_batch1_3month.RData")

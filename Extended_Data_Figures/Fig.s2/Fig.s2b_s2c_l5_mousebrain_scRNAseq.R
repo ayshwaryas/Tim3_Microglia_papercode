@@ -7,6 +7,9 @@ library(scales)
 library(parallel)
 library(ggtext)
 
+load("data/mouse_brain/l5_seurat.RData")
+load("data/mouse_brain/l5_PVM_MGL.RData")
+
 ## Color Palette
 pal <- c(brewer.pal(9, "Reds")[c(3, 6, 9)], brewer.pal(6, "Blues")[c(4, 6)], 
          brewer.pal(8, "Pastel2"), brewer.pal(9, "Pastel1")) 
@@ -62,6 +65,7 @@ l5.seurat <- subset(l5.seurat, subset = nCount_RNA>= 1000 & nFeature_RNA>= 200 &
 
 ## Normalization, scaling, dimensional reduction and clustering (nPC = 50, resolution = 0.1)
 l5.seurat <- scrna_process(l5.seurat, npc = 50, res = 0.1, normalize = TRUE)
+save(l5.seurat, file = "data/mouse_brain/l5_seurat.RData")
 
 ## Relevel clusters 
 ClusterName_MGL_PVM <- c("MGL1", "MGL2", "MGL3", "PVM1", "PVM2")
@@ -118,10 +122,10 @@ DotPlot_custom <- function(SeuratData, genes, group_var, short_class = FALSE,
   ggsave(paste0(filename, ".png"), p, width = width, height = height, dpi = 400)
   ggsave(paste0(filename, ".pdf"), p, width = width, height = height)
   
-  
+  return(p_split$data)
 }
 
-DotPlot_custom(
+Fig2b_dotplot <- DotPlot_custom(
   l5.seurat, 
   genes = c("Havcr2", "Lag3", "Vsir", "Pdcd1", "Cd274", "Ctla4"), 
   group_var = "celltype_labels",
@@ -131,6 +135,9 @@ DotPlot_custom(
                   c(1, 1:3 * 20), c(0.1, 1:3 * 0.6),
                   c(0.1, 1:3 * 0.6), c(0.01, 1:3 * 0.05))
 )
+
+Fig2b_dotplot %>%
+  write.csv("Source_Data/Fig.s2c_dotplot_checkpoint_Tgfb.csv")
 
 # Extended Data Fig. 2c: microglia and PVM clusters -----------------
 ## (1) Dimplot colored by ClusterNames ---------------------

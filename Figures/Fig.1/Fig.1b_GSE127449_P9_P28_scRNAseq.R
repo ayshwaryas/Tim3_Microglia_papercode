@@ -7,6 +7,9 @@ library(RColorBrewer)
 library(cowplot)
 library(harmony)
 library(parallel)
+library(ggtext)
+
+load("data/GSE127449_P9_P28/GSE127449_seurat_processed.RData")
 
 ## ggplot2 theme 
 theme_custom <- theme_cowplot(font_size = 11) +
@@ -163,8 +166,12 @@ g <- egg::ggarrange(
   p_ls[[3]] + theme(legend.box.margin = margin(t = 10)), 
   ncol = 1, heights = c(1, 0.6, 0.6))
 
-filename <- paste0("figures/Fig.1b_GSE127449_P9_P28/Fig.1b_GSE127449_P9_P28_dotplot_")
+filename <- paste0("figures/Fig.1b_GSE127449_P9_P28_dotplot")
 ggsave(paste0(filename, ".png"), g, width = 4.2, height = 4.5, dpi = 400, units = "in")
 ggsave(paste0(filename, ".pdf"), g, width = 4.2, height = 4.5)
 
-
+lapply(p_ls, function(p) {p$data}) %>%
+  do.call(rbind, .) %>%
+  select(features.plot, id, everything()) %>%
+  arrange(features.plot, desc(id)) %>%
+  write.csv("Source_Data/Fig.1b_GSE127449_P9_P28_dotplot.csv", row.names = FALSE)

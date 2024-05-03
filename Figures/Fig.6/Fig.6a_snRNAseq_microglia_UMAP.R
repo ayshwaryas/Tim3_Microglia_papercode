@@ -20,3 +20,6 @@ DimPlot(nucseq_harmony_MG_2_3_6_18, group.by = "new_clusters",
 
 ggsave("figures/Fig.6_nucseq_figures/Fig.6a_dimplot_MG.png", width = 8, height = 6)
 ggsave("figures/Fig.6_nucseq_figures/Fig.6a_dimplot_MG.pdf", width = 8, height = 6)
+
+FetchData(nucseq_harmony_MG_2_3_6_18, c("UMAP_1", "UMAP_2", "new_clusters")) %>%
+  write.csv("Source_Data/Fig.6a_dimplot_MG.csv", row.names = FALSE, quote = FALSE)

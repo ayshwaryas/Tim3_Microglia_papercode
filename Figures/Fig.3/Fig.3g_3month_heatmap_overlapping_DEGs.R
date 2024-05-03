@@ -143,15 +143,22 @@ htmap_overlap_3sets <- function(overlap, batch, outliers, gene_list, fontsize_ro
     name = "Z-score"
   ) 
   
-  filename <- paste0("figures/Fig.3g_3month_htmap_overlap_phago_tim3/",
-                     "Fig.3g_3month_htmap_overlap_", batch, "_", suffix)
-  png(paste0(filename, ".png"), width = width, height = height, 
+  filename <- paste0("Fig.3g_3month_htmap_overlap_", batch, "_", suffix)
+  png(paste0("figures/", filename, ".png"), width = width, height = height, 
       res = 400, units = "in")
   draw(p, merge_legends = TRUE)
   dev.off()
-  pdf(paste0(filename, ".pdf"), width = width, height = height)
+  pdf(paste0("figures/", filename, ".pdf"), width = width, height = height)
   draw(p, merge_legends = TRUE)
   dev.off()
+  
+  p <- draw(p)
+  row_order <- unlist(row_order(p))
+  htmap_df %>% dplyr::select(gene_id, gene_name, starts_with("direction"), meta_sub$Sample_ID) %>%
+    mutate(gene_id = factor(gene_id, htmap_df$gene_id[row_order])) %>%
+    arrange(gene_id) %>%
+    write.csv(paste0("Source_Data/", filename, ".csv"), row.names = FALSE)
+  write.csv(meta_sub, paste0("Source_Data/", filename, "_meta.csv"))
 }
 
 ## Top DEGs (order genes by FDR, select the first max(300, n_DEGs) up and down-regulated genes,

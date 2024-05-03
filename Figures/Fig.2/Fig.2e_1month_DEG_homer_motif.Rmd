@@ -37,7 +37,7 @@ findMotifs.pl data/Danyang_DEG.05.txt mouse results/Homer_findMotifs_up_500_dn_0
 ```
 
 ```{r}
-folder <- "results/Homer_findMotifs_up_500_dn_0_.05"
+folder <- "results/Homer_findMotifs_up_500_dn_0_.05/"
 
 # Convert Homer results to an html table and knit into pdf -----------
 homer_res_raw <- read.delim(paste0(folder, "knownResults.txt"), sep = "\t", check.names = FALSE)

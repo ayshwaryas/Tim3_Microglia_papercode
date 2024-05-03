@@ -3,6 +3,7 @@ library(tidyverse)
 library(ggpubfigs)
 library(ggtext)
 library(cowplot)
+library(rstatix)
 
 ## Seurat object of microglia nuclei
 load("R_objects/2022-09-08.nucseq_harmony_MG_recluster_sub_2_3_6_18.RData")
@@ -44,8 +45,10 @@ stat.test_alternate <- TukeyHSD_res_alternate %>%
   add_significance("padj") %>%
   mutate(padj.signif = ifelse(padj >= 0.05, paste("p =", round(padj, 3)), padj.signif)) %>%
   mutate(size = ifelse(padj < 0.05, 6, 2.5),
-         vjust = ifelse(padj < 0.05, 0.5, -0.1)) %>%
-  mutate(Signature = factor("MG8", paste0("MG", 0:12)))
+         vjust = ifelse(padj < 0.05, 0.5, -0.1)) 
+
+write.csv(score_df_alternate, "/broad/kuchroolab/kimi_microglia/manuscript_code/Source_Data/Fig.6g_vln_alternate_sub2_score.csv")
+write.csv(stat.test_alternate, "/broad/kuchroolab/kimi_microglia/manuscript_code/Source_Data/Fig.6g_vln_alternate_sub2_TukeyHSD.csv")
 
 VlnPlot(subset(nucseq_harmony_MG_2_3_6_18, new_clusters == 2), "Alternate_Macrophage1",
         group.by = "bimod_genotype") +
@@ -90,8 +93,10 @@ stat.test_phagosome <- TukeyHSD_res_phagosome %>%
   add_significance("padj") %>%
   mutate(padj.signif = ifelse(padj >= 0.05, paste("p =", round(padj, 3)), padj.signif)) %>%
   mutate(size = ifelse(padj < 0.05, 6, 2.5),
-         vjust = ifelse(padj < 0.05, 0.5, -0.1)) %>%
-  mutate(Signature = factor("MG8", paste0("MG", 0:12)))
+         vjust = ifelse(padj < 0.05, 0.5, -0.1)) 
+
+write.csv(score_df_phagosome, "/broad/kuchroolab/kimi_microglia/manuscript_code/Source_Data/Fig.6h_vln_phagosome_sub2_score.csv")
+write.csv(stat.test_phagosome, "/broad/kuchroolab/kimi_microglia/manuscript_code/Source_Data/Fig.6h_vln_phagosome_sub2_TukeyHSD.csv")
 
 VlnPlot(subset(nucseq_harmony_MG_2_3_6_18, new_clusters == 2), "Phagosome1",
         group.by = "bimod_genotype") +

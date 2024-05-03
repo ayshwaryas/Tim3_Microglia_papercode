@@ -18,7 +18,7 @@ bimod_genotype_breaks <- levels(nucseq_harmony_MG_2_3_6_18$bimod_genotype)[-4]
 bimod_genotype_labels <- c("control", "<i>Havcr2</i><sup>icKO</sup>", "5XFAD", 
                            "<i>Havcr2</i><sup>icKO</sup> 5XFAD;P1", "<i>Havcr2</i><sup>icKO</sup> 5XFAD;P2")
 
-DotPlot(subset(nucseq_harmony_MG_2_3_6_18, new_clusters == 2),
+p <- DotPlot(subset(nucseq_harmony_MG_2_3_6_18, new_clusters == 2),
                features = Fig6f_genes, group.by = "bimod_genotype", scale = TRUE) +
   scale_y_discrete(breaks = bimod_genotype_breaks,
                    labels = bimod_genotype_labels,
@@ -37,5 +37,7 @@ DotPlot(subset(nucseq_harmony_MG_2_3_6_18, new_clusters == 2),
         legend.box.just = "bottom",
         legend.justification = c(0.5, 0)) 
 
-ggsave("figures/Fig.6f_dotplot_inflammatory_phago_bimod_scaled.png", width = 9, height = 4)
-ggsave("figures/Fig.6f_dotplot_inflammatory_phago_bimod_scaled.pdf", width = 9, height = 4)
+ggsave("figures/Fig.6f_dotplot_inflammatory_phago_bimod_scaled.png", p, width = 9, height = 4)
+ggsave("figures/Fig.6f_dotplot_inflammatory_phago_bimod_scaled.pdf", p, width = 9, height = 4)
+
+write.csv(p$data, "Source_Data/Fig.6f_dotplot_inflammatory_phago_bimod_scaled.csv")

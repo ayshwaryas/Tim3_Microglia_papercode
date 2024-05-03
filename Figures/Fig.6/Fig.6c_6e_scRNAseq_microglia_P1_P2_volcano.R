@@ -103,25 +103,43 @@ load("data/DGE_results/2022-05-03.Dataset1_DGE_res_ordered.RData")
 phago_all <- results_batch1_ordered$`phago+ vs phago- in control` %>%
   dplyr::rename("gene_symbol" = "gene_name") 
 
+phago_all %>% select(gene_symbol, log2FoldChange, padj) %>%
+  mutate(P1_P2_signature = case_when(
+    gene_symbol %in% top100_DEGs$up ~ "P1 signature", 
+    gene_symbol %in% top100_DEGs$down ~ "P2 signature", 
+    TRUE ~ NA_character_)) %>%
+  write.csv("Source_Data/Fig.6c_volcano_phagoposvsneg.csv")
+
 ## (2) Clec7a+ vs Clec7a- ------
 Clec7a_all <- read.csv("results/bulkRNAseq_results_Clec7a_Krasemann_2017.csv") %>%
   dplyr::rename("gene_symbol" = "tracking_id", "log2FoldChange" = "log2FC")
 
+Clec7a_all %>% select(gene_symbol, log2FoldChange, padj) %>%
+  mutate(P1_P2_signature = case_when(
+    gene_symbol %in% top100_DEGs$up ~ "P1 signature", 
+    gene_symbol %in% top100_DEGs$down ~ "P2 signature", 
+    TRUE ~ NA_character_)) %>%
+  write.csv("Source_Data/Fig.6d_volcano_Clec7aposvsneg.csv")
+
 ## (3) Tgfbr2cKO vs control ------
-TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv")  %>%
-  select(geneNames, contains("uG")) %>%
-  filter(rowSums(.[, 2:7]) != 0) %>%
-  mutate(padj = p.adjust(.$p.ttest.uG, method = "BH")) %>%
-  dplyr::rename("gene_symbol" = "geneNames",  "log2FoldChange" = "log2fc.uG") %>%
+TGFBRII_all <- read.csv("results/bulkRNAseq_results_TGFBRII_Lund_2018.csv")  %>% 
+  select(gene_symbol, contains("uG")) %>%
+  dplyr::rename("log2FoldChange" = "log2fc.uG", "padj" = "padj.uG") %>%
   correct_gene_symbol()
 
+TGFBRII_all %>% select(gene_symbol, log2FoldChange, padj) %>%
+  mutate(P1_P2_signature = case_when(
+    gene_symbol %in% top100_DEGs$up ~ "P1 signature", 
+    gene_symbol %in% top100_DEGs$down ~ "P2 signature", 
+    TRUE ~ NA_character_)) %>%
+  write.csv("Source_Data/Fig.6e_volcano_Tgfbr2cKOvscontrol.csv")
 
 # Volcano plot --------------
 ## (1) Fig.6c: Phagocytosing control vs non-phagocytosing control microglia from 3-month-old mice -----
 volcano_plot(phago_all, genes = top100_DEGs, 
              width = 4.5, height = 4, thres = 0.05, show_text = FALSE,
-             position = "right", suffix = "nucseq_bimod_phago_pos_vs_neg",
-             fig_num = "6F", legend.box.margin = margin(l = -55, r = 10),
+             position = "right", suffix = "nucseq_bimod_phago_pos_vs_neg", fig_num = "6c", 
+             legend.box.margin = margin(l = -55, r = 10),
              lfc_thres = Inf, lim_x = 3, lim_y = 10, 
              geno = c('Non-Phago MG', 'Phago MG'))
 
@@ -129,18 +147,17 @@ volcano_plot(phago_all, genes = top100_DEGs,
 volcano_plot(Clec7a_all, genes  = top100_DEGs,
              width = 4.5, height = 4, thres = 0.05, show_text = FALSE,
              legend.box.margin = margin(l = -55, r = 10),
-             position = "right", suffix = "nucseq_bimod_Clec7a_pos_vs_neg", fig_num = "6G",
+             position = "right", suffix = "nucseq_bimod_Clec7a_pos_vs_neg", fig_num = "6d", 
              lfc_thres = Inf, lim_x = 4, lim_y = 4, 
-             geno = c('<i>Clec7a</i>^-', '<i>Clec7a</i>^+'))
+             geno = c('<i>Clec7a</i><sup>-</sup>', '<i>Clec7a</i><sup>+</sup>'))
 
 ## (3) Fig. 6e: Tgfbr2cKO vs WT --------------------
 volcano_plot(TGFBRII_all, genes = top100_DEGs,
              width = 4.5, height = 4, thres = 0.05, show_text = FALSE,
-             position = "right", suffix = "nucseq_bimod_Tgfbr2KO_vs_WT", fig_num = "6H",
+             position = "right", suffix = "nucseq_bimod_Tgfbr2KO_vs_WT", fig_num = "6e",
              lfc_thres = Inf, lim_x = 8, lim_y = 3, 
-             geno = c('control', '<i>Tgfbr2</i>^KO'),
+             geno = c('control', '<i>Tgfbr2</i><sup>cKO</sup>'),
              legend.box.margin = margin(l = -55, t = -50, r = 10))
-
 
 # Spearman correlation between log2 FC of P1 vs P2 in snRNA-seq and bulk RNA-seq comparisons --------------------
 
