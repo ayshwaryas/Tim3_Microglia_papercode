@@ -82,41 +82,37 @@
 * **Fig. 7c** (`Fig.7c_scRNAseq_signature_score_ttest.R`): Heatmap visualization of T-test results comparing the scores of microglia population markers from [Ellwanger et al. 2021 (PMID: 33446504)](https://pubmed.ncbi.nlm.nih.gov/33446504/) in <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD cells in each microglia cluster. T-statistics are displayed in text (black if FDR < 0.05; white if FDR $\geq$ 0.05). Colors represent whether the average signature scores are higher in <i>Havcr2</i><sup>icKO</sup>;5xFAD or 5xFAD (pink: higher in <i>Havcr2</i><sup>icKO</sup>;5xFAD; blue: higher in 5xFAD). 
 * **Fig. 7d** (`Fig.7d_scRNAseq_heatmap_selected_DEGs.R`): Heatmap visualization of log2 fold-change and significances of selected DEGs comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD to 5xFAD in each cluster.
 
-### [Extended Data Fig. 2](/Extended_Data_Figures/Fig.s2)
-* **Extended Data Fig. 2b-c** (`Fig.s2b_s2c_l5_mousebrain_scRNAseq.R`): analysis of a public scRNA-seq dataset of mouse nervous system ([Zeisel et al. 2018, PMID: 30096314](https://pubmed.ncbi.nlm.nih.gov/30096314/))
-    * **Extended Data Fig. 2b**: The expression of immune checkpoint genes, including Havcr2, Lag3, and Vsir in mouse microglia and other cell populations in the central and peripheral nervous system
-    * **Extended Data Fig. 2c**: Dissociation signature score in microglia and perivascular macrophages
-* **Extended Data Fig. 2d** (`Fig.s2d_humanbrain_scRNAseq.R`): The expression of immune checkpoint genes and TGFβ pathway-related genes in human microglia and other cell populations in the brain ([Gaublomme et al. 2019, PMID: 31266958](https://pubmed.ncbi.nlm.nih.gov/31266958/))
+### [Extended Data Fig. 1](/Extended_Data_Figures/Fig.s1)
+* **Extended Data Fig. 1e-f** (`Fig.s1e_s1f_l5_mousebrain_scRNAseq.R`): analysis of a public scRNA-seq dataset of mouse nervous system ([Zeisel et al. 2018, PMID: 30096314](https://pubmed.ncbi.nlm.nih.gov/30096314/))
+    * **Extended Data Fig. 1e**: The expression of immune checkpoint genes, including Havcr2, Lag3, and Vsir in mouse microglia and other cell populations in the central and peripheral nervous system
+    * **Extended Data Fig. 1f**: Dissociation signature score in microglia and perivascular macrophages
+* **Extended Data Fig. 1g** (`Fig.s1g_humanbrain_scRNAseq.R`): The expression of immune checkpoint genes and TGFβ pathway-related genes in human microglia and other cell populations in the brain ([Gaublomme et al. 2019, PMID: 31266958](https://pubmed.ncbi.nlm.nih.gov/31266958/))
+* **Extended Data Fig. 1i** (`Fig.s1i_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
 
 ### [Extended Data Fig. 3](/Extended_Data_Figures/Fig.s3)
-* **Extended Data Fig. 3a** (`Fig.s3a_BrainSpan_bulk_RNAseq.R`): Heatmap visualization the developmental alterations of the expressions of selected checkpoint molecules in multiple brain regions in a published bulk RNA-seq dataset ([Miller et al. 2014, PMID: 24695229](https://pubmed.ncbi.nlm.nih.gov/24695229/)). The RPKM values were averaged across samples of the same age and then log2-transformed for visual clarity
-* **Extended Data Fig. 3c** (`Fig.s3c_microarray_Thion_2018.R`): Heatmap visualization of the developmental alterations of the expressions of MGnD and homeostasis associated genes in microglia in a published microarray dataset ([Thion et al. 2018, PMID: 29275859](https://pubmed.ncbi.nlm.nih.gov/29275859/))
+* **Extended Data Fig. 3a** (`Fig.s3a_circo_overlapping_DEGs.R`): Circos plot comparison of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup>, and *Clec7a*<sup>+</sup> microglia compared to control microglia. Only islands with DEGs shared by at least 3 of the 4 comparisons were included. Permutation test p-values were displayed as ns P > 0.025, \*P ≤ 0.025, \*\*P ≤ 0.01, \*\*\*P ≤ 0.001, \*\*\*\*P ≤ 0.0001, and \*\*\*\*\*P ≤ 0.00001.
+* **Extended Data Fig. 3b** (`Fig.s3b_heatmap_overlapping_DEGs.R`): Heatmap visualization of the expressions of DEGs shared by at least 3 of the 4 aforementioned comparisons. 
 
-### [Extended Data Fig. 6](/Extended_Data_Figures/Fig.s6)
-* **Extended Data Fig. 6a** (`Fig.s6a_circo_overlapping_DEGs.R`): Circos plot comparison of DEGs up- and down-regulated in *Havcr2*<sup>cKO</sup>, phagocytosing, *Tgfbr2*<sup>cKO</sup>, and *Clec7a*<sup>+</sup> microglia compared to control microglia. Only islands with DEGs shared by at least 3 of the 4 comparisons were included. Permutation test p-values were displayed as ns P > 0.025, \*P ≤ 0.025, \*\*P ≤ 0.01, \*\*\*P ≤ 0.001, \*\*\*\*P ≤ 0.0001, and \*\*\*\*\*P ≤ 0.00001.
-* **Extended Data Fig. 6b** (`Fig.s6b_heatmap_overlapping_DEGs.R`): Heatmap visualization of the expressions of DEGs shared by at least 3 of the 4 aforementioned comparisons. 
-
-### [Extended Data Fig. 12](/Extended_Data_Figures/Fig.s12)
-* **Extended Data Fig. 12a-b** (`Fig.s12a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s12b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
+### [Extended Data Fig. 7](/Extended_Data_Figures/Fig.s7)
+* **Extended Data Fig. 7a-b** (`Fig.s12a_4month_F_tim3cKO_5XFAD_circos_overlap.R`, `Fig.s12b_7month_F_tim3cKO_5XFAD_circos_overlap.R`): Circos plot comparison of up- and down-regulated DEGs from 4- (a) and 7-month-old (b) female mice in the below comparisons
     (1) <i>Havcr2</i><sup>cKO</sup> vs. control microglia 
     (2) 5xFAD vs. control microglia
+* **Extended Data Fig. 7c-d** (`Fig.s7c_s7d_4month_7month_boxplot_Havcr2.R`): Boxplot of <i>Havcr2</i> expression (log2 TPM) in 4- (c) and 7-month-old bulk RNA-seq male and female mice
+* **Extended Data Fig. 7h-j** (`Fig.s7h_s7j.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (h), and genotype (i) per cluster (X-axis); and cluster per mouse (X-axis) (j)
+* **Fig. 7k** (`Fig.7k_snRNAseq_microglia_top5markers.R`): Dotplot visualization of top 5 genes distinguishing each cell cluster from Fig. 6a
+* **Extended Data Fig. 7f-g** (`Fig.s7f_s7g_snRNAseq_allcells_UMAP_dotplot.R`): snRNA-seq UMAP of all cells colored by annotations (f) and Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype (g)
+* **Extended Data Fig. 7l-m** (`Fig.s7l_s7m.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (l) and homeostasis (m) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
+* **Extended Data Fig. 7ni** (`Fig.s7n.snRNAseq_microglia_proportion_test.R`): Proportions of microglial cluster 0-4 in 5xFAD and *Havcr2*<sup>icKO</sup>:5xFAD (n = 3 for each).
+* **Extended Data Fig. 7o** (`Fig.s7o.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for *Tgfbr2*<sup>cKO</sup> signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
 
-### [Extended Data Fig. 13](/Extended_Data_Figures/Fig.s13): snRNA-seq data
-* **Extended Data Fig. 13a-c** (`Fig.s11c_s11e.snRNAseq_microglia_pct_barplot.R`): Barplot visualization of proportions (Y-axis) of individual mouse (a), and genotype (b) per cluster (X-axis); and cluster per mouse (X-axis) (c)
-* **Fig. 13d** (`Fig.13d_snRNAseq_microglia_top5markers.R`): Dotplot visualization of top 5 genes distinguishing each cell cluster from Fig. 6a
-* **Extended Data Fig. 13e-f** (`Fig.s13e_s13f_snRNAseq_allcells_UMAP_dotplot.R`): snRNA-seq UMAP of all cells colored by annotations (e) and Dotplot of Havcr2 and Cx3cr1 expression in each cell type, split by genotype (f)
-* **Extended Data Fig. 13g-h** (`Fig.s13g_s13h.snRNAseq_microglia_signature_score.R`): Violin plot of the MGnD (g) and homeostasis (h) signature score (Y-axis) across microglia clusters (X-axis) and genotypes. 
-* **Extended Data Fig. 13i** (`Fig.s13i.snRNAseq_microglia_proportion_test.R`): Proportions of microglial cluster 0-4 in 5xFAD and *Havcr2*<sup>icKO</sup>:5xFAD (n = 3 for each).
-* **Extended Data Fig. 13j-k** (`Fig.s13j_s13k.snRNAseq_microglia_signature_score_cluster0.R`): Violin plot of scores for homeostatic (j) and *Tgfbr2*<sup>cKO</sup> (k) signature genes among genotypes in cluster 0. Significances are computed using Wilcoxon test.
-
-### [Extended Data Fig. 14](/Extended_Data_Figures/Fig.s12): snRNA-seq data
-* **Extended Data Fig. 14a-b** (`Fig.s14a_s14b_snRNAseq_microglia_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
-* **Extended Data Fig. 14c-d** (`Fig.s14c_s14d_snRNAseq_microglia_P1_P2_featureplot.R`): UMAP visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
+### [Extended Data Fig. 8](/Extended_Data_Figures/Fig.s8): snRNA-seq data
+* **Extended Data Fig. 8a-b** (`Fig.s8a_s8b_snRNAseq_microglia_P1_P2_heatmap.R`): Heatmap of top DEGs distinguishing P1 (a) and P2 (b) subpopulations in snRNA-seq cluster 2/MGnD/DAM
+* **Extended Data Fig. 8c-d** (`Fig.s8c_s8d_snRNAseq_microglia_P1_P2_featureplot.R`): UMAP visualization of microglial snRNA-seq clusters colored by P1 (c) and P2 (d) signature scores split by genotype
 
 
-### [Extended Data Fig. 15](/Extended_Data_Figures/Fig.s15): snRNA-seq data
-* **Extended Data Fig. 15 a-h** (`Fig.s15a_s15h.snRNAseq_microglia_BAM_PVM_monocyte_signature_score.R`): Violin plot of border-associated macrophage (BAM, a), perivascular macrophage (PVM, b), monocyte (c-d) and microglia (e-h) signature scores across microglia clusters (X-axis) and genotypes. 
-* **Extended Data Fig. s15i-j** (`Fig.s15i_s15j_snRNAseq_microglia_P1_P2_score.R`): Violin plot of signature scores (Y-axis) identifying *Havcr2*<sup>icKO</sup>:5xFAD populations P1 (i) and P2 (j) across all genotypes (color) and microglia clusters 
+### [Extended Data Fig. 9](/Extended_Data_Figures/Fig.s9): snRNA-seq data
+* **Extended Data Fig. 9a-h** (`Fig.s9a_s9h.snRNAseq_microglia_BAM_PVM_monocyte_signature_score.R`): Violin plot of border-associated macrophage (BAM, a), perivascular macrophage (PVM, b), monocyte (c-d) and microglia (e-h) signature scores across microglia clusters (X-axis) and genotypes. 
+* **Extended Data Fig. 9i-j** (`Fig.s9i_s9j_snRNAseq_microglia_P1_P2_score.R`): Violin plot of signature scores (Y-axis) identifying *Havcr2*<sup>icKO</sup>:5xFAD populations P1 (i) and P2 (j) across all genotypes (color) and microglia clusters 
 
 ### [Extended Data Fig. 10](/Extended_Data_Figures/Fig.s10): snRNA-seq data
 * **Extended Data Fig. 10a** (`Fig.s10a_snRNAseq_microglia_DAM_pseudobulk_corr.R`): Boxplot of pairwise spearman correlation coefficient (Y-axis) of whole gene expression pseudobulk microglial profiles between conditions (X-axis). Each point represents the spearman correlation coefficient between profiles of two biological replicates. Significance is computed by t-test.
@@ -133,8 +129,8 @@
     * IFN_DAM compared to IFN_HMG cluster in the scRNA-seq data (X-axis) and
     * late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
 
-### [Extended Data Fig. 19](Fig.s19): scRNA-seq data
-* **Extended Data Fig. 19a-b** (`Fig.s19a_s19b_scRNAseq_scatter_Havcr2iKO5xFADvs5XFAD_preMGnD.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
+### [Extended Data Fig. 12](Fig.s12): scRNA-seq data
+* **Extended Data Fig. 12a-b** (`Fig.s12a_s12b_scRNAseq_scatter_Havcr2iKO5xFADvs5XFAD_preMGnD.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
     * <i>Havcr2</i><sup>icKO</sup>;5xFAD vs 5xFAD in cluster HMG_0 (a) and DAM_0 (b)
     * <i>Clec7a</i><sup>-</sup> vs <i>Clec7a</i><sup>+</sup> (Y-axis)
-* **Extended Data Fig. 19c-d** (`Fig.s19c_s19d_scRNAseq_volcano_Havcr2icKO5xFADvs5xFAD.R`): volcano plot of differential gene expression analysis comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD in cluster HMG_0 (c) and DAM_0 (d)
+* **Extended Data Fig. 12c-d** (`Fig.s12c_s12d_scRNAseq_volcano_Havcr2icKO5xFADvs5xFAD.R`): volcano plot of differential gene expression analysis comparing <i>Havcr2</i><sup>icKO</sup>;5xFAD and 5xFAD in cluster HMG_0 (c) and DAM_0 (d)
