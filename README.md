@@ -125,11 +125,11 @@
 * **Extended Data Fig. 10e-g** (`Fig.s10e_s10g_public_snRNAseq_P1_P2_vs_Hallmark_TGFB_sub2.R`): Scatterplot of P1 (Y-axis) or P2 (Y-axis), and Hallmark TGFB signature scores among 5xFAD microglia in MGnD clusters in public datasets (GSE98969 cluster 2 (e), GSE98969 cluster 3 (f) , GSE140510 cluster 1 (g))
 
 
-### [Extended Data Fig. 18](/Extended_Data_Figures/Fig.s18): scRNA-seq data
-* **Extended Data Fig. 18a** (`Fig.s18a_scRNAseq_Clec7a_signature.R`): UMAP of the scRNA-seq data colored by MGnD (a) and Homeostatis (b) signature scores
-* **Extended Data Fig. 18b** (`Fig.s18b_scRNAseq_dotplot_top10markers_by_log2FC.R`): Dotplot visualization of top 10 genes distinguishing each cell cluster
-* **Extended Data Fig. 18c** (`Fig.s18c_scRNAseq_perc_barplot_by_genotype.R`): Barplot visualization of proportions (Y-axis) of genotype per cluster
-* **Extended Data Fig. 18d-e** (`Fig.s18d_s18e_scRNAseq_scatter_IFNDAMvsHMG_preMGnD.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
+### [Extended Data Fig. 11](/Extended_Data_Figures/Fig.s18): scRNA-seq data
+* **Extended Data Fig. 11a** (`Fig.s11a_scRNAseq_Clec7a_IFNR_signature.R`): UMAP of the scRNA-seq data colored by MGnD, Homeostatis, and interferon signature scores
+* **Extended Data Fig. 11b** (`Fig.s11b_scRNAseq_dotplot_top10markers_by_log2FC.R`): Dotplot visualization of top 10 genes distinguishing each cell cluster
+* **Extended Data Fig. 11c** (`Fig.s11c_scRNAseq_perc_barplot_by_genotype.R`): Barplot visualization of proportions (Y-axis) of genotype per cluster
+* **Extended Data Fig. 11d-e** (`Fig.s11d_s11e_scRNAseq_scatter_IFNDAMvsHMG_preMGnD.R`): Scatter plot of genes based on expressional difference represented by log2-transformed fold changes of
     * IFN_DAM compared to IFN_HMG cluster in the scRNA-seq data (X-axis) and
     * late IFN-responsive pre-MGnD compared to early IFN-responsive pre-MGnD clusters from male (d) and female (e) mice defined in [Yin et al. 2023 (PMID: 37291336)](https://pubmed.ncbi.nlm.nih.gov/37291336/)
 
