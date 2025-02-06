@@ -24,7 +24,7 @@ pal <- c("dodgerblue3", "#EF3B2C", friendly_pal("nickel_five", 5)[3],
 # Fig 6g-h: signature score violin plot of alternate macrophage and phagocytosis signatures -------------------
 ## Alternate macrophage -------------------------------------------------------
 nucseq_harmony_MG_2_3_6_18 <- AddModuleScore(
-  nucseq_harmony_MG_2_3_6_18, list(phagosome), name = "Alternate_Macrophage")
+  nucseq_harmony_MG_2_3_6_18, list(alternate_macrophage), name = "Alternate_Macrophage")
 
 score_df_alternate <- FetchData(subset(nucseq_harmony_MG_2_3_6_18, new_clusters == 2), 
                                 c("bimod_genotype", "Alternate_Macrophage1")) %>%
